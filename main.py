@@ -1,5 +1,6 @@
 from rules_config import *
 from player import Player
+from trick import Trick
 import random
 
 def main():
@@ -11,13 +12,13 @@ def main():
         for rank in ranks:
             cards.append((suit, rank, ranks[rank]))
     random.shuffle(cards)
-    print(cards)
+    # print(cards)
     # initialize players
     assert NUM_PLAYERS == 4
-    player_1 = Player('1', [], [], 1)
-    player_2 = Player('2', [], [], 0)
-    player_3 = Player('1', [], [], 0)
-    player_4 = Player('2', [], [], 0)
+    player_1 = Player('1', [], [], 0)
+    player_2 = Player('2', [], [], 1)
+    player_3 = Player('1', [], [], 2)
+    player_4 = Player('2', [], [], 3)
     players = [player_1, player_2, player_3, player_4]
     idx = 0
     idx2 = CLOSED_CARDS
@@ -29,17 +30,23 @@ def main():
         player.open_cards = cards[idx:idx2]
         idx = idx2
         idx2 += CLOSED_CARDS
-        print(player.closed_cards)
-        print(player.open_cards)
-    print(player_4.open_cards)
+    #     print(player.closed_cards)
+    #     print(player.open_cards)
+    # print(player_4.open_cards)
 
-    team_1_score = 0
-    team_2_score = 0
+    score = {'1' : 0, '2' : 0}
     for round in range(NUM_ROUNDS):
-        trick = []
-        for player in players:
-            trick.append(player, player.play_card())
-            
+        trick = Trick(trump, players[0], players[0].play_card())
+        for player in players[1:]:
+            trick.add_card(player, player.play_card())
+        score[trick.winner.team] += trick.score
+        players = players[trick.winner.turn:] + player[:trick.winner.turn]
+        for i in range(players):
+            player.turn = i
+
+    print(score)
+
+
 
 
 
