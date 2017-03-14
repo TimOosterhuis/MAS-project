@@ -17,6 +17,7 @@ NUM_ROUNDS = len(SUITS) * len(NORMAL_POINTS) // NUM_PLAYERS
 CLOSED_CARDS = NUM_ROUNDS // 2
 OPEN_CARDS = NUM_ROUNDS - CLOSED_CARDS
 
+
 def playable(cards, team, trick = None):
     if trick:
         trump_cards = [card for card in cards if card[0] == trick.trump]
@@ -37,4 +38,5 @@ def playable(cards, team, trick = None):
                 playable_cards = cards
     else:
         playable_cards = cards
+    print('playable cards are ' + str(playable_cards))
     return playable_cards
