@@ -20,6 +20,7 @@ OPEN_CARDS = NUM_ROUNDS - CLOSED_CARDS
 
 def playable(cards, team, trick = None):
     if trick:
+        print('high card is ' + str(trick.high_card) + ', team is ' + trick.winner.team)
         trump_cards = [card for card in cards if card[0] == trick.trump]
         if trick.high_card[2] != trick.trump:
             suit_cards = [card for card in cards if card[0] == trick.high_card[0]]
@@ -32,7 +33,7 @@ def playable(cards, team, trick = None):
                     playable_cards = cards
         else:
             high_trump_cards = [card for card in trump_cards if card[2] > trick.high_card]
-            if high_trump_cards != []:
+            if trick.winner.team != team and high_trump_cards != []:
                 playable_cards = high_trump_cards
             else:
                 playable_cards = cards

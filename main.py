@@ -46,8 +46,9 @@ def main():
         score[trick.winner.team] += trick.score
         print(str(trick.winner.name) + ' wins the trick, trick score ' + str(trick.score))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]
+        print(players[0].name, players[1].name, players[2].name, players[3].name)
         for i in range(NUM_PLAYERS):
-            player.turn = i
+            players[i].turn = i
     print(score)
 
 
