@@ -17,7 +17,7 @@ class Player:
         cards = playable(self.open_cards + self.closed_cards, self.team, trick)
         print('playable cards for ' + self.name + ' are ' + str(cards))
 
-        print("\n---HERE A PLAYER NEEDS TO DEVISE ITS BEST STRATEGY---\n")
+        #print("\n---HERE A PLAYER NEEDS TO DEVISE ITS BEST STRATEGY---\n")
 
         card = cards[random.randint(0, len(cards) - 1)]
         if card in self.open_cards:
