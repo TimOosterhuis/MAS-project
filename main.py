@@ -16,18 +16,18 @@ def main():
     # print(cards)
     # initialize players
     assert NUM_PLAYERS == 4
-    player_1 = Player('s', [], [], 0, 'player south')
-    player_2 = Player('e', [], [], 1, 'player east')
-    player_3 = Player('n', [], [], 2, 'player north')
-    player_4 = Player('w', [], [], 3, 'player west')
+    player_1 = Player('1', [], [], 0, 'South')
+    player_2 = Player('2', [], [], 1, 'East')
+    player_3 = Player('1', [], [], 2, 'North')
+    player_4 = Player('2', [], [], 3, 'West')
     players = [player_1, player_2, player_3, player_4]
     idx = 0
     idx2 = CLOSED_CARDS
-    assert CLOSED_CARDS == OPEN_CARDS
+    #assert CLOSED_CARDS == OPEN_CARDS
     for player in players:
         player.closed_cards = cards[idx:idx2]
         idx = idx2
-        idx2 += CLOSED_CARDS
+        idx2 += OPEN_CARDS
         player.open_cards = cards[idx:idx2]
         idx = idx2
         idx2 += CLOSED_CARDS
