@@ -48,7 +48,6 @@ def main():
         players = players[trick.winner.turn:] + players[:trick.winner.turn]
         for i in range(NUM_PLAYERS):
             player.turn = i
-
     print(score)
 
 
