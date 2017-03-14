@@ -11,6 +11,6 @@ class Trick:
     def add_card(self, player, card):
         self.cards.append(card)
         self.score += card[2]
-        if (card[2] > self.high_card[2] and card[0] == self.high_card[0]) or (card[0] == self.trump and self.high_card != self.trump):
+        if (card[2] > self.high_card[2] and card[0] == self.high_card[0]) or (card[0] == self.trump and self.high_card[0] != self.trump):
             self.winner = player
             self.high_card = card
