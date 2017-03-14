@@ -1,14 +1,22 @@
 SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
 
-NORMAL_POINTS = {'nine' : 2,
-                 'jack' : 7,
+NORMAL_POINTS = {'seven' : 0,
+                 'eight' : 0,
+                 'nine' : 0,
+                 'jack' : 2,
+                 'queen' : 3,
+                 'king' : 4,
                  'ten' : 10,
                  'ace' : 11}
 
-TRUMP_POINTS = {'nine' : 17,
-                 'jack' : 26,
-                 'ten' : 10,
-                 'ace' : 11}
+TRUMP_POINTS = {'seven' : 0,
+                'eight' : 0,
+                'queen' : 3,
+                'king' : 4,
+                'ten' : 10,
+                'ace' : 11,
+                'nine' : 14,
+                'jack' : 20}
 
 NUM_PLAYERS = 4
 
@@ -20,7 +28,7 @@ OPEN_CARDS = NUM_ROUNDS - CLOSED_CARDS
 
 def playable(cards, team, trick = None):
     if trick:
-        #print('high card is ' + str(trick.high_card) + ', team is ' + trick.winner.team)
+        print('high card is ' + str(trick.high_card) + ', team is ' + trick.winner.team)
         trump_cards = [card for card in cards if card[0] == trick.trump]
         if trick.high_card[2] != trick.trump:
             suit_cards = [card for card in cards if card[0] == trick.high_card[0]]

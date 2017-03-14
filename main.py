@@ -1,4 +1,5 @@
-from rules_config import *
+# from rules_config import *
+from rules_config_big import *
 from player import Player
 from trick import Trick
 import random
@@ -24,6 +25,7 @@ def main():
     idx = 0
     idx2 = CLOSED_CARDS
     #assert CLOSED_CARDS == OPEN_CARDS
+    # This for block divides cards between players
     for player in players:
         player.closed_cards = cards[idx:idx2]
         idx = idx2
@@ -37,16 +39,18 @@ def main():
 
     score = {'1' : 0, '2' : 0}
     for round in range(NUM_ROUNDS):
+        print('\nnew round')
+        # First player plays a card here
         trick = Trick(trump, players[0], players[0].play_card())
-        print('new round')
         print(str(players[0].name) + ' plays ' + str(trick.cards[-1]))
+        # Each following player picks card to play and plays
         for player in players[1:]:
             trick.add_card(player, player.play_card(trick))
             print(str(player.name) + ' plays ' + str(trick.cards[-1]))
         score[trick.winner.team] += trick.score
-        print(str(trick.winner.name) + ' wins the trick, trick score ' + str(trick.score))
+        print(str(trick.winner.name) + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(trick.score))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]
-        print(players[0].name, players[1].name, players[2].name, players[3].name)
+        #print(players[0].name, players[1].name, players[2].name, players[3].name)
         for i in range(NUM_PLAYERS):
             players[i].turn = i
     print(score)

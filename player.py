@@ -14,6 +14,8 @@ class Player:
 
     def play_card(self, trick = None):
         cards = playable(self.open_cards + self.closed_cards, self.team, trick)
+        print('playable cards for ' + self.name + ' are ' + str(cards))
+
         card = cards[random.randint(0, len(cards) - 1)]
         if card in self.open_cards:
             self.open_cards.remove(card)
