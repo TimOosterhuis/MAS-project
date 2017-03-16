@@ -20,13 +20,13 @@ OPEN_CARDS = NUM_ROUNDS - CLOSED_CARDS
 
 def playable(cards, team, trick = None):
     if trick:
-        print('high card is ' + str(trick.high_card) + ', team is ' + trick.winner.team)
+    #    print('high card is ' + str(trick.high_card) + ', team is ' + trick.winner.team)
         trump_cards = [card for card in cards if card[0] == trick.trump]
-        #print("Trump cards are" +  str(trump_cards))
-        # print(trick.cards[0][0] + " gevraagd")
+    #    print("Trump cards are" +  str(trump_cards))
+    #    print(trick.cards[0][0] + " gevraagd")
         if trick.high_card[0] == trick.trump: # Er is begonnen met troef of ingetroefd
             higher_trump_cards = [card for card in trump_cards if card[2] > trick.high_card[2]]
-            print higher_trump_cards
+    #        print higher_trump_cards
         else:
             higher_trump_cards = []
 
