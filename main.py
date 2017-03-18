@@ -44,7 +44,8 @@ def main():
         player.knowledge.extend(common_knowledge)
         for closed_card in player.closed_cards:
             player.knowledge.append((player, closed_card, False))
-        player.update_card_knowledge(trump)
+        #player.update_card_knowledge(trump)
+        player.create_possibles()
         #print player.name, "knows ",player.knowledge
 
     score = {'1' : 0, '2' : 0}
@@ -60,7 +61,8 @@ def main():
             except ValueError:
                 pass
             player.knowledge.append((players[0], trick.cards[-1],True))
-            player.update_card_knowledge(trump, trick)
+            player.update_possibles(trick)
+            #player.update_card_knowledge(trump, trick)
 
         for player in players[1:]: # Each following player picks card to play and plays
             trick.add_card(player, player.play_card(trump, trick))
@@ -72,7 +74,8 @@ def main():
                 except ValueError:
                     pass
                 pla.knowledge.append((player, trick.cards[-1], True))
-                player.update_card_knowledge(trump, trick)
+                pla.update_possibles(trick)
+                #player.update_card_knowledge(trump, trick)
 
         score[trick.winner.team] += int(trick.score)  #  Score is added to winning team
         print(str(trick.winner.name) + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
@@ -92,7 +95,8 @@ def main():
         except ValueError:
             pass
         player.knowledge.append((players[0], trick.cards[-1], True))
-        player.update_card_knowledge(trump, trick)
+        player.update_possibles(trick)
+        #player.update_card_knowledge(trump, trick)
 
     for player in players[1:]:  # Each following player picks card to play and plays
         trick.add_card(player, player.play_card(trump, trick))
@@ -104,7 +108,8 @@ def main():
             except ValueError:
                 pass
             pla.knowledge.append((player, trick.cards[-1], True))
-            player.update_card_knowledge(trump, trick)
+            pla.update_possibles(trick)
+            #player.update_card_knowledge(trump, trick)
             #  print pla.knowledge
 
     score[trick.winner.team] += int(trick.score+10)  # Final round is worth 10 points
