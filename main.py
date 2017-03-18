@@ -17,10 +17,10 @@ def main():
     # print(cards)
     # initialize players
     assert NUM_PLAYERS == 4
-    player_1 = Player('1', 0, 'South')
-    player_2 = Player('2', 1, 'East')
-    player_3 = Player('1', 2, 'North')
-    player_4 = Player('2', 3, 'West')
+    player_1 = Player('1', 0, 'South', cards)
+    player_2 = Player('2', 1, 'East', cards)
+    player_3 = Player('1', 2, 'North', cards)
+    player_4 = Player('2', 3, 'West', cards)
 
     players = [player_1, player_2, player_3, player_4]
 
@@ -44,10 +44,11 @@ def main():
         player.knowledge.extend(common_knowledge)
         for closed_card in player.closed_cards:
             player.knowledge.append((player, closed_card, False))
+        player.update_card_knowledge(trump)
         #print player.name, "knows ",player.knowledge
 
     score = {'1' : 0, '2' : 0}
-    #  First rounds
+    #  First rounds                               HERE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
     for round in range(NUM_ROUNDS-1):
         print('\nnew round')  # First player plays a card here
         trick = Trick(trump, players[0], players[0].play_card(trump))
@@ -59,6 +60,7 @@ def main():
             except ValueError:
                 pass
             player.knowledge.append((players[0], trick.cards[-1],True))
+            player.update_card_knowledge(trump, trick)
 
         for player in players[1:]: # Each following player picks card to play and plays
             trick.add_card(player, player.play_card(trump, trick))
@@ -70,10 +72,11 @@ def main():
                 except ValueError:
                     pass
                 pla.knowledge.append((player, trick.cards[-1], True))
+                player.update_card_knowledge(trump, trick)
 
-        score[trick.winner.team] += int(trick.score)
-        print(str(trick.winner.name) + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(trick.score))
-        players = players[trick.winner.turn:] + players[:trick.winner.turn]
+        score[trick.winner.team] += int(trick.score)  #  Score is added to winning team
+        print(str(trick.winner.name) + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
+        players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
         #print(players[0].name, players[1].name, players[2].name, players[3].name)
         for i in range(NUM_PLAYERS):
             players[i].turn = i
@@ -89,6 +92,7 @@ def main():
         except ValueError:
             pass
         player.knowledge.append((players[0], trick.cards[-1], True))
+        player.update_card_knowledge(trump, trick)
 
     for player in players[1:]:  # Each following player picks card to play and plays
         trick.add_card(player, player.play_card(trump, trick))
@@ -100,11 +104,12 @@ def main():
             except ValueError:
                 pass
             pla.knowledge.append((player, trick.cards[-1], True))
+            player.update_card_knowledge(trump, trick)
             #  print pla.knowledge
 
     score[trick.winner.team] += int(trick.score+10)  # Final round is worth 10 points
     print(str(trick.winner.name) + ' wins the trick with highest card ' + str(
-        trick.high_card) + ', trick score ' + str(trick.score+10))
+        trick.high_card) + ', trick score ' + str(int(trick.score+10)))
     players = players[trick.winner.turn:] + players[:trick.winner.turn]
     # print(players[0].name, players[1].name, players[2].name, players[3].name)
     for i in range(NUM_PLAYERS):

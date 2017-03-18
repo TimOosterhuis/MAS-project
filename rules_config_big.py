@@ -22,7 +22,7 @@ NUM_PLAYERS = 4
 
 NUM_ROUNDS = len(SUITS) * len(NORMAL_POINTS) // NUM_PLAYERS
 
-CLOSED_CARDS = NUM_ROUNDS // 2 # Changeable by will
+CLOSED_CARDS = 4 # Changeable by will
 OPEN_CARDS = NUM_ROUNDS - CLOSED_CARDS
 
 
