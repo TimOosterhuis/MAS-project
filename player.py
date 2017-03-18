@@ -38,16 +38,35 @@ class Player:
         #print self.possibles
 
     def update_possibles(self, trick):
+        to_print = False
+        if to_print:
+            print(self.name + ' holds for possible: ' + str(self.possibles))
         # 1 Delete last trick card from possibles
+        self.possibles = [chunk for chunk in self.possibles if trick.cards[-1] not in chunk]
+        if to_print:
+            print(self.name + ' holds for possible: ' + str(self.possibles))
+
         # 2 Inference if player does not have asked suit anymore (then delete this suit of that player from possibles)
-        # 3 Inference if card is only possible for one player, delete card from possibles, add card to knowledge
-        self.possibles = [chunk for chunk in self.possibles if trick.cards[-1] not in chunk]  # 1
         if trick.cards[-1][0] != trick.cards[0][0] and trick.winner.team != self.team:  # 2
             self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and trick.cards[0][0] not in chunk[1]]
+        if to_print:
+            print(self.name + ' holds for possible: ' + str(self.possibles))
 
+        # 3 Inference if card is only possible for one player, delete card from possibles, add card to knowledge
+        a = self.possibles
+        single_cards = []
+        possible_cards = [card[1] for card in self.possibles]
+        for card in possible_cards:
+            if possible_cards.count(card)==1:
+                single_cards.append(card)
 
-
-
+        for card in single_cards:
+            for chunk in self.possibles:
+                if card == chunk[1]:
+                    self.knowledge.append(chunk)
+        self.possibles = [chunk for chunk in self.possibles if chunk[1] not in single_cards]
+        if to_print:
+            print(self.name + ' holds for possible: ' + str(self.possibles))
 
 
     def update_card_knowledge(self, trump, trick = None):
