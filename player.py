@@ -2,6 +2,7 @@ import random
 #from rules_config import *
 from rules_config_big import *
 
+#dit soort global declarations willen we eigenlijk in rules_config
 debug = False
 PLAYERS = ['South','East','North','West']
 
