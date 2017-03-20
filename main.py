@@ -4,7 +4,7 @@ from player import Player
 from trick import Trick
 import random
 
-debug = True
+debug = False
 
 def main():
     #initialize randomized cards and trump
@@ -129,6 +129,21 @@ def main():
         players[i].turn = i
 
     print(score)
+
+    total = score['1']+score['2']
+    if score['1'] == 0:
+        score['2'] += 100
+    elif score['2'] == 0:
+        score['1'] += 100
+
+    if score['1'] <= (total/2):
+        print('team 1: NAT')
+        score['1'] = 0
+        score['2'] = total
+
+
+    print(score)
+
 
 
 
