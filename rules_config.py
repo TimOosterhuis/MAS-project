@@ -42,7 +42,10 @@ def playable(cards, team, trick = None):
                         else:  # player kan niet overtroeven
                             playable_cards = cards
                     else:  # niet ingetroefd of begonnen met troef
-                        playable_cards = trump_cards
+                        if trump_cards != []:  # Player heeft nog troef
+                            playable_cards = trump_cards
+                        else:
+                            playable_cards = cards
                 else:  # partner heeft hoogste kaart
                     playable_cards = cards
         else:  # Begonnen met troef gevraagd

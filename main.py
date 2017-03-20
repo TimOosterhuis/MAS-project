@@ -4,7 +4,7 @@ from player import Player
 from trick import Trick
 import random
 
-debug = True
+debug = False
 
 def main():
     #initialize randomized cards and trump
