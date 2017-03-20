@@ -1,6 +1,6 @@
 #  from rules_config import *
 from rules_config_big import *
-from player import Player
+from player import *
 from trick import Trick
 import random
 
@@ -19,10 +19,10 @@ def main():
     # print(cards)
     # initialize players
     assert NUM_PLAYERS == 4
-    player_1 = Player('1', 0, 'South', cards)
-    player_2 = Player('2', 1, 'East', cards)
-    player_3 = Player('1', 2, 'North', cards)
-    player_4 = Player('2', 3, 'West', cards)
+    player_1 = Player(Team('South', 'North', '1'), 0, 'South', cards)
+    player_2 = Player(Team('East', 'West', '2'), 1, 'East', cards)
+    player_3 = Player(Team('South', 'North', '1'), 2, 'North', cards)
+    player_4 = Player(Team('East', 'West', '2'), 3, 'West', cards)
 
     players = [player_1, player_2, player_3, player_4]
 
