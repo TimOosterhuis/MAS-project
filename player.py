@@ -7,6 +7,14 @@ from tactics import *
 debug = False
 PLAYERS = ['South','East','North','West']
 
+#-----------------------------------------------------------------------------------------------------------------------
+#Player and team class
+#A player's knowledge about the game and what a player holds for possible in that game is modelled with two lists
+#which the player updates with each trick played in main (a trick as a public announcement) uses to determine which card
+#to play, for which it calls on tactics
+#-----------------------------------------------------------------------------------------------------------------------
+
+
 class Team:
     def __init__(self, first_player, second_player, nr):
         self.players = [first_player, second_player]

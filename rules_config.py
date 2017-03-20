@@ -1,3 +1,11 @@
+
+#-----------------------------------------------------------------------------------------------------------------------
+#Rules_config, contains hardcoded definitions of the possible cards, points and other parameters, such as nr of players
+#and closed cards
+#also contains function to determine legally playable cards
+#-----------------------------------------------------------------------------------------------------------------------
+
+
 SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
 
 NORMAL_POINTS = {'nine' : 2,

@@ -6,6 +6,10 @@ import random
 
 debug = False
 
+#-----------------------------------------------------------------------------------------------------------------------
+#Main, plays through one iteration of a game of klaverjassen
+#-----------------------------------------------------------------------------------------------------------------------
+
 def main():
     #initialize randomized cards and trump
     trump = SUITS[random.randint(0,3)]

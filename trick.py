@@ -1,4 +1,9 @@
 
+#-----------------------------------------------------------------------------------------------------------------------
+#class for a trick, the information in trick is kept to determine which cards are still playable for each player
+#and to calculate the score (including fame)
+#-----------------------------------------------------------------------------------------------------------------------
+
 class Trick:
     def __init__(self, trump, player, card):
         self.cards = [card]

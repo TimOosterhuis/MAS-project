@@ -4,6 +4,14 @@ from rules_config_big import *
 
 PLAYERS = ['East', 'South', 'West', 'North']
 
+#-----------------------------------------------------------------------------------------------------------------------
+# Tactics section, currently has function find best card, which determines the best card to play for a player given its
+# playable cards, its knowledge and what it holds for possible, calls on the inference rules in knowledge.py
+#
+# not fully implemented yet
+#-----------------------------------------------------------------------------------------------------------------------
+
+
 def find_best_card(cards, player, trick):
     if len(cards) < 2:
         return cards[0] # speel je enige kaar

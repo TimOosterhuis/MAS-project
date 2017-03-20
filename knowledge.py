@@ -1,5 +1,10 @@
 
 
+#-----------------------------------------------------------------------------------------------------------------------
+#knowledge, contains inference rules that can be made using what a player knows and holds for possible
+#-----------------------------------------------------------------------------------------------------------------------
+
+
 def knows(statement, player):
     return True if statement in player.knowledge else False
 
