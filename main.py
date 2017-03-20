@@ -83,6 +83,7 @@ def main():
                     print(pla.name + ' Knows (update): ' + str(pla.knowledge))
                 #player.update_card_knowledge(trump, trick)
 
+        trick.check_bonus()
         score[trick.winner.team] += int(trick.score)  #  Score is added to winning team
         print(str(trick.winner.name) + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
@@ -120,6 +121,7 @@ def main():
             if debug:
                 print(pla.name + ' Knows (update): ' + str(pla.knowledge))
 
+    trick.check_bonus()
     score[trick.winner.team] += int(trick.score+10)  # Final round is worth 10 points
     print(str(trick.winner.name) + ' wins the trick with highest card ' + str(
         trick.high_card) + ', trick score ' + str(int(trick.score+10)))
@@ -130,14 +132,19 @@ def main():
 
     print(score)
 
+    pit = False
     total = score['1']+score['2']
     if score['1'] == 0:
-        score['2'] += 100
+        score['2'] = total + 100
+        print('team 2: PIT!')
+        pit = True
     elif score['2'] == 0:
-        score['1'] += 100
+        score['1'] = total + 100
+        print('team 1: PIT!')
+        pit = True
 
-    if score['1'] <= (total/2):
-        print('team 1: NAT')
+    if score['1'] <= (total/2) and not pit:
+        print('team 1: NAT!')
         score['1'] = 0
         score['2'] = total
 
