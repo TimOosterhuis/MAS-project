@@ -84,7 +84,7 @@ def main():
                 #player.update_card_knowledge(trump, trick)
 
         trick.check_bonus()
-        score[trick.winner.team] += int(trick.score)  #  Score is added to winning team
+        score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
         print(str(trick.winner.name) + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
         #print(players[0].name, players[1].name, players[2].name, players[3].name)
@@ -122,7 +122,7 @@ def main():
                 print(pla.name + ' Knows (update): ' + str(pla.knowledge))
 
     trick.check_bonus()
-    score[trick.winner.team] += int(trick.score+10)  # Final round is worth 10 points
+    score[trick.winner.team.nr] += int(trick.score+10)  # Final round is worth 10 points
     print(str(trick.winner.name) + ' wins the trick with highest card ' + str(
         trick.high_card) + ', trick score ' + str(int(trick.score+10)))
     players = players[trick.winner.turn:] + players[:trick.winner.turn]
