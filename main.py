@@ -36,7 +36,7 @@ def main():
         idx2 += OPEN_CARDS
         player.open_cards = cards[idx:idx2]
         for open_card in player.open_cards:  #  Add open cards to common knowledge
-            common_knowledge.append((player, open_card, False))
+            common_knowledge.append((player.name, open_card, False))
         idx = idx2
         idx2 += CLOSED_CARDS
         print(str(player.name) + ' has ' + str(player.closed_cards) + ' and ' + str(player.open_cards))
@@ -45,7 +45,7 @@ def main():
     for player in players:  #  Knowledge init
         player.knowledge.extend(common_knowledge)
         for closed_card in player.closed_cards:
-            player.knowledge.append((player, closed_card, False))
+            player.knowledge.append((player.name, closed_card, False))
         #player.update_card_knowledge(trump)
         player.create_possibles()
         if debug:
@@ -98,10 +98,10 @@ def main():
 
     for player in players:  #  knowledge update
         try:
-            player.knowledge.remove((players[0], trick.cards[-1], False))
+            player.knowledge.remove((players[0].name, trick.cards[-1], False))
         except ValueError:
             pass
-        player.knowledge.append((players[0], trick.cards[-1], True))
+        player.knowledge.append((players[0].name, trick.cards[-1], True))
         player.update_possibles(trick)
         if debug:
             print(player.name + ' Knows (update): ' + str(player.knowledge))
@@ -112,10 +112,10 @@ def main():
 
         for pla in players:  #  Knowledge update
             try:
-                pla.knowledge.remove((player, trick.cards[-1], False))
+                pla.knowledge.remove((player.name, trick.cards[-1], False))
             except ValueError:
                 pass
-            pla.knowledge.append((player, trick.cards[-1], True))
+            pla.knowledge.append((player.name, trick.cards[-1], True))
             pla.update_possibles(trick)
             #player.update_card_knowledge(trump, trick)
             if debug:
