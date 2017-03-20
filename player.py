@@ -5,6 +5,11 @@ from rules_config_big import *
 debug = False
 PLAYERS = ['South','East','North','West']
 
+class Team:
+    def __init__(self, first_player, second_player, nr):
+        self.players = [first_player, second_player]
+        self.nr = nr
+
 class Player:
     def __init__(self, team, turn, name, cards):
         self.team = team
