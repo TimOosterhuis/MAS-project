@@ -12,8 +12,9 @@ def find_best_Card(cards, player, trick):
         trump_cards = [card for card in cards if card[1] == trick.trump]
         if trump_cards != [0] and knows((team_mate, (trick.trump, 26, 'jack'), False), player): # teammate has the trump jack
             return min(trump_cards, key=lambda card:card[2]) # play lowest trump
-        other_players = [player for player in ['East', 'South', 'West', 'North'] if player not in player.team]
-        for
+        other_team = [player for player in ['East', 'South', 'West', 'North'] if player not in player.team]
+        for other_player in other_team:
+            if knows(player, )
 
     else:
         return cards[random.randint(0, len(cards) - 1)]
