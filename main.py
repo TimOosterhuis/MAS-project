@@ -35,6 +35,7 @@ def main():
         idx = idx2
         idx2 += OPEN_CARDS
         player.open_cards = cards[idx:idx2]
+        common_knowledge.append(('GAME_RULE_TRUMP', trump, True))
         for open_card in player.open_cards:  #  Add open cards to common knowledge
             common_knowledge.append((player.name, open_card, False))
         idx = idx2

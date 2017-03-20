@@ -8,7 +8,8 @@ def find_best_Card(cards, player, trick):
     if len(cards) < 2:
         return cards[0] # speel je enige kaar
     elif not trick: # je komt uit
-        trump = 'placeholder'
+        trump = player.knowledge[0][1]
+        print('player knows trump: ' + str(trump))
         high_card = max(cards, key=lambda card:card[1])
 
         if high_card[1] == TRUMP_POINTS['jack']: # player has the trump jack
