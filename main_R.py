@@ -49,7 +49,7 @@ def main():
         #player.update_card_knowledge(trump)
         player.create_possibles()
         if debug:
-            print player.name, " knows (initial) ",player.knowledge
+            print(player.name, " knows (initial) ",player.knowledge)
 
     score = {'1' : 0, '2' : 0}
     #  First rounds                               HERE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
