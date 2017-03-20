@@ -26,6 +26,7 @@ def find_best_Card(cards, player, trick):
             for other_player in other_team:
                 if not_knows_doesnt_have_suit(other_player, high_card[0], player) or not not_knows_doesnt_have_suit(other_player, trump, player):
                     return high_card
-
+        else:
+            return cards[random.randint(0, len(cards) - 1)]
     else:
         return cards[random.randint(0, len(cards) - 1)]
