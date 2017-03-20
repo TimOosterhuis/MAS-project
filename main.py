@@ -19,10 +19,10 @@ def main():
     # print(cards)
     # initialize players
     assert NUM_PLAYERS == 4
-    player_1 = Player('1', 0, 'South', cards)
-    player_2 = Player('2', 1, 'East', cards)
-    player_3 = Player('1', 2, 'North', cards)
-    player_4 = Player('2', 3, 'West', cards)
+    player_1 = Player(['South', 'North'], 0, 'South', cards)
+    player_2 = Player(['East', 'West'], 1, 'East', cards)
+    player_3 = Player(['South', 'North'], 2, 'North', cards)
+    player_4 = Player(['East', 'West'], 3, 'West', cards)
 
     players = [player_1, player_2, player_3, player_4]
 
@@ -51,7 +51,7 @@ def main():
         if debug:
             print player.name, " knows (initial) ",player.knowledge
 
-    score = {'1' : 0, '2' : 0}
+    score = {['South', 'North'] : 0, ['East', 'West'] : 0}
     #  First rounds                               HERE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
     for round in range(NUM_ROUNDS-1):
         print('\nnew round')  # First player plays a card here
