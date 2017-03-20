@@ -5,3 +5,8 @@ def knows(statement, player):
 
 def holds_for_possible(statement, player):
     return True if statement in player.knowledge else False
+
+def not_knows_doesnt_have_suit(other, suit, player):
+    other_cards = [statement[1] for statement in player.knowledge if statement[0] == other]
+    other_cards.extend([statement[1] for statement in player.possibles if statement[0] == other])
+    return len([card for card in other_cards if card[0] == suit] > 0)
