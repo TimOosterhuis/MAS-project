@@ -1,6 +1,7 @@
 import random
 #from rules_config import *
 from rules_config_big import *
+from tactics import *
 
 #dit soort global declarations willen we eigenlijk in rules_config
 debug = False
@@ -32,8 +33,8 @@ class Player:
 
     #    print("\n---HERE A PLAYER NEEDS TO DEVISE ITS BEST STRATEGY---\n")
 
-        card = cards[random.randint(0, len(cards) - 1)]
-        # best_Card = find_best_card(cards, self.team, self.knowledge, trick)
+        #card = cards[random.randint(0, len(cards) - 1)]
+        card = find_best_card(cards, self, trick)
         if card in self.open_cards:
             self.open_cards.remove(card)
         else:

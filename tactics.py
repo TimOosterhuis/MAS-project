@@ -4,7 +4,7 @@ from rules_config_big import *
 
 PLAYERS = ['East', 'South', 'West', 'North']
 
-def find_best_Card(cards, player, trick):
+def find_best_card(cards, player, trick):
     if len(cards) < 2:
         return cards[0] # speel je enige kaar
     elif not trick: # je komt uit
@@ -21,7 +21,7 @@ def find_best_Card(cards, player, trick):
         if trump_cards != [0] and knows((team_mate, (trump, TRUMP_POINTS['jack'], 'jack'), False), player): # teammate has the trump jack
             return min(trump_cards, key=lambda card:card[2]) # play lowest trump
 
-        other_team = [player for player in PLAYERS if player not in player.team.players]
+        other_team = [other for other in PLAYERS if other not in player.team.players]
         if high_card[0] != trump and high_card[2] == 'ace':
             for other_player in other_team:
                 if not_knows_doesnt_have_suit(other_player, high_card[0], player) or not not_knows_doesnt_have_suit(other_player, trump, player):
