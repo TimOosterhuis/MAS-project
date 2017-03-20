@@ -2,6 +2,7 @@ import random
 from rules_config import *
 #from rules_config_big import *
 
+debug = True
 PLAYERS = ['South','East','North','West']
 
 class Player:
@@ -35,16 +36,18 @@ class Player:
             for player in PLAYERS:
                 if player != self.name:
                     self.possibles.append((player, card, False))
-        #print self.possibles
+        if debug:
+            print('\n' + self.name + ' holds for possible (initial): ' + str(self.possibles))
 
     def update_possibles(self, trick):
+        if debug:
+            print(self.name + ' holds for possible (before possible update): ' + str(self.possibles))
         # 1 Delete last trick card from possibles
         self.possibles = [chunk for chunk in self.possibles if trick.cards[-1] not in chunk]
-        # 2 Inference if player does not have asked suit anymore (then delete this suit of that player from possibles)
 
-        if trick.cards[-1][0] != trick.cards[0][0]:  # 2
+        # 2 Inference if player does not have asked suit anymore (then delete this suit of that player from possibles)
+        if trick.cards[-1][0] != trick.cards[0][0]:
             self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and trick.cards[0][0] not in chunk[1]]
-            
 
         # 3 Inference if card is only possible for one player, delete card from possibles, add card to knowledge
         single_cards = []
@@ -59,7 +62,8 @@ class Player:
                     self.knowledge.append(chunk)
         self.possibles = [chunk for chunk in self.possibles if chunk[1] not in single_cards]
 
-
+        if debug:
+            print(self.name + ' holds for possible (after possible update): ' + str(self.possibles))
 
     def update_card_knowledge(self, trump, trick = None):
         ##  General knowledge about cards

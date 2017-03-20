@@ -4,6 +4,8 @@ from player import Player
 from trick import Trick
 import random
 
+debug = True
+
 def main():
     #initialize randomized cards and trump
     trump = SUITS[random.randint(0,3)]
@@ -46,7 +48,8 @@ def main():
             player.knowledge.append((player, closed_card, False))
         #player.update_card_knowledge(trump)
         player.create_possibles()
-        #print player.name, "knows ",player.knowledge
+        if debug:
+            print player.name, " knows (initial) ",player.knowledge
 
     score = {'1' : 0, '2' : 0}
     #  First rounds                               HERE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
@@ -62,7 +65,8 @@ def main():
                 pass
             player.knowledge.append((players[0], trick.cards[-1],True))
             player.update_possibles(trick)
-            #player.update_card_knowledge(trump, trick)
+            if debug:
+                print(player.name + ' Knows (update): ' + str(player.knowledge))
 
         for player in players[1:]: # Each following player picks card to play and plays
             trick.add_card(player, player.play_card(trump, trick))
@@ -75,6 +79,8 @@ def main():
                     pass
                 pla.knowledge.append((player, trick.cards[-1], True))
                 pla.update_possibles(trick)
+                if debug:
+                    print(pla.name + ' Knows (update): ' + str(pla.knowledge))
                 #player.update_card_knowledge(trump, trick)
 
         score[trick.winner.team] += int(trick.score)  #  Score is added to winning team
@@ -96,7 +102,8 @@ def main():
             pass
         player.knowledge.append((players[0], trick.cards[-1], True))
         player.update_possibles(trick)
-        #player.update_card_knowledge(trump, trick)
+        if debug:
+            print(player.name + ' Knows (update): ' + str(player.knowledge))
 
     for player in players[1:]:  # Each following player picks card to play and plays
         trick.add_card(player, player.play_card(trump, trick))
@@ -110,7 +117,8 @@ def main():
             pla.knowledge.append((player, trick.cards[-1], True))
             pla.update_possibles(trick)
             #player.update_card_knowledge(trump, trick)
-            #  print pla.knowledge
+            if debug:
+                print(pla.name + ' Knows (update): ' + str(pla.knowledge))
 
     score[trick.winner.team] += int(trick.score+10)  # Final round is worth 10 points
     print(str(trick.winner.name) + ' wins the trick with highest card ' + str(
