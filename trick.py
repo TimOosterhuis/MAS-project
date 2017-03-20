@@ -47,6 +47,12 @@ class Trick:
             if sorts[0]+3 == sorts[-1]:
                 self.score += 50
                 print('Roem, 50 points extra!')
+            elif sorts[0]+2 == sorts[2]:
+                self.score += 20
+                print('Roem, 20 points extra!')
+            elif sorts[1]+2 == sorts[3]:
+                self.score += 20
+                print('Roem, 20 points extra!')
         else:
             sorts = sorted([dct[cards[0]], dct[cards[1]], dct[cards[2]]])
             if sorts[0]+2 == sorts[-1]:
