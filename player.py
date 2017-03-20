@@ -51,11 +51,10 @@ class Player:
             ## Changes from here.
             if trick.players[-1].team != trick.winner.team and trick.cards[-1][0] != trick.trump:  # Laatste speler gooit geen troef op en zit niet op winnende team
                 if trick.high_card[0] == trick.trump:  # maar er is wel getroefd:
-                    #pass
-                    self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and chunk[1][0] != trick.trump and chunk[1][2] < trick.high_card[2] ]
-                else:
+                    higher_trumps = [chunk for chunk in self.possibles if trick.players[-1].name in chunk and chunk[1][0] == trick.trump and chunk[1][2] > trick.high_card[2]]
+                    self.possibles = [chunk for chunk in self.possibles if chunk not in higher_trumps ]
+                else: #  Nog niet getroefd, dus players[-1] heeft helemaal geen troef meer
                     self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and chunk[1][0] != trick.trump]
-
 
         # 3 Inference if card is only possible for one player, delete card from possibles, add card to knowledge
         single_cards = []
