@@ -11,6 +11,9 @@ class Team:
         self.players = [first_player, second_player]
         self.nr = nr
 
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
 class Player:
     def __init__(self, team, turn, name, cards):
         self.team = team
