@@ -28,7 +28,7 @@ def main():
 
     players = [player_1, player_2, player_3, player_4]
 
-    common_knowledge = [('GAME_RULE_TRUMP', trump)]
+    common_knowledge = [('GAME_RULE_TRUMP', trump, True)]
     idx = 0
     idx2 = CLOSED_CARDS
     #assert CLOSED_CARDS == OPEN_CARDS
