@@ -3,10 +3,6 @@ import random
 from rules_config_big import *
 from tactics import *
 
-#dit soort global declarations willen we eigenlijk in rules_config
-debug = False
-PLAYERS = ['South','East','North','West']
-
 #-----------------------------------------------------------------------------------------------------------------------
 #Player and team class
 #A player's knowledge about the game and what a player holds for possible in that game is modelled with two lists
@@ -31,15 +27,13 @@ class Player:
         self.turn = turn
         self.name = name
         self.all_cards = cards
-        self.knowledge = []
-        self.possibles = []  #  could also be named self.unknowledge
+        self.knowledge = []  # gelijk aan K
+        self.possibles = []  # gelijk aan M
 
 
     def play_card(self, trump, trick = None):
         cards = playable(self.open_cards + self.closed_cards, self.team, trick)
     #    print('playable cards for ' + self.name + ' are ' + str(cards))
-
-    #    print("\n---HERE A PLAYER NEEDS TO DEVISE ITS BEST STRATEGY---\n")
 
         #card = cards[random.randint(0, len(cards) - 1)]
         card = find_best_card(cards, self, trick)
@@ -91,7 +85,7 @@ class Player:
         if debug:
             print(self.name + ' holds for possible (after possible update): ' + str(self.possibles))
 
-    def update_card_knowledge(self, trump, trick = None):
+    def update_card_knowledge(self, trump, trick = None):  #  Word niet meer gebruikt
         ##  General knowledge about cards
         our_trumps = [card for card in self.knowledge if card[1][0] == trump and card[0].team == self.team]
         their_trumps = [card for card in self.knowledge if card[1][0] == trump and card[0].team != self.team]

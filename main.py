@@ -4,8 +4,6 @@ from player import *
 from trick import Trick
 import random
 
-debug = False
-
 #-----------------------------------------------------------------------------------------------------------------------
 #Main, plays through one iteration of a game of klaverjassen
 #-----------------------------------------------------------------------------------------------------------------------
@@ -54,7 +52,7 @@ def main():
         #player.update_card_knowledge(trump)
         player.create_possibles()
         if debug:
-            print(player.name, " knows (initial) ",player.knowledge)
+            print(player.name + " knows (initial) " + str(player.knowledge))
 
     score = {'1' : 0, '2' : 0}
     #  First rounds                               HERE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
@@ -75,7 +73,7 @@ def main():
 
         for player in players[1:]: # Each following player picks card to play and plays
             trick.add_card(player, player.play_card(trump, trick))
-            print(str(player.name) + ' plays ' + str(trick.cards[-1]))
+            print(player.name + ' plays ' + str(trick.cards[-1]))
 
             for pla in players:  #  Knowledge update
                 try:
@@ -90,7 +88,7 @@ def main():
 
         trick.check_bonus()
         score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
-        print(str(trick.winner.name) + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
+        print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
         #print(players[0].name, players[1].name, players[2].name, players[3].name)
         for i in range(NUM_PLAYERS):
@@ -99,7 +97,7 @@ def main():
     #  Last round
     print('\nlast round')
     trick = Trick(trump, players[0], players[0].play_card(trump))
-    print(str(players[0].name) + ' plays ' + str(trick.cards[-1]))
+    print(players[0].name + ' plays ' + str(trick.cards[-1]))
 
     for player in players:  #  knowledge update
         try:
@@ -113,7 +111,7 @@ def main():
 
     for player in players[1:]:  # Each following player picks card to play and plays
         trick.add_card(player, player.play_card(trump, trick))
-        print(str(player.name) + ' plays ' + str(trick.cards[-1]))
+        print(player.name + ' plays ' + str(trick.cards[-1]))
 
         for pla in players:  #  Knowledge update
             try:
@@ -128,8 +126,7 @@ def main():
 
     trick.check_bonus()
     score[trick.winner.team.nr] += int(trick.score+10)  # Final round is worth 10 points
-    print(str(trick.winner.name) + ' wins the trick with highest card ' + str(
-        trick.high_card) + ', trick score ' + str(int(trick.score+10)))
+    print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score+10)))
     players = players[trick.winner.turn:] + players[:trick.winner.turn]
     # print(players[0].name, players[1].name, players[2].name, players[3].name)
     for i in range(NUM_PLAYERS):

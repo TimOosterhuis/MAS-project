@@ -4,9 +4,11 @@
 #and closed cards
 #also contains function to determine legally playable cards
 #-----------------------------------------------------------------------------------------------------------------------
-
+debug = False
 
 SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
+
+PLAYERS = ['South','East','North','West']
 
 NORMAL_POINTS = {'nine' : 2,
                  'jack' : 7,
