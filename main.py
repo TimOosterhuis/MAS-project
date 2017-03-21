@@ -28,7 +28,7 @@ def main():
 
     players = [player_1, player_2, player_3, player_4]
 
-    common_knowledge = []
+    common_knowledge = [('GAME_RULE_TRUMP', trump)]
     idx = 0
     idx2 = CLOSED_CARDS
     #assert CLOSED_CARDS == OPEN_CARDS
@@ -37,7 +37,6 @@ def main():
         idx = idx2
         idx2 += OPEN_CARDS
         player.open_cards = cards[idx:idx2]
-        common_knowledge.append(('GAME_RULE_TRUMP', trump, True))
         for open_card in player.open_cards:  #  Add open cards to common knowledge
             common_knowledge.append((player.name, open_card, False))
         idx = idx2
@@ -49,7 +48,6 @@ def main():
         player.knowledge.extend(common_knowledge)
         for closed_card in player.closed_cards:
             player.knowledge.append((player.name, closed_card, False))
-        #player.update_card_knowledge(trump)
         player.create_possibles()
         if debug:
             print(player.name + " knows (initial) " + str(player.knowledge))
@@ -84,13 +82,11 @@ def main():
                 pla.update_possibles(trick)
                 if debug:
                     print(pla.name + ' Knows (update): ' + str(pla.knowledge))
-                #player.update_card_knowledge(trump, trick)
 
         trick.check_bonus()
         score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
         print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
-        #print(players[0].name, players[1].name, players[2].name, players[3].name)
         for i in range(NUM_PLAYERS):
             players[i].turn = i
 
@@ -120,7 +116,6 @@ def main():
                 pass
             pla.knowledge.append((player.name, trick.cards[-1], True))
             pla.update_possibles(trick)
-            #player.update_card_knowledge(trump, trick)
             if debug:
                 print(pla.name + ' Knows (update): ' + str(pla.knowledge))
 
@@ -128,7 +123,6 @@ def main():
     score[trick.winner.team.nr] += int(trick.score+10)  # Final round is worth 10 points
     print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score+10)))
     players = players[trick.winner.turn:] + players[:trick.winner.turn]
-    # print(players[0].name, players[1].name, players[2].name, players[3].name)
     for i in range(NUM_PLAYERS):
         players[i].turn = i
 
