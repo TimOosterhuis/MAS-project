@@ -84,24 +84,3 @@ class Player:
 
         if debug:
             print(self.name + ' holds for possible (after possible update): ' + str(self.possibles))
-
-    def update_card_knowledge(self, trump, trick = None):  #  Word niet meer gebruikt
-        ##  General knowledge about cards
-        our_trumps = [card for card in self.knowledge if card[1][0] == trump and card[0].team == self.team]
-        their_trumps = [card for card in self.knowledge if card[1][0] == trump and card[0].team != self.team]
-
-        all_trumps = [card for card in self.all_cards if card[0] == trump]
-        known_trumps = [chunk for chunk in self.knowledge if chunk[1][0] == trump]
-        played_trumps = [card for card in known_trumps if card[2] == True]
-        unplayed_trumps = [card for card in known_trumps if card[2] == False]
-
-        unknown_trump_cards = [card for card in all_trumps if card not in [chunk[1] for chunk in known_trumps]]
-
-        if trick:  #  cards are played, inferences can be made
-            pass
-
-        else:  #  There are no cards played, no inferences can be made
-            pass
-
-
-
