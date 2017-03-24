@@ -3,6 +3,7 @@ from rules_config_big import *
 from player import *
 from trick import Trick
 import random
+import pygame
 
 #-----------------------------------------------------------------------------------------------------------------------
 #Main, plays through one iteration of a game of klaverjassen
@@ -152,5 +153,12 @@ def main():
 
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # game loop
+
+    pygame.init()
+    clock = pygame.time.Clock()
+    screen_size = (800, 800)
+    game_display = pygame.display.set_mode((screen_size[0], screen_size[1]))  # place_holder for board size
+
+
     main()

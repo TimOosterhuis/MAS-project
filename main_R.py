@@ -19,14 +19,14 @@ def main():
     # print(cards)
     # initialize players
     assert NUM_PLAYERS == 4
-    player_1 = Player('1', 0, 'South', cards)
-    player_2 = Player('2', 1, 'East', cards)
-    player_3 = Player('1', 2, 'North', cards)
-    player_4 = Player('2', 3, 'West', cards)
+    player_1 = Player(Team('South', 'North', '1'), 0, 'South', cards)
+    player_2 = Player(Team('East', 'West', '2'), 1, 'East', cards)
+    player_3 = Player(Team('South', 'North', '1'), 2, 'North', cards)
+    player_4 = Player(Team('East', 'West', '2'), 3, 'West', cards)
 
     players = [player_1, player_2, player_3, player_4]
 
-    common_knowledge = []
+    common_knowledge = [('GAME_RULE_TRUMP', trump, True)]
     idx = 0
     idx2 = CLOSED_CARDS
     #assert CLOSED_CARDS == OPEN_CARDS
@@ -36,7 +36,7 @@ def main():
         idx2 += OPEN_CARDS
         player.open_cards = cards[idx:idx2]
         for open_card in player.open_cards:  #  Add open cards to common knowledge
-            common_knowledge.append((player, open_card, False))
+            common_knowledge.append((player.name, open_card, False))
         idx = idx2
         idx2 += CLOSED_CARDS
         print(str(player.name) + ' has ' + str(player.closed_cards) + ' and ' + str(player.open_cards))
@@ -45,11 +45,10 @@ def main():
     for player in players:  #  Knowledge init
         player.knowledge.extend(common_knowledge)
         for closed_card in player.closed_cards:
-            player.knowledge.append((player, closed_card, False))
-        #player.update_card_knowledge(trump)
+            player.knowledge.append((player.name, closed_card, False))
         player.create_possibles()
         if debug:
-            print(player.name, " knows (initial) ",player.knowledge)
+            print(player.name + " knows (initial) " + str(player.knowledge))
 
     score = {'1' : 0, '2' : 0}
     #  First rounds                               HERE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
@@ -70,7 +69,7 @@ def main():
 
         for player in players[1:]: # Each following player picks card to play and plays
             trick.add_card(player, player.play_card(trump, trick))
-            print(str(player.name) + ' plays ' + str(trick.cards[-1]))
+            print(player.name + ' plays ' + str(trick.cards[-1]))
 
             for pla in players:  #  Knowledge update
                 try:
@@ -81,52 +80,47 @@ def main():
                 pla.update_possibles(trick)
                 if debug:
                     print(pla.name + ' Knows (update): ' + str(pla.knowledge))
-                #player.update_card_knowledge(trump, trick)
 
         trick.check_bonus()
-        score[trick.winner.team] += int(trick.score)  #  Score is added to winning team
-        print(str(trick.winner.name) + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
+        score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
+        print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
-        #print(players[0].name, players[1].name, players[2].name, players[3].name)
         for i in range(NUM_PLAYERS):
             players[i].turn = i
 
     #  Last round
     print('\nlast round')
     trick = Trick(trump, players[0], players[0].play_card(trump))
-    print(str(players[0].name) + ' plays ' + str(trick.cards[-1]))
+    print(players[0].name + ' plays ' + str(trick.cards[-1]))
 
     for player in players:  #  knowledge update
         try:
-            player.knowledge.remove((players[0], trick.cards[-1], False))
+            player.knowledge.remove((players[0].name, trick.cards[-1], False))
         except ValueError:
             pass
-        player.knowledge.append((players[0], trick.cards[-1], True))
+        player.knowledge.append((players[0].name, trick.cards[-1], True))
         player.update_possibles(trick)
         if debug:
             print(player.name + ' Knows (update): ' + str(player.knowledge))
 
     for player in players[1:]:  # Each following player picks card to play and plays
         trick.add_card(player, player.play_card(trump, trick))
-        print(str(player.name) + ' plays ' + str(trick.cards[-1]))
+        print(player.name + ' plays ' + str(trick.cards[-1]))
 
         for pla in players:  #  Knowledge update
             try:
-                pla.knowledge.remove((player, trick.cards[-1], False))
+                pla.knowledge.remove((player.name, trick.cards[-1], False))
             except ValueError:
                 pass
-            pla.knowledge.append((player, trick.cards[-1], True))
+            pla.knowledge.append((player.name, trick.cards[-1], True))
             pla.update_possibles(trick)
-            #player.update_card_knowledge(trump, trick)
             if debug:
                 print(pla.name + ' Knows (update): ' + str(pla.knowledge))
 
     trick.check_bonus()
-    score[trick.winner.team] += int(trick.score+10)  # Final round is worth 10 points
-    print(str(trick.winner.name) + ' wins the trick with highest card ' + str(
-        trick.high_card) + ', trick score ' + str(int(trick.score+10)))
+    score[trick.winner.team.nr] += int(trick.score+10)  # Final round is worth 10 points
+    print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score+10)))
     players = players[trick.winner.turn:] + players[:trick.winner.turn]
-    # print(players[0].name, players[1].name, players[2].name, players[3].name)
     for i in range(NUM_PLAYERS):
         players[i].turn = i
 
@@ -150,6 +144,7 @@ def main():
 
 
     print(score)
+
 
 
 
