@@ -5,6 +5,7 @@
 #also contains function to determine legally playable cards
 #-----------------------------------------------------------------------------------------------------------------------
 debug = False
+explain = True
 
 SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
 
@@ -32,7 +33,7 @@ NUM_PLAYERS = 4
 
 NUM_ROUNDS = len(SUITS) * len(NORMAL_POINTS) // NUM_PLAYERS
 
-CLOSED_CARDS = 4 # Changeable by will
+CLOSED_CARDS = 8 # Changeable by will
 OPEN_CARDS = NUM_ROUNDS - CLOSED_CARDS
 
 
