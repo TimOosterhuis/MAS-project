@@ -86,7 +86,7 @@ def main():
                         trick.add_card(player, player.play_card(trump, trick))
                     print(player.name + ' plays ' + str(trick.cards[-1]))
 
-                    for pla in players:  #  Knowledge update
+                    for pla in players:  #  Knowledge update for all players
                         try:
                             pla.knowledge.remove((player, trick.cards[-1], False))
                         except ValueError:
