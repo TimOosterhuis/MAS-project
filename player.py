@@ -33,7 +33,7 @@ class Player:
 
     def play_card(self, trump, trick = None):
         cards = playable(self.open_cards + self.closed_cards, self.team, trick)
-    #    print('playable cards for ' + self.name + ' are ' + str(cards))
+        print('playable cards for ' + self.name + ' are ' + str(cards))
 
         #card = cards[random.randint(0, len(cards) - 1)]
         card = find_best_card(cards, self, trick)

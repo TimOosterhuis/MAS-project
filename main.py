@@ -56,9 +56,17 @@ def main():
     score = {'1' : 0, '2' : 0}
     #  First rounds                               HERE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
     for round in range(NUM_ROUNDS-1):
+        try:
+            input("\nPress enter to continue")
+        except SyntaxError:
+            pass
         print('\nnew round')  # First player plays a card here
+
         trick = Trick(trump, players[0], players[0].play_card(trump))
         print(str(players[0].name) + ' plays ' + str(trick.cards[-1]))
+
+
+
 
         for player in players:  #  Knowledge update
             try:
@@ -84,6 +92,7 @@ def main():
                 if debug:
                     print(pla.name + ' Knows (update): ' + str(pla.knowledge))
 
+
         trick.check_bonus()
         score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
         print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
@@ -92,9 +101,14 @@ def main():
             players[i].turn = i
 
     #  Last round
+    try:
+        input("\nPress enter to continue")
+    except SyntaxError:
+        pass
     print('\nlast round')
     trick = Trick(trump, players[0], players[0].play_card(trump))
     print(players[0].name + ' plays ' + str(trick.cards[-1]))
+
 
     for player in players:  #  knowledge update
         try:
