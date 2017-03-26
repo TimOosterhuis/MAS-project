@@ -10,6 +10,14 @@ import pygame
 #-----------------------------------------------------------------------------------------------------------------------
 
 def main():
+    pygame.init()
+    clock = pygame.time.Clock()
+    screen_size = (800, 800)  # place_holder for board size
+    game_display = pygame.display.set_mode((screen_size[0], screen_size[1]))
+
+    #while not game_over:
+    pygame.time.wait(1000)
+
     #initialize randomized cards and trump
     trump = SUITS[random.randint(0,3)]
     print(str(trump) + ' is trump')
@@ -54,42 +62,48 @@ def main():
             print(player.name + " knows (initial) " + str(player.knowledge))
 
     score = {'1' : 0, '2' : 0}
-    #  First rounds                               HERE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
+    #  First rounds                               HE RE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
+    game_pause = False
     for round in range(NUM_ROUNDS-1):
-        print('\nnew round')  # First player plays a card here
-        trick = Trick(trump, players[0], players[0].play_card(trump))
-        print(str(players[0].name) + ' plays ' + str(trick.cards[-1]))
+        for player in players: # Each following player picks card to play and plays
+            round = True
+            while round:
+                runoneframe = False
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        return
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            game_pause = not game_pause
+                            print('PAUSED ' + str(game_pause))
+                        if event.key == pygame.K_RIGHT:
+                            runoneframe = True
+                if not game_pause or runoneframe:
+                    if player == players[0]:
+                        print('\nnew round')  # First player plays a card here
+                        trick = Trick(trump, players[0], players[0].play_card(trump))
+                    else:
+                        trick.add_card(player, player.play_card(trump, trick))
+                    print(player.name + ' plays ' + str(trick.cards[-1]))
 
-        for player in players:  #  Knowledge update
-            try:
-                player.knowledge.remove((players[0], trick.cards[-1], False))
-            except ValueError:
-                pass
-            player.knowledge.append((players[0], trick.cards[-1],True))
-            player.update_possibles(trick)
-            if debug:
-                print(player.name + ' Knows (update): ' + str(player.knowledge))
-
-        for player in players[1:]: # Each following player picks card to play and plays
-            trick.add_card(player, player.play_card(trump, trick))
-            print(player.name + ' plays ' + str(trick.cards[-1]))
-
-            for pla in players:  #  Knowledge update
-                try:
-                    pla.knowledge.remove((player, trick.cards[-1], False))
-                except ValueError:
-                    pass
-                pla.knowledge.append((player, trick.cards[-1], True))
-                pla.update_possibles(trick)
-                if debug:
-                    print(pla.name + ' Knows (update): ' + str(pla.knowledge))
-
+                    for pla in players:  #  Knowledge update
+                        try:
+                            pla.knowledge.remove((player, trick.cards[-1], False))
+                        except ValueError:
+                            pass
+                        pla.knowledge.append((player, trick.cards[-1], True))
+                        pla.update_possibles(trick)
+                        if debug:
+                            print(pla.name + ' Knows (update): ' + str(pla.knowledge))
+                    if not game_pause or runoneframe:
+                        round = False
         trick.check_bonus()
         score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
         print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
         for i in range(NUM_PLAYERS):
             players[i].turn = i
+
 
     #  Last round
     print('\nlast round')
@@ -154,11 +168,4 @@ def main():
 
 
 if __name__ == "__main__": # game loop
-
-    pygame.init()
-    clock = pygame.time.Clock()
-    screen_size = (800, 800)
-    game_display = pygame.display.set_mode((screen_size[0], screen_size[1]))  # place_holder for board size
-
-
     main()
