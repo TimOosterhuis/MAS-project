@@ -82,33 +82,42 @@ def main():
                         if event.key == pygame.K_RIGHT:
                             run_one_frame = True
                 if not game_pause or run_one_frame:
-                    left = screen_size[0]/2 - 20 * len(player.closed_cards)
-                    top = screen_size[1] * (3/4)
-                    width = 20 * len(player.closed_cards) + 73
-                    height = 100
-                    rect = pygame.Rect(left, top, width, height)
-                    game_display.fill((205, 205, 255), rect)
-                    for i in range(len(player.closed_cards)):
-                        card = player.closed_cards[i]
-                        file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
-                        image, im_rect = load_image(file_name)
-                        x_offset = left + 20*i
-                        game_display.blit(image, (x_offset, top))
-                        pygame.display.update()
-                    pygame.display.flip()
+                    #left = screen_size[0]/2 - 20 * len(player.closed_cards)
+                    #top = screen_size[1] * (3/4)
+                    #width = 20 * len(player.closed_cards) + 75
+                    #height = 100
+                    clear_hands(game_display, (205, 205, 255), len(player.closed_cards), screen_size)
+                    #left, top, width, height = calc_rect(player.name, len(player.closed_cards), screen_size)
+                    #rect = pygame.Rect(left, top, width, height)
+                    #game_display.fill((205, 205, 255), rect)
+
+
+                    #pygame.display.flip()
                     if player == players[0]:
                         print('\nnew round')  # First player plays a card here
                         trick = Trick(trump, players[0], players[0].play_card(trump))
                     else:
                         trick.add_card(player, player.play_card(trump, trick))
+                    # Draw trick
                     card = trick.cards[-1]
                     file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
                     image, im_rect = load_image(file_name)
                     game_display.blit(image, (screen_size[0]/2 + CENTER_POS[player.name][0], screen_size[1]/2 + CENTER_POS[player.name][1]))
-                    pygame.display.update()
+
+
                     print(player.name + ' plays ' + str(trick.cards[-1]))
 
                     for pla in players:  #  Knowledge update for all players
+                        # Draw hands
+                        for i in range(len(pla.closed_cards)):
+                            card = pla.closed_cards[i]
+                            if pla == player:
+                                file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
+                            else:
+                                file_name = 'b.gif'
+                            image, im_rect = load_image(file_name)
+                            game_display.blit(image, calc_offset(pla.name, len(pla.closed_cards), screen_size, i))
+                        pygame.display.update()
                         try:
                             pla.knowledge.remove((player, trick.cards[-1], False))
                         except ValueError:

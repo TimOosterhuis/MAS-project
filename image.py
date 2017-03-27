@@ -18,11 +18,41 @@ IMAGE_DICT = {
 }
 
 CENTER_POS = {
-    'South' : (0, 50),
-    'East'  : (-50, 0),
-    'North' : (0, -50),
-    'West'  : (50, 0),
+    'South' : (-50, 0),
+    'East'  : (-100, -37.5),
+    'North' : (-50, -75),
+    'West'  : (0, -37.5),
 }
+
+
+
+def calc_rect(player, num_cards, screen_size):
+    width = 75
+    height = 100
+    if player in ['South', 'North']:
+        width += num_cards * 20
+        left = screen_size[0]/2 - 20 * num_cards
+        top = screen_size[1] * (1/4) - 100 if player == 'North' else screen_size[1] * (3/4)
+    else:
+        height += num_cards * 20
+        top = screen_size[1]/2 - 20 * num_cards
+        left = screen_size[0] * (1/6) - 75 if player == 'East' else screen_size[0] * (5/6)
+    return left, top, width, height
+
+def calc_offset(player, num_cards, screen_size, idx):
+    left, top, width, height = calc_rect(player, num_cards, screen_size)
+    if player in ['South', 'North']:
+        left += 20*idx
+    else:
+        top += 20*idx
+    return left, top
+
+def clear_hands(game_display, color, num_cards, screen_size):
+    game_display.fill(color, pygame.Rect(calc_rect('South', num_cards, screen_size)))
+    game_display.fill(color, pygame.Rect(calc_rect('North', num_cards, screen_size)))
+    game_display.fill(color, pygame.Rect(calc_rect('East', num_cards, screen_size)))
+    game_display.fill(color, pygame.Rect(calc_rect('West', num_cards, screen_size)))
+
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('img', name)
