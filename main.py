@@ -70,7 +70,7 @@ def main():
         for player in players: # Each following player picks card to play and plays
             round = True
             while round:
-                runoneframe = False
+                run_one_frame = False
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         return
@@ -79,8 +79,8 @@ def main():
                             game_pause = not game_pause
                             print('PAUSED ' + str(game_pause))
                         if event.key == pygame.K_RIGHT:
-                            runoneframe = True
-                if not game_pause or runoneframe:
+                            run_one_frame = True
+                if not game_pause or run_one_frame:
                     game_display.fill((205, 205, 255))
                     for i in range(len(player.closed_cards)):
                         card = player.closed_cards[i]
@@ -108,7 +108,7 @@ def main():
                         pla.update_possibles(trick)
                         if debug:
                             print(pla.name + ' Knows (update): ' + str(pla.knowledge))
-                    if not game_pause or runoneframe:
+                    if not game_pause or run_one_frame:
                         round = False
         trick.check_bonus()
         score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
