@@ -66,7 +66,7 @@ def main():
     score = {'1' : 0, '2' : 0}
     #  First rounds                               HE RE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
     game_pause = True
-    for round in range(NUM_ROUNDS-1):
+    for game_round in range(NUM_ROUNDS):
         for player in players: # Each following player picks card to play and plays
             round = True
             while round:
@@ -112,47 +112,12 @@ def main():
                         round = False
         trick.check_bonus()
         score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
+        if game_round == NUM_ROUNDS:
+            score[trick.winner.team.nr] += int(trick.score + 10)  # Final round is worth 10 points
         print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
         for i in range(NUM_PLAYERS):
             players[i].turn = i
-
-
-    #  Last round
-    print('\nlast round')
-    trick = Trick(trump, players[0], players[0].play_card(trump))
-    print(players[0].name + ' plays ' + str(trick.cards[-1]))
-
-    for player in players:  #  knowledge update
-        try:
-            player.knowledge.remove((players[0].name, trick.cards[-1], False))
-        except ValueError:
-            pass
-        player.knowledge.append((players[0].name, trick.cards[-1], True))
-        player.update_possibles(trick)
-        if debug:
-            print(player.name + ' Knows (update): ' + str(player.knowledge))
-
-    for player in players[1:]:  # Each following player picks card to play and plays
-        trick.add_card(player, player.play_card(trump, trick))
-        print(player.name + ' plays ' + str(trick.cards[-1]))
-
-        for pla in players:  #  Knowledge update
-            try:
-                pla.knowledge.remove((player.name, trick.cards[-1], False))
-            except ValueError:
-                pass
-            pla.knowledge.append((player.name, trick.cards[-1], True))
-            pla.update_possibles(trick)
-            if debug:
-                print(pla.name + ' Knows (update): ' + str(pla.knowledge))
-
-    trick.check_bonus()
-    score[trick.winner.team.nr] += int(trick.score+10)  # Final round is worth 10 points
-    print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score+10)))
-    players = players[trick.winner.turn:] + players[:trick.winner.turn]
-    for i in range(NUM_PLAYERS):
-        players[i].turn = i
 
     print(score)
 
