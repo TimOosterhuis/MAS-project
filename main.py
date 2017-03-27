@@ -67,6 +67,7 @@ def main():
     #  First rounds                               HE RE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
     game_pause = True
     for game_round in range(NUM_ROUNDS):
+        game_display.fill((205, 205, 255))
         for player in players: # Each following player picks card to play and plays
             round = True
             while round:
@@ -81,22 +82,30 @@ def main():
                         if event.key == pygame.K_RIGHT:
                             run_one_frame = True
                 if not game_pause or run_one_frame:
-                    game_display.fill((205, 205, 255))
+                    left = screen_size[0]/2 - 20 * len(player.closed_cards)
+                    top = screen_size[1] * (3/4)
+                    width = 20 * len(player.closed_cards) + 73
+                    height = 100
+                    rect = pygame.Rect(left, top, width, height)
+                    game_display.fill((205, 205, 255), rect)
                     for i in range(len(player.closed_cards)):
                         card = player.closed_cards[i]
                         file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
                         image, im_rect = load_image(file_name)
-                        print('TESTING ' + str(im_rect))
-                        x_offset = screen_size[0]/2 - 20 * len(player.closed_cards) + 20*i
-                        game_display.blit(image, (x_offset, screen_size[1] * (3/4)))
+                        x_offset = left + 20*i
+                        game_display.blit(image, (x_offset, top))
                         pygame.display.update()
-                        print(x_offset, screen_size[1] * (3/4))
                     pygame.display.flip()
                     if player == players[0]:
                         print('\nnew round')  # First player plays a card here
                         trick = Trick(trump, players[0], players[0].play_card(trump))
                     else:
                         trick.add_card(player, player.play_card(trump, trick))
+                    card = trick.cards[-1]
+                    file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
+                    image, im_rect = load_image(file_name)
+                    game_display.blit(image, (screen_size[0]/2 + CENTER_POS[player.name][0], screen_size[1]/2 + CENTER_POS[player.name][1]))
+                    pygame.display.update()
                     print(player.name + ' plays ' + str(trick.cards[-1]))
 
                     for pla in players:  #  Knowledge update for all players

@@ -17,6 +17,13 @@ IMAGE_DICT = {
     'ace'       : 'a',
 }
 
+CENTER_POS = {
+    'South' : (0, 50),
+    'East'  : (-50, 0),
+    'North' : (0, -50),
+    'West'  : (50, 0),
+}
+
 def load_image(name, colorkey=None):
     fullname = os.path.join('img', name)
 
