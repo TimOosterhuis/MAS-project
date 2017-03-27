@@ -4,6 +4,7 @@ from player import *
 from trick import Trick
 import random
 import pygame
+from image import *
 
 #-----------------------------------------------------------------------------------------------------------------------
 #Main, plays through one iteration of a game of klaverjassen
@@ -12,9 +13,10 @@ import pygame
 def main():
     pygame.init()
     clock = pygame.time.Clock()
-    screen_size = (800, 800)  # place_holder for board size
+    screen_size = (1200, 800)  # place_holder for board size
     game_display = pygame.display.set_mode((screen_size[0], screen_size[1]))
-
+    game_display.fill((205,205,255))
+    pygame.display.update()
     #while not game_over:
     pygame.time.wait(1000)
 
@@ -63,7 +65,7 @@ def main():
 
     score = {'1' : 0, '2' : 0}
     #  First rounds                               HE RE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
-    game_pause = False
+    game_pause = True
     for round in range(NUM_ROUNDS-1):
         for player in players: # Each following player picks card to play and plays
             round = True
@@ -79,6 +81,17 @@ def main():
                         if event.key == pygame.K_RIGHT:
                             runoneframe = True
                 if not game_pause or runoneframe:
+                    game_display.fill((205, 205, 255))
+                    for i in range(len(player.closed_cards)):
+                        card = player.closed_cards[i]
+                        file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
+                        image, im_rect = load_image(file_name)
+                        print('TESTING ' + str(im_rect))
+                        x_offset = screen_size[0]/2 - 20 * len(player.closed_cards) + 20*i
+                        game_display.blit(image, (x_offset, screen_size[1] * (3/4)))
+                        pygame.display.update()
+                        print(x_offset, screen_size[1] * (3/4))
+                    pygame.display.flip()
                     if player == players[0]:
                         print('\nnew round')  # First player plays a card here
                         trick = Trick(trump, players[0], players[0].play_card(trump))
