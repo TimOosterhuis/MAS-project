@@ -129,10 +129,14 @@ def main():
                     if not game_pause or run_one_frame:
                         round = False
         trick.check_bonus()
-        score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
-        if game_round == NUM_ROUNDS:
+        if game_round == (NUM_ROUNDS-1):
             score[trick.winner.team.nr] += int(trick.score + 10)  # Final round is worth 10 points
-        print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
+            print(trick.winner.name + ' wins the final trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score+10)))
+        else:
+            score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
+            print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
+
+
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
         for i in range(NUM_PLAYERS):
             players[i].turn = i
