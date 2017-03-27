@@ -60,8 +60,8 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
 
             # If all tactics fail, just go with the lowest value card (trump or not)
             if explain:
-                print(player.name + ' cannot think of a good card to play, and thus plays hist lowest value card')
-            return high_cards_no_trump[-1]
+                print(player.name + ' cannot think of a good card to play, and thus plays his lowest value card')
+            return high_cards[-1]
         else:
             if explain:
                 print(player.name + ' knows there are no more trump cards in play')
