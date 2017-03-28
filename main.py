@@ -13,9 +13,11 @@ from image import *
 def main():
     pygame.init()
     clock = pygame.time.Clock()
-    screen_size = (1200, 800)  # place_holder for board size
-    game_display = pygame.display.set_mode((screen_size[0], screen_size[1]))
-    game_display.fill((205,205,255))
+    screen_size = (900, 800)  # place_holder for board size
+    diagram_width = 600
+    game_display = pygame.display.set_mode((screen_size[0] + diagram_width, screen_size[1]))
+    game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
+    game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
     pygame.display.update()
     #while not game_over:
     pygame.time.wait(1000)
@@ -67,7 +69,8 @@ def main():
     #  First rounds                               HE RE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
     game_pause = True
     for game_round in range(NUM_ROUNDS):
-        game_display.fill((205, 205, 255))
+        game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
+        game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
         for player in players: # Each following player picks card to play and plays
             round = True
             while round:
