@@ -19,9 +19,9 @@ IMAGE_DICT = {
 
 CENTER_POS = {
     'South' : (-50, 0),
-    'East'  : (-100, -37.5),
+    'West'  : (-100, -37.5),
     'North' : (-50, -75),
-    'West'  : (0, -37.5),
+    'East'  : (0, -37.5),
 }
 
 
@@ -36,7 +36,7 @@ def calc_rect(player, num_cards, screen_size):
     else:
         height += num_cards * 20
         top = screen_size[1]/2 - 20 * num_cards
-        left = screen_size[0] * (1/6) - 75 if player == 'East' else screen_size[0] * (5/6)
+        left = screen_size[0] * (1/6) - 75 if player == 'West' else screen_size[0] * (5/6)
     return left, top, width, height
 
 def calc_offset(player, num_cards, screen_size, idx):
