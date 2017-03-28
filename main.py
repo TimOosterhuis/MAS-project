@@ -75,6 +75,14 @@ def main():
     game_pause = True
     for game_round in range(NUM_ROUNDS):
         game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
+        for i in range(len(PLAYERS)):
+            name_display = name_font.render(PLAYERS[i], 1, (0, 0, 0))
+            game_display.blit(name_display, name_pos(PLAYERS[i], 8, screen_size))
+        trump_display = name_font.render(str(trump) + ' is trump', 1, (0, 0, 0))
+        open_close_info = 'Game with ' + str(OPEN_CARDS) + ' open cards and ' + str(CLOSED_CARDS) + ' cards.'
+        open_close_display = message_font.render(open_close_info, 1, (0, 0, 0))
+        game_display.blit(trump_display, (10, 10))
+        game_display.blit(open_close_display, (10, 35))
         game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
         for player in players: # Each following player picks card to play and plays
             round = True
@@ -99,6 +107,11 @@ def main():
                     else:
                         card, thoughts = player.play_card(trump, trick)
                         trick.add_card(player, card)
+                    #
+                    game_display.fill((255, 255, 255), pygame.Rect(0, screen_size[1] + 2, screen_size[0] + diagram_width, message_screen_height))
+                    for i in range(len(thoughts)):
+                        message = message_font.render(thoughts[i], 1, (0, 0, 0))
+                        game_display.blit(message, (10, screen_size[1] + 10 + (i * 20)))
                     # Draw trick
                     card = trick.cards[-1]
                     file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'

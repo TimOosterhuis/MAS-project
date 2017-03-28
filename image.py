@@ -39,6 +39,14 @@ def calc_rect(player, num_cards, screen_size):
         left = screen_size[0] * (1/6) - 75 if player == 'West' else screen_size[0] * (5/6)
     return left, top, width, height
 
+def name_pos(player, num_cards, screen_size):
+    left, top, width, height = calc_rect(player, num_cards, screen_size)
+    if player == 'South':
+        top += 100
+    else:
+        top -= 25
+    return left, top
+
 def calc_offset(player, num_cards, screen_size, idx):
     left, top, width, height = calc_rect(player, num_cards, screen_size)
     if player in ['South', 'North']:
