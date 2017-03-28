@@ -12,12 +12,17 @@ from image import *
 
 def main():
     pygame.init()
+    pygame.font.init()
+    name_font = pygame.font.SysFont('arial', 20)
+    message_font = pygame.font.SysFont('arial', 16)
     clock = pygame.time.Clock()
-    screen_size = (900, 800)  # place_holder for board size
+    screen_size = (900, 600)  # place_holder for board size
     diagram_width = 600
-    game_display = pygame.display.set_mode((screen_size[0] + diagram_width, screen_size[1]))
+    message_screen_height = 200
+    game_display = pygame.display.set_mode((screen_size[0] + diagram_width, screen_size[1] + message_screen_height))
     game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
     game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
+    game_display.fill((255, 255, 255), pygame.Rect(0, screen_size[1] + 2, screen_size[0] + diagram_width, message_screen_height))
     pygame.display.update()
     #while not game_over:
     pygame.time.wait(1000)
@@ -85,22 +90,15 @@ def main():
                         if event.key == pygame.K_RIGHT:
                             run_one_frame = True
                 if not game_pause or run_one_frame:
-                    #left = screen_size[0]/2 - 20 * len(player.closed_cards)
-                    #top = screen_size[1] * (3/4)
-                    #width = 20 * len(player.closed_cards) + 75
-                    #height = 100
                     clear_hands(game_display, (205, 205, 255), len(player.closed_cards), screen_size)
-                    #left, top, width, height = calc_rect(player.name, len(player.closed_cards), screen_size)
-                    #rect = pygame.Rect(left, top, width, height)
-                    #game_display.fill((205, 205, 255), rect)
 
-
-                    #pygame.display.flip()
                     if player == players[0]:
                         print('\nnew round')  # First player plays a card here
-                        trick = Trick(trump, players[0], players[0].play_card(trump))
+                        card, thoughts = players[0].play_card(trump)
+                        trick = Trick(trump, players[0], card)
                     else:
-                        trick.add_card(player, player.play_card(trump, trick))
+                        card, thoughts = player.play_card(trump, trick)
+                        trick.add_card(player, card)
                     # Draw trick
                     card = trick.cards[-1]
                     file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'

@@ -36,12 +36,12 @@ class Player:
         print('playable cards for ' + self.name + ' are ' + str(cards))
 
         #card = cards[random.randint(0, len(cards) - 1)]
-        card = find_best_card(cards, self, trick)
+        card, thoughts = find_best_card(cards, self, trick)
         if card in self.open_cards:
             self.open_cards.remove(card)
         else:
             self.closed_cards.remove(card)
-        return card
+        return card, thoughts
 
     def create_possibles(self):
         unknown_cards = [card for card in self.all_cards if card not in [chunk[1] for chunk in self.knowledge]]
