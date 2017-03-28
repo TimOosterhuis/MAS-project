@@ -35,9 +35,9 @@ def main():
     # initialize players
     assert NUM_PLAYERS == 4
     player_1 = Player(Team('South', 'North', '1'), 0, 'South', cards)
-    player_2 = Player(Team('East', 'West', '2'), 1, 'East', cards)
+    player_2 = Player(Team('East', 'West', '2'), 1, 'West', cards)
     player_3 = Player(Team('South', 'North', '1'), 2, 'North', cards)
-    player_4 = Player(Team('East', 'West', '2'), 3, 'West', cards)
+    player_4 = Player(Team('East', 'West', '2'), 3, 'East', cards)
 
     players = [player_1, player_2, player_3, player_4]
 
@@ -107,12 +107,11 @@ def main():
                     image, im_rect = load_image(file_name)
                     game_display.blit(image, (screen_size[0]/2 + CENTER_POS[player.name][0], screen_size[1]/2 + CENTER_POS[player.name][1]))
 
-
                     print(player.name + ' plays ' + str(trick.cards[-1]))
 
-                    for pla in players:  #  Knowledge update for all players
-                        # Draw hands
-                        for i in range(len(pla.closed_cards)):
+                    for pla in players:
+
+                        for i in range(len(pla.closed_cards)):   # Draw hands
                             card = pla.closed_cards[i]
                             if pla == player:
                                 file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
@@ -121,7 +120,7 @@ def main():
                             image, im_rect = load_image(file_name)
                             game_display.blit(image, calc_offset(pla.name, len(pla.closed_cards), screen_size, i))
                         pygame.display.update()
-                        try:
+                        try:  #  Knowledge update for all players
                             pla.knowledge.remove((player, trick.cards[-1], False))
                         except ValueError:
                             pass
@@ -132,10 +131,13 @@ def main():
                     if not game_pause or run_one_frame:
                         round = False
         trick.check_bonus()
-        score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
-        if game_round == NUM_ROUNDS:
+        if game_round == (NUM_ROUNDS-1):
             score[trick.winner.team.nr] += int(trick.score + 10)  # Final round is worth 10 points
-        print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
+            print(trick.winner.name + ' wins the final trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score+10)))
+        else:
+            score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
+            print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
+
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
         for i in range(NUM_PLAYERS):
             players[i].turn = i
