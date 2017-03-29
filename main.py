@@ -136,6 +136,7 @@ def main():
                         if event.key == pygame.K_RIGHT:
                             run_one_frame = True
                 x, y = pygame.mouse.get_pos()
+                #print(x, y)
                 m_pressed = pygame.mouse.get_pressed()
                 x_hover_dropdown = dropdown.left < x < dropdown.left + dropdown.width
                 y_hover_dropdown = dropdown.top < y < dropdown.top + dropdown.height
