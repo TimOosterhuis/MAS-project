@@ -1,5 +1,6 @@
 import pygame
 from rules_config_big import *
+from math import pi
 
 HAS_CARD_DICT = {
     'South' : (1.0/3.0, 2.0/3.0),
@@ -17,11 +18,11 @@ REL_COLOR_DICT = {
 
 REL_ARC_TO_SELF = {
     # first number represents the size of the arc, the two numbers after that represent the side of the world the arc starts at
-    # -25 or zero depending on left/right, top/bottom, last two number represent the start and end radial angle to draw
-    'South' : (10, -25, 25, 0, 270),
-    'West'  : (20, -25, -25, 90, 0),
-    'North' : (30, 25, -25, 180, 90),
-    'East'  : (40, 25, 25, 270, 180),
+    # 50 or zero depending on left/right, top/bottom, last two number represent the start and end radial angle to draw
+    'South' : (10, 0, 50, 0.5*pi, 2*pi),
+    'West'  : (20, 0, 0, 0.0, 1.5*pi),
+    'North' : (30, 50, 0, -0.5*pi, pi),
+    'East'  : (40, 50, 50, -pi, 0.5*pi),
 }
 
 def draw_model(screen, players, card, left, top, width, height):
@@ -40,9 +41,10 @@ def draw_model(screen, players, card, left, top, width, height):
         for relation in relations:
 
             if true_card_owner == relation[0]:
-                world_node = pygame.Rect(left + HAS_CARD_DICT[true_card_owner][0] * width + REL_ARC_TO_SELF[true_card_owner][1],
-                                         top + HAS_CARD_DICT[true_card_owner][1] * height + REL_ARC_TO_SELF[true_card_owner][2],
-                                         REL_ARC_TO_SELF[player.name][0], REL_ARC_TO_SELF[player.name][0])
+                w_left = left + HAS_CARD_DICT[true_card_owner][0] * width - REL_ARC_TO_SELF[player.name][0] + REL_ARC_TO_SELF[true_card_owner][1]
+                w_top = top + HAS_CARD_DICT[true_card_owner][1] * height - REL_ARC_TO_SELF[player.name][0] + REL_ARC_TO_SELF[true_card_owner][2]
+
+                world_node = pygame.Rect(w_left, w_top, 2*REL_ARC_TO_SELF[player.name][0], 2*REL_ARC_TO_SELF[player.name][0])
                 pygame.draw.arc(screen, REL_COLOR_DICT[player.name], world_node, REL_ARC_TO_SELF[true_card_owner][3],
                                 REL_ARC_TO_SELF[true_card_owner][4], 2)
             else:
