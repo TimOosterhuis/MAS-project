@@ -24,6 +24,7 @@ class Player:
         self.team = team
         self.closed_cards = []
         self.open_cards = []
+        self.own_cards = []
         self.turn = turn
         self.name = name
         self.all_cards = cards

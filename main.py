@@ -5,6 +5,7 @@ from trick import Trick
 import random
 import pygame
 from image import *
+from model import draw_model
 
 #-----------------------------------------------------------------------------------------------------------------------
 #Main, plays through one iteration of a game of klaverjassen
@@ -57,6 +58,7 @@ def main():
         idx = idx2
         idx2 += OPEN_CARDS
         player.open_cards = cards[idx:idx2]
+        player.own_cards = list(player.closed_cards + player.open_cards)
         for open_card in player.open_cards:  #  Add open cards to common knowledge
             common_knowledge.append((player.name, open_card, False))
         idx = idx2
@@ -157,10 +159,12 @@ def main():
                         card = ordered_cards[i]
                         picked_card = message_font.render(card[1] + ' of ' + card[0], 1, (0, 0, 0))
                         game_display.blit(picked_card, (screen_size[0] + 50, 100))
+                        draw_model(game_display, players, card, screen_size[0], 55, diagram_width, screen_size[1] - 55)
                     pygame.display.update()
                     select_available = False
                 if not game_pause or run_one_frame:
                     clear_hands(game_display, (205, 205, 255), len(player.closed_cards)+len(player.open_cards), screen_size)
+                    game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 55, diagram_width, screen_size[1] - 55))
 
                     for pla in players:
 
