@@ -226,6 +226,16 @@ def main():
 
 
     print(score)
+
+    game_display.fill((205, 205, 255), pygame.Rect(20, screen_size[1] - 50, 150, 30))
+    pygame.display.update()
+    score_update1 = 'South and North:  ' + str(score['1'])
+    score_update2 = 'East and West:    ' + str(score['2'])
+    score_update_display1 = message_font.render(score_update1, 1, (0, 0, 0))
+    score_update_display2 = message_font.render(score_update2, 1, (0, 0, 0))
+    game_display.blit(score_update_display1, (20, screen_size[1] - 50))
+    game_display.blit(score_update_display2, (20, screen_size[1] - 35))
+    pygame.display.update()
     pygame.time.delay(5000)
 
 
