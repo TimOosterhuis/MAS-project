@@ -103,8 +103,6 @@ def main():
         game_display.blit(continue_display2, (600, 25))
 
         game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
-
-        game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
         model_title = 'Card knowledge of the current player:'
         model_title_display = name_font.render(model_title, 1, (0, 0, 0))
         game_display.blit(model_title_display, (screen_size[0] + 10, 10))
@@ -114,6 +112,7 @@ def main():
         for player in players: # Each following player picks card to play and plays
             turn = True
             while turn:
+
                 if player == players[0] and game_round == 0:
                     run_one_frame = True
                 else:
@@ -132,7 +131,7 @@ def main():
 
 
                 if not game_pause or run_one_frame:
-                    clear_hands(game_display, (205, 205, 255), len(player.closed_cards), screen_size)
+                    clear_hands(game_display, (205, 205, 255), len(player.closed_cards)+len(player.open_cards), screen_size)
 
                     if player == players[0]:
                         print('\nnew round')  # First player plays a card here
@@ -156,15 +155,26 @@ def main():
 
                     for pla in players:
 
-                        for i in range(len(pla.closed_cards)):   # Draw hands
+                        for i in range(len(pla.closed_cards)):   # Draw hands closed cards
                             card = pla.closed_cards[i]
                             if pla == player:
                                 file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
                             else:
                                 file_name = 'b.gif'
                             image, im_rect = load_image(file_name)
-                            game_display.blit(image, calc_offset(pla.name, len(pla.closed_cards), screen_size, i))
+                            game_display.blit(image, calc_offset(pla.name, len(pla.closed_cards)+len(pla.open_cards), screen_size, i))
+
+                        for i in range(len(pla.open_cards)):
+                            card = pla.open_cards[i]
+                            if pla == player:
+                                file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
+                            else:
+                                file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
+                            image, im_rect = load_image(file_name)
+                            game_display.blit(image, calc_offset(pla.name, len(pla.closed_cards)+len(pla.open_cards), screen_size, i+len(pla.closed_cards)))
+
                         pygame.display.update()
+
                         try:  #  Knowledge update for all players
                             pla.knowledge.remove((player, trick.cards[-1], False))
                         except ValueError:
