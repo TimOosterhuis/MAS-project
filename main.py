@@ -18,7 +18,7 @@ def main():
     clock = pygame.time.Clock()
     screen_size = (900, 600)  # place_holder for board size
     diagram_width = 600
-    message_screen_height = 200
+    message_screen_height = 100
     game_display = pygame.display.set_mode((screen_size[0] + diagram_width, screen_size[1] + message_screen_height))
     game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
     game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
@@ -181,7 +181,7 @@ def main():
                             score[trick.winner.team.nr] += int(trick.score + 10)  # Final round is worth 10 points
                             end = trick.winner.name + ' wins the final trick with highest card ' + str(
                                 trick.high_card) + ', trick score ' + str(int(trick.score + 10))
-                            print end
+                            print(end)
                             end_display = message_font.render(end, 1, (0, 0, 0))
                             game_display.blit(end_display, (10, screen_size[1] + message_screen_height - 25))
 
@@ -189,7 +189,7 @@ def main():
                             score[trick.winner.team.nr] += int(trick.score)  # Score is added to winning team
                             end = trick.winner.name + ' wins the trick with highest card ' + str(
                                 trick.high_card) + ', trick score ' + str(int(trick.score))
-                            print end
+                            print(end)
                             end_display = message_font.render(end, 1, (0, 0, 0))
                             game_display.blit(end_display, (10, screen_size[1] + message_screen_height - 25))
 
