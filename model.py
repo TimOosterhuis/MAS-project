@@ -2,10 +2,10 @@ import pygame
 from rules_config_big import *
 
 HAS_CARD_DICT = {
-    'South' : (1/3, 2/3),
-    'West'  : (1/3, 1/3),
-    'North' : (2/3, 1/3),
-    'East'  : (2/3, 2/3),
+    'South' : (1.0/3.0, 2.0/3.0),
+    'West'  : (1.0/3.0, 1.0/3.0),
+    'North' : (2.0/3.0, 1.0/3.0),
+    'East'  : (2.0/3.0, 2.0/3.0),
 }
 
 REL_COLOR_DICT = {
