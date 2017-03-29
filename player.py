@@ -61,7 +61,6 @@ class Player:
         # 2 Inference if player does not have asked suit anymore (then delete this suit of that player from possibles)
         if trick.cards[-1][0] != trick.cards[0][0]:
             self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and trick.cards[0][0] not in chunk[1]]
-            ## Changes from here.
             if trick.players[-1].team != trick.winner.team and trick.cards[-1][0] != trick.trump:  # Laatste speler gooit geen troef op en zit niet op winnende team
                 if trick.high_card[0] == trick.trump:  # maar er is wel getroefd:
                     higher_trumps = [chunk for chunk in self.possibles if trick.players[-1].name in chunk and chunk[1][0] == trick.trump and chunk[1][2] > trick.high_card[2]]
@@ -69,7 +68,16 @@ class Player:
                 else: #  Nog niet getroefd, dus players[-1] heeft helemaal geen troef meer
                     self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and chunk[1][0] != trick.trump]
 
-        # 3 Inference if card is only possible for one player, delete card from possibles, add card to knowledge
+        # 3 Inference if player plays card that is the card below the highest card, then he doesn't have any other
+        suit_cards_left1 = [chunk[1] for chunk in self.knowledge if chunk[1][0] == trick.cards[0][0] and chunk[2] == False]
+        suit_cards_left2 = [chunk[1] for chunk in self.possibles if chunk[1][0] == trick.cards[0][0] and chunk[2] == False]
+        suit_cards_left1.extend(suit_cards_left2)
+        suit_left = sorted(list(set(suit_cards_left1)), key=lambda tup: tup[2], reverse=True)
+        if trick.cards[-1][0] == trick.cards[0][0] and trick.cards[-1][2] < trick.cards[0][2] and trick.cards[-1][2] > suit_left[0][2]: # Player played highest possible non winning card of suit, so does not have any other
+            self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and trick.cards[0][0] not in chunk[1]]
+
+
+        # 4 Inference if card is only possible for one player, delete card from possibles, add card to knowledge
         single_cards = []
         possible_cards = [card[1] for card in self.possibles]
         for card in possible_cards:

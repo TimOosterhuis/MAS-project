@@ -184,7 +184,7 @@ def main():
 
                         pygame.display.update()
                     if game_pause:
-                        pygame.time.delay(1500)
+                        pygame.time.delay(1000)
                     clear_hands(game_display, (205, 205, 255), len(player.closed_cards) + len(player.open_cards),
                                 screen_size)
 
