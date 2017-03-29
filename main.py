@@ -73,7 +73,7 @@ def main():
             print(player.name + " knows (initial) " + str(player.knowledge))
 
     score = {'1' : 0, '2' : 0}
-    #  First rounds                               HE RE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
+    #  First rounds                               HE RE THE GAME BEGINS!!!!!!!!!!!!!!!!!!
     game_pause = True
     for game_round in range(NUM_ROUNDS):
 
