@@ -86,14 +86,22 @@ def main():
         continue_display1 = message_font.render(continue_info1, 1, (0, 0, 0))
         continue_display2 = message_font.render(continue_info2, 1, (0, 0, 0))
 
+        score_update1 = 'South and North:  ' + str(score['1'])
+        score_update2 = 'East and West:    ' + str(score['2'])
+        score_update_display1 = message_font.render(score_update1, 1, (0, 0, 0))
+        score_update_display2 = message_font.render(score_update2, 1, (0, 0, 0))
+        game_display.blit(score_update_display1, (20, screen_size[1]-50))
+        game_display.blit(score_update_display2, (20, screen_size[1]-35))
+
+
         game_display.blit(trump_display, (10, 10))
         game_display.blit(open_close_display, (10, 35))
         game_display.blit(continue_display1, (600, 10))
         game_display.blit(continue_display2, (600, 25))
         game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
         for player in players: # Each following player picks card to play and plays
-            round = True
-            while round:
+            turn = True
+            while turn:
                 run_one_frame = False
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -146,20 +154,33 @@ def main():
                         pla.update_possibles(trick)
                         if debug:
                             print(pla.name + ' Knows (update): ' + str(pla.knowledge))
+
+                    if player.turn == 3:
+                        trick.check_bonus()
+
+                        if game_round == (NUM_ROUNDS - 1):
+                            score[trick.winner.team.nr] += int(trick.score + 10)  # Final round is worth 10 points
+                            end = trick.winner.name + ' wins the final trick with highest card ' + str(
+                                trick.high_card) + ', trick score ' + str(int(trick.score + 10))
+                            print end
+                            end_display = message_font.render(end, 1, (0, 0, 0))
+                            game_display.blit(end_display, (10, screen_size[1] + message_screen_height - 25))
+
+                        else:
+                            score[trick.winner.team.nr] += int(trick.score)  # Score is added to winning team
+                            end = trick.winner.name + ' wins the trick with highest card ' + str(
+                                trick.high_card) + ', trick score ' + str(int(trick.score))
+                            print end
+                            end_display = message_font.render(end, 1, (0, 0, 0))
+                            game_display.blit(end_display, (10, screen_size[1] + message_screen_height - 25))
+
+                        pygame.display.update()
+
+
                     if not game_pause or run_one_frame:
-                        round = False
-        trick.check_bonus()
+                        turn = False
 
-        if game_round == (NUM_ROUNDS-1):
-            score[trick.winner.team.nr] += int(trick.score + 10)  # Final round is worth 10 points
-            print(trick.winner.name + ' wins the final trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score+10)))
-        else:
-            score[trick.winner.team.nr] += int(trick.score)  #  Score is added to winning team
-            print(trick.winner.name + ' wins the trick with highest card ' + str(trick.high_card) + ', trick score ' + str(int(trick.score)))
 
-        score_update = 'South and North: ' + str(score['1']) + '\t East and West: ' + str(score['2'])
-        score_update_display = message_font.render(score_update, 1, (0, 0, 0))
-        game_display.blit(trump_display, (screen_size[0]+(diagram_width/3), 10))
 
 
         players = players[trick.winner.turn:] + players[:trick.winner.turn]  #  Winning player is new starter
@@ -186,6 +207,7 @@ def main():
 
 
     print(score)
+    pygame.time.delay(5000)
 
 
 
