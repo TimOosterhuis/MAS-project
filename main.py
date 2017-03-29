@@ -133,6 +133,33 @@ def main():
                 if not game_pause or run_one_frame:
                     clear_hands(game_display, (205, 205, 255), len(player.closed_cards)+len(player.open_cards), screen_size)
 
+                    for pla in players:
+
+                        for i in range(len(pla.closed_cards)):   # Draw hands closed cards
+                            card = pla.closed_cards[i]
+                            if pla == player:
+                                file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
+                            else:
+                                file_name = 'b.gif'
+                            image, im_rect = load_image(file_name)
+                            game_display.blit(image, calc_offset(pla.name, len(pla.closed_cards)+len(pla.open_cards), screen_size, i))
+
+                        for i in range(len(pla.open_cards)):
+                            card = pla.open_cards[i]
+                            if pla == player:
+                                file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
+                            else:
+                                file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
+                            image, im_rect = load_image(file_name)
+                            game_display.blit(image, calc_offset(pla.name, len(pla.closed_cards)+len(pla.open_cards), screen_size, i+len(pla.closed_cards)))
+
+                        pygame.display.update()
+                    if game_pause:
+                        pygame.time.delay(1500)
+                    clear_hands(game_display, (205, 205, 255), len(player.closed_cards) + len(player.open_cards),
+                                screen_size)
+
+
                     if player == players[0]:
                         print('\nnew round')  # First player plays a card here
                         card, thoughts = players[0].play_card(trump)
@@ -152,6 +179,7 @@ def main():
                     game_display.blit(image, (screen_size[0]/2 + CENTER_POS[player.name][0], screen_size[1]/2 + CENTER_POS[player.name][1]))
 
                     print(player.name + ' plays ' + str(trick.cards[-1]))
+
 
                     for pla in players:
 
@@ -183,6 +211,9 @@ def main():
                         pla.update_possibles(trick)
                         if debug:
                             print(pla.name + ' Knows (update): ' + str(pla.knowledge))
+
+                    if game_pause:
+                        pygame.time.delay(1500)
 
                     if player.turn == 3:
                         trick.check_bonus()
