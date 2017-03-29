@@ -25,6 +25,17 @@ REL_ARC_TO_SELF = {
     'East'  : (40, 50, 50, -pi, 0.5*pi),
 }
 
+REL_LINE_START = {
+    # first number represents the size of the arc, the two numbers after that represent the side of the world the arc starts at
+    # 50 or zero depending on left/right, top/bottom, last two number represent the start and end radial angle to draw
+    'South' : (10, 50, 0, {'East' : (0, 1), 'West' : (-1, 0), 'North' : (-1, 0)}),
+    'West'  : (20, 50, 50, {'South' : (-1, 0), 'East' : (0, -1), 'North' : (0, -1)}),
+    'North' : (30, 0, 50, {'South' : (0, -1), 'West' : (0, -1), 'East' : (1, 0)}),
+    'East'  : (40, 0, 0, {'South' : (0, 1), 'West' : (1, 0), 'North' : (1, 0)}),
+}
+
+
+
 def draw_model(screen, players, card, left, top, width, height):
     for player in players:
         world_node = pygame.Rect(left + HAS_CARD_DICT[player.name][0] * width, top + HAS_CARD_DICT[player.name][1] * height, 50, 50)
@@ -48,8 +59,12 @@ def draw_model(screen, players, card, left, top, width, height):
                 pygame.draw.arc(screen, REL_COLOR_DICT[player.name], world_node, REL_ARC_TO_SELF[true_card_owner][3],
                                 REL_ARC_TO_SELF[true_card_owner][4], 2)
             else:
-                start_pos = (left + HAS_CARD_DICT[true_card_owner][0] * width, top + HAS_CARD_DICT[true_card_owner][1] * height)
-                end_pos = (left + HAS_CARD_DICT[relation[0]][0] * width, top + HAS_CARD_DICT[relation[0]][1] * height)
+                w_start_l = left + HAS_CARD_DICT[true_card_owner][0] * width + (REL_LINE_START[player.name][0] * REL_LINE_START[true_card_owner][3][relation[0]][0]) + REL_LINE_START[true_card_owner][1]
+                w_start_t = top + HAS_CARD_DICT[true_card_owner][1] * height + (REL_LINE_START[player.name][0] * REL_LINE_START[true_card_owner][3][relation[0]][1]) + REL_LINE_START[true_card_owner][2]
+                w_stop_l = left + HAS_CARD_DICT[relation[0]][0] * width + (REL_LINE_START[player.name][0] * REL_LINE_START[relation[0]][3][true_card_owner][0]) + REL_LINE_START[relation[0]][1]
+                w_stop_t = top + HAS_CARD_DICT[relation[0]][1] * height + (REL_LINE_START[player.name][0]  * REL_LINE_START[relation[0]][3][true_card_owner][1]) + REL_LINE_START[relation[0]][2]
+                start_pos = (w_start_l, w_start_t)
+                end_pos = (w_stop_l, w_stop_t)
                 pygame.draw.line(screen, REL_COLOR_DICT[player.name], start_pos, end_pos, 2)
 
 
