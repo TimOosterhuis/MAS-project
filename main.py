@@ -233,11 +233,12 @@ def main():
                         pygame.display.update()
 
                         try:  #  Knowledge update for all players
-                            pla.knowledge.remove((player, trick.cards[-1], False))
+                            pla.knowledge.remove((trick.players[-1].name, trick.cards[-1], False))
                         except ValueError:
                             pass
-                        pla.knowledge.append((player, trick.cards[-1], True))
+                        pla.knowledge.append((trick.players[-1].name, trick.cards[-1], True))
                         pla.update_possibles(trick)
+
                         if debug:
                             print(pla.name + ' Knows (update): ' + str(pla.knowledge))
 
