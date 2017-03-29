@@ -74,10 +74,13 @@ def main():
     #  First rounds                               HE RE THE GAME BEGINS!!!!!!!!!!!!!!!!!!!
     game_pause = True
     for game_round in range(NUM_ROUNDS):
+
         game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
+
         for i in range(len(PLAYERS)):
             name_display = name_font.render(PLAYERS[i], 1, (0, 0, 0))
             game_display.blit(name_display, name_pos(PLAYERS[i], 8, screen_size))
+
         trump_display = name_font.render(str(trump) + ' is trump', 1, (0, 0, 0))
         open_close_info = 'Game with ' + str(OPEN_CARDS) + ' open cards and ' + str(CLOSED_CARDS) + ' cards.'
         open_close_display = message_font.render(open_close_info, 1, (0, 0, 0))
@@ -90,11 +93,23 @@ def main():
         game_display.blit(open_close_display, (10, 35))
         game_display.blit(continue_display1, (600, 10))
         game_display.blit(continue_display2, (600, 25))
+
         game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
+
+        game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
+        model_title = 'Card knowledge of the current player:'
+        model_title_display = name_font.render(model_title, 1, (0, 0, 0))
+        game_display.blit(model_title_display, (screen_size[0] + 10, 10))
+        dropdown = pygame.Rect(screen_size[0] + 10, 35, 100, 20)
+        pygame.draw.rect(game_display, (0, 0, 0), dropdown, 1)
+
         for player in players: # Each following player picks card to play and plays
             round = True
             while round:
-                run_one_frame = False
+                if player == players[0] and game_round == 0:
+                    run_one_frame = True
+                else:
+                    run_one_frame = False
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         return
@@ -104,6 +119,10 @@ def main():
                             print('PAUSED ' + str(game_pause))
                         if event.key == pygame.K_RIGHT:
                             run_one_frame = True
+                x, y = pygame.mouse.get_pos()
+
+
+
                 if not game_pause or run_one_frame:
                     clear_hands(game_display, (205, 205, 255), len(player.closed_cards), screen_size)
 

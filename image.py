@@ -26,7 +26,7 @@ CENTER_POS = {
 
 
 
-def calc_rect(player, num_cards, screen_size):  #  Rogier should use this calc_rect
+def calc_rect_R(player, num_cards, screen_size):  #  Rogier should use this calc_rect
     width = 75
     height = 100
     if player in ['South', 'North']:
@@ -39,7 +39,7 @@ def calc_rect(player, num_cards, screen_size):  #  Rogier should use this calc_r
         left = screen_size[0] - 85 if player == 'East' else screen_size[0] * (5/6) + 10
     return left, top, width, height
 
-def calc_rect_T(player, num_cards, screen_size):  #  Tim should use this calc_rect
+def calc_rect(player, num_cards, screen_size):  #  Tim should use this calc_rect
     width = 75
     height = 100
     if player in ['South', 'North']:
