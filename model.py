@@ -26,8 +26,6 @@ REL_ARC_TO_SELF = {
 }
 
 REL_LINE_START = {
-    # first number represents the size of the arc, the two numbers after that represent the side of the world the arc starts at
-    # 50 or zero depending on left/right, top/bottom, last two number represent the start and end radial angle to draw
     'South' : (10, 50, 0, {'East' : (0, 1), 'West' : (-1, 0), 'North' : (-1, 0)}),
     'West'  : (20, 50, 50, {'South' : (-1, 0), 'East' : (0, -1), 'North' : (0, -1)}),
     'North' : (30, 0, 50, {'South' : (0, -1), 'West' : (0, -1), 'East' : (1, 0)}),
