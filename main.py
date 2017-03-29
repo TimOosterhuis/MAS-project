@@ -158,9 +158,9 @@ def main():
                     if x_hover_dropdown and dropdown.top < y:
                         i = int((y - 35) / 20 - 1)
                         card = ordered_cards[i]
-                        picked_card = message_font.render(card[1] + ' of ' + card[0], 1, (0, 0, 0))
+                        picked_card = message_font.render('card is: ' + card[1] + ' of ' + card[0], 1, (0, 0, 0))
                         game_display.blit(picked_card, (screen_size[0] + 50, 100))
-                        draw_model(game_display, players, card, screen_size[0], 55, diagram_width, screen_size[1] - 55)
+                        draw_model(game_display, players, message_font, card, screen_size[0], 55, diagram_width, screen_size[1] - 55)
                     pygame.display.update()
                     select_available = False
                 if not game_pause or run_one_frame:

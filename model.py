@@ -36,15 +36,27 @@ REL_LINE_START = {
 
 
 
-def draw_model(screen, players, card, left, top, width, height):
+def draw_model(screen, players, font, card, left, top, width, height):
+
     for player in players:
-        world_node = pygame.Rect(left + HAS_CARD_DICT[player.name][0] * width, top + HAS_CARD_DICT[player.name][1] * height, 50, 50)
+        legend = font.render(player.name, 1, REL_COLOR_DICT[player.name])
+        screen.blit(legend, (left + 50, top + 45 + REL_ARC_TO_SELF[player.name][0] * 1.5))
+        w_left = left + HAS_CARD_DICT[player.name][0] * width
+        w_top = top + HAS_CARD_DICT[player.name][1] * height
+        world_node = pygame.Rect(w_left, w_top, 50, 50)
         print(world_node.left, world_node.top)
         if card in player.own_cards:
             true_card_owner = player.name
             pygame.draw.rect(screen, (225, 225, 0), world_node, 5)
         else:
             pygame.draw.rect(screen, (0, 0, 0), world_node, 1)
+        display_a = font.render(player.name, 1, (1, 1, 1))
+        screen.blit(display_a, (w_left + 8, w_top))
+        display_b = font.render('has', 1, (1, 1, 1))
+        screen.blit(display_b, (w_left + 15, w_top + 15))
+        display_c = font.render('card', 1, (1, 1, 1))
+        screen.blit(display_c, (w_left + 12, w_top + 30))
+
     for player in players:
         relations = [world for world in player.knowledge if world[1] == card]
         relations.extend([world for world in player.possibles if world[1] == card])
