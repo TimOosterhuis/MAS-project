@@ -30,11 +30,13 @@ def main():
     #initialize randomized cards and trump
     trump = SUITS[random.randint(0,3)]
     print(str(trump) + ' is trump')
+    ordered_cards = []
     cards = []
     for suit in SUITS:
         ranks = NORMAL_POINTS if suit != trump else TRUMP_POINTS
         for rank in ranks:
-            cards.append((suit, rank, ranks[rank]))
+            ordered_cards.append((suit, rank, ranks[rank]))
+    cards = list(ordered_cards)
     random.shuffle(cards)
     # print(cards)
     # initialize players
@@ -104,15 +106,18 @@ def main():
 
         game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
 
-        game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
         model_title = 'Card knowledge of the current player:'
         model_title_display = name_font.render(model_title, 1, (0, 0, 0))
         game_display.blit(model_title_display, (screen_size[0] + 10, 10))
-        dropdown = pygame.Rect(screen_size[0] + 10, 35, 100, 20)
+        dropdown = pygame.Rect(screen_size[0] + 10, 35, 150, 20)
         pygame.draw.rect(game_display, (0, 0, 0), dropdown, 1)
+        dropdown_display = message_font.render('choose a card', 1, (0, 0, 0))
+        game_display.blit(dropdown_display, ((dropdown.left + 5), dropdown.top))
 
         for player in players: # Each following player picks card to play and plays
             turn = True
+            menu_open = False
+            select_available = False
             while turn:
                 if player == players[0] and game_round == 0:
                     run_one_frame = True
@@ -128,9 +133,31 @@ def main():
                         if event.key == pygame.K_RIGHT:
                             run_one_frame = True
                 x, y = pygame.mouse.get_pos()
-
-
-
+                m_pressed = pygame.mouse.get_pressed()
+                x_hover_dropdown = dropdown.left < x < dropdown.left + dropdown.width
+                y_hover_dropdown = dropdown.top < y < dropdown.top + dropdown.height
+                if x_hover_dropdown and y_hover_dropdown and m_pressed[0]:
+                    for i in range(1, len(ordered_cards) + 1):
+                        dropdown_opt = pygame.Rect(screen_size[0] + 10, 35 + 20*i, 150, 20)
+                        pygame.draw.rect(game_display, (255, 255, 255), dropdown_opt, 0)
+                        pygame.draw.rect(game_display, (0, 0, 0), dropdown_opt, 1)
+                        card = ordered_cards[i - 1]
+                        card_display = message_font.render(card[1] + ' of ' + card[0], 1, (0, 0, 0))
+                        game_display.blit(card_display, ((dropdown_opt.left + 5), dropdown_opt.top))
+                    pygame.display.update()
+                    menu_open = True
+                if menu_open and not m_pressed[0]:
+                    select_available = True
+                if select_available and m_pressed[0]:
+                    game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 55, diagram_width, screen_size[1] + message_screen_height - 55))
+                    pygame.draw.line(game_display, (0, 0, 0), (screen_size[0], screen_size[1]), (screen_size[0] + diagram_width, screen_size[1]), 2)
+                    if x_hover_dropdown and dropdown.top < y:
+                        i = int((y - 35) / 20 - 1)
+                        card = ordered_cards[i]
+                        picked_card = message_font.render(card[1] + ' of ' + card[0], 1, (0, 0, 0))
+                        game_display.blit(picked_card, (screen_size[0] + 50, 100))
+                    pygame.display.update()
+                    select_available = False
                 if not game_pause or run_one_frame:
                     clear_hands(game_display, (205, 205, 255), len(player.closed_cards), screen_size)
 
