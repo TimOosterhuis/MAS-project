@@ -35,7 +35,9 @@ def draw_model(screen, players, card, left, top, width, height):
     for player in players:
         relations = [world for world in player.knowledge if world[1] == card]
         relations.extend([world for world in player.possibles if world[1] == card])
+        print(relations)
         for relation in relations:
+
             if true_card_owner == relation[0]:
                 world_node = pygame.Rect(left + HAS_CARD_DICT[true_card_owner][0] * width + REL_ARC_TO_SELF[true_card_owner][1],
                                          top + HAS_CARD_DICT[true_card_owner][1] * height + REL_ARC_TO_SELF[true_card_owner][2],
@@ -46,7 +48,7 @@ def draw_model(screen, players, card, left, top, width, height):
                 start_pos = (left + HAS_CARD_DICT[true_card_owner][0] * width, top + HAS_CARD_DICT[true_card_owner][1] * height)
                 end_pos = (left + HAS_CARD_DICT[relation[0]][0] * width, top + HAS_CARD_DICT[relation[0]][1] * height)
                 pygame.draw.line(screen, REL_COLOR_DICT[player.name], start_pos, end_pos, 2)
-            print('drew_line')
+
 
 
 
