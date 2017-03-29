@@ -5,7 +5,7 @@
 #also contains function to determine legally playable cards
 #-----------------------------------------------------------------------------------------------------------------------
 debug = False
-explain = True
+explain = False
 
 SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
 

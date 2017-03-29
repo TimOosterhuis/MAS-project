@@ -20,7 +20,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
         thought = player.name + ' can only play one card'
         thoughts.append(thought)
         if explain:
-            print()
+            print(thoughts)
         return cards[0], thoughts # speel je enige kaart
     elif not trick: # je komt uit
 
