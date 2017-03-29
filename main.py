@@ -277,7 +277,7 @@ def main():
     game_display.blit(score_update_display1, (20, screen_size[1] - 50))
     game_display.blit(score_update_display2, (20, screen_size[1] - 35))
     pygame.display.update()
-    pygame.time.delay(5000)
+    pygame.time.delay(2500)
 
 
 
