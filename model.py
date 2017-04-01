@@ -32,6 +32,7 @@ REL_LINE_START = {
     'East'  : (40, 0, 0, {'South' : (0, 1), 'West' : (1, 0), 'North' : (1, 0)}),
 }
 
+# def draw_trump(player):
 
 
 def draw_model(screen, players, font, card, left, top, width, height):

@@ -19,7 +19,7 @@ def main():
     clock = pygame.time.Clock()
     screen_size = (900, 600)  # place_holder for board size
     diagram_width = 600
-    message_screen_height = 100
+    message_screen_height = 150
     game_display = pygame.display.set_mode((screen_size[0] + diagram_width, screen_size[1] + message_screen_height))
     game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
     game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
@@ -211,9 +211,9 @@ def main():
                     file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
                     image, im_rect = load_image(file_name)
                     game_display.blit(image, (screen_size[0]/2 + CENTER_POS[player.name][0], screen_size[1]/2 + CENTER_POS[player.name][1]))
-
-                    print(player.name + ' plays ' + str(trick.cards[-1]))
-
+                    public_ann_played_card = 'public announcement: ' + player.name + ' plays ' + trick.cards[-1][1] + ' of ' + trick.cards[-1][0]
+                    played_card_display = message_font.render(public_ann_played_card, 1, (0, 0, 0))
+                    game_display.blit(played_card_display, (10, screen_size[1] + message_screen_height - 50))
 
                     for pla in players:
 
