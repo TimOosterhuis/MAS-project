@@ -63,14 +63,14 @@ class Player:
         # 2 Inference if player does not have asked suit anymore (then delete this suit of that player from possibles)
         if trick.cards[-1][0] != trick.cards[0][0]:
             notices.append('Public announcement: ' + trick.players[-1].name + ' no longer has ' + trick.cards[0][0] + '!')
-            self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and trick.cards[0][0] not in chunk[1]]
+            self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk or trick.cards[0][0] not in chunk[1]]
             if trick.players[-1].team != trick.winner.team and trick.cards[-1][0] != trick.trump:  # Laatste speler gooit geen troef op en zit niet op winnende team
                 if trick.high_card[0] == trick.trump:  # maar er is wel getroefd:
                     higher_trumps = [chunk for chunk in self.possibles if trick.players[-1].name in chunk and chunk[1][0] == trick.trump and chunk[1][2] > trick.high_card[2]]
                     self.possibles = [chunk for chunk in self.possibles if chunk not in higher_trumps ]
-                    notices.append('Public announcement: ' + trick.players[-1].name + ' has no ' + trick.trump + ' higher than ' + str(trick.high_card[2]) + '!')
+                    notices.append('Public announcement: ' + trick.players[-1].name + ' has no ' + trick.trump + ' higher than ' + trick.high_card[1] + '!')
                 else: #  Nog niet getroefd, dus players[-1] heeft helemaal geen troef meer
-                    self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and chunk[1][0] != trick.trump]
+                    self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk or chunk[1][0] != trick.trump]
                     notices.append('Public announcement: ' + trick.players[-1].name + ' no longer has ' + trick.trump + '!')
 
         # 3 Inference if player plays card that is the card below the highest card, then he doesn't have any other
@@ -80,7 +80,8 @@ class Player:
         suit_left = sorted(list(set(suit_cards_left1)), key=lambda tup: tup[2], reverse=True)
         if suit_left != []:
             if trick.cards[-1][0] == trick.cards[0][0] and trick.cards[-1][2] < trick.cards[0][2] and trick.cards[-1][2] > suit_left[0][2]: # Player played highest possible non winning card of suit, so does not have any other
-                self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and trick.cards[0][0] not in chunk[1]]
+                self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk or trick.cards[0][0] not in chunk[1]]
+                notices.append('Public announcement: ' + trick.players[-1].name + ' no longer has ' + trick.cards[0][0] + 'lower than ' + trick.cards[-1][1] + '!')
 
 
         # 4 Inference if card is only possible for one player, delete card from possibles, add card to knowledge
