@@ -54,6 +54,7 @@ class Player:
             print('\n' + self.name + ' holds for possible (initial): ' + str(self.possibles))
 
     def update_possibles(self, trick):
+        notices = []
         if debug:
             print(self.name + ' holds for possible (before possible update): ' + str(self.possibles))
         # 1 Delete last trick card from possibles
@@ -61,13 +62,16 @@ class Player:
 
         # 2 Inference if player does not have asked suit anymore (then delete this suit of that player from possibles)
         if trick.cards[-1][0] != trick.cards[0][0]:
+            notices.append('Public announcement: ' + trick.players[-1].name + ' no longer has ' + trick.cards[0][0] + '!')
             self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and trick.cards[0][0] not in chunk[1]]
             if trick.players[-1].team != trick.winner.team and trick.cards[-1][0] != trick.trump:  # Laatste speler gooit geen troef op en zit niet op winnende team
                 if trick.high_card[0] == trick.trump:  # maar er is wel getroefd:
                     higher_trumps = [chunk for chunk in self.possibles if trick.players[-1].name in chunk and chunk[1][0] == trick.trump and chunk[1][2] > trick.high_card[2]]
                     self.possibles = [chunk for chunk in self.possibles if chunk not in higher_trumps ]
+                    notices.append('Public announcement: ' + trick.players[-1].name + ' has no ' + trick.trump + ' higher than ' + trick.high_card[2] + '!')
                 else: #  Nog niet getroefd, dus players[-1] heeft helemaal geen troef meer
                     self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk and chunk[1][0] != trick.trump]
+                    notices.append('Public announcement: ' + trick.players[-1].name + ' no longer has ' + trick.trump + '!')
 
         # 3 Inference if player plays card that is the card below the highest card, then he doesn't have any other
         suit_cards_left1 = [chunk[1] for chunk in self.knowledge if chunk[1][0] == trick.cards[0][0] and chunk[2] == False]
@@ -94,3 +98,4 @@ class Player:
 
         if debug:
             print(self.name + ' holds for possible (after possible update): ' + str(self.possibles))
+        return notices

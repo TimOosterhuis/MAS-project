@@ -117,6 +117,7 @@ def main():
         game_display.blit(dropdown_display, ((dropdown.left + 5), dropdown.top))
 
         for player in players: # Each following player picks card to play and plays
+            message_counter = 0
             turn = True
             menu_open = False
             select_available = False
@@ -205,7 +206,8 @@ def main():
                     game_display.fill((255, 255, 255), pygame.Rect(0, screen_size[1] + 2, screen_size[0] + diagram_width, message_screen_height))
                     for i in range(len(thoughts)):
                         message = message_font.render(thoughts[i], 1, (0, 0, 0))
-                        game_display.blit(message, (10, screen_size[1] + 10 + (i * 20)))
+                        game_display.blit(message, (10, screen_size[1] + 10 + (message_counter * 20)))
+                        message_counter += 1
                     # Draw trick
                     card = trick.cards[-1]
                     file_name = IMAGE_DICT[card[1]] + IMAGE_DICT[card[0]] + '.gif'
@@ -213,8 +215,9 @@ def main():
                     game_display.blit(image, (screen_size[0]/2 + CENTER_POS[player.name][0], screen_size[1]/2 + CENTER_POS[player.name][1]))
                     public_ann_played_card = 'public announcement: ' + player.name + ' plays ' + trick.cards[-1][1] + ' of ' + trick.cards[-1][0]
                     played_card_display = message_font.render(public_ann_played_card, 1, (0, 0, 0))
-                    game_display.blit(played_card_display, (10, screen_size[1] + message_screen_height - 50))
-
+                    game_display.blit(played_card_display, (10, screen_size[1] + 10 + (message_counter * 20)))
+                    message_counter += 1
+                    pa_updated = False
                     for pla in players:
 
                         for i in range(len(pla.closed_cards)):   # Draw hands closed cards
@@ -242,7 +245,13 @@ def main():
                         except ValueError:
                             pass
                         pla.knowledge.append((trick.players[-1].name, trick.cards[-1], True))
-                        pla.update_possibles(trick)
+                        notices = pla.update_possibles(trick)
+                        if not pa_updated:
+                            for i in range(len(notices)):
+                                message = message_font.render(notices[i], 1, (0, 0, 0))
+                                game_display.blit(message, (10, screen_size[1] + 10 + (message_counter * 20)))
+                                message_counter += 1
+                            pa_updated = True
 
                         if debug:
                             print(pla.name + ' Knows (update): ' + str(pla.knowledge))
