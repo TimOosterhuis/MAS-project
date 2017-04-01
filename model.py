@@ -46,7 +46,6 @@ def draw_model(screen, players, font, card, left, top, width, height):
         w_left = left + HAS_CARD_DICT[player.name][0] * width
         w_top = top + HAS_CARD_DICT[player.name][1] * height
         world_node = pygame.Rect(w_left, w_top, 50, 50)
-        print(world_node.left, world_node.top)
         if card in player.own_cards:
             true_card_owner = player.name
             pygame.draw.rect(screen, (225, 225, 0), world_node, 5)
@@ -62,7 +61,6 @@ def draw_model(screen, players, font, card, left, top, width, height):
     for player in players:
         relations = [world for world in player.knowledge if world[1] == card]
         relations.extend([world for world in player.possibles if world[1] == card])
-        print(relations)
         for relation in relations:
 
             if true_card_owner == relation[0]:
