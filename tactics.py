@@ -90,6 +90,26 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                         if explain:
                             print(thought)
                         return card, thoughts
+                elif len(KM_opp0) >= 0 and len(KM_opp1) == 0:
+                    if card[2] > KM_opp0[0][1][2]:
+                        thought = player.name + ' has checked all cards from high to low value, and thinks the opponents do not have a higher value card than:'
+                        thoughts.append(thought)
+                        if explain:
+                            print(thought)
+                        return card, thoughts
+                elif len(KM_opp0) == 0 and len(KM_opp1) >= 1:
+                    if card[2] > KM_opp1[0][1][2]:
+                        thought = player.name + ' has checked all cards from high to low value, and thinks the opponents do not have a higher value card than:'
+                        thoughts.append(thought)
+                        if explain:
+                            print(thought)
+                        return card, thoughts
+                elif len(KM_opp0) == 0 and len(KM_opp1) == 0:
+                    thought = player.name + ' has checked all cards from high to low value, and thinks the opponents do not have this suit anymore:'
+                    thoughts.append(thought)
+                    if explain:
+                        print(thought)
+                    return card, thoughts
             thought = player.name + ' has checked all his cards, and does not think it can win this round, therefor plays his lowest card'
             thoughts.append(thought)
             if explain:
@@ -115,7 +135,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                     print(thought)
                 return high_cards[-1], thoughts
             elif high_cards[0][2] > trick.cards[0][2] and high_cards[0][2] > KM_opp1_s[0][1][2]: # Als mogelijke kaart ook hoger is dan hoogst mogelijke kaart van andere tegenstander
-                thought = player.name + ' has trump and trump is asked'
+                thought = player.name + ' knows his highest value card is of higher value than the highest possible card that his opponent can have, and thus plays that one'
                 thoughts.append(thought)
                 if explain:
                     print(player.name + ' knows his highest value card is of higher value than the highest possible card that his opponent can have, and thus plays that one')
