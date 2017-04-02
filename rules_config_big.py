@@ -56,7 +56,8 @@ def playable(cards, team, trick = None):
             if suit_cards != []:  # Player heeft nog suit
                 playable_cards = suit_cards
             else:  # Player heeft geen suit meer
-                if trick.winner.team != team:  # partner heeft niet hoogste kaart (of nog geen partner gespeeld)
+                if trick.winner.team.nr != team.nr:  # partner heeft niet hoogste kaart (of nog geen partner gespeeld)
+
                     if trick.high_card[0] == trick.trump:  # als er is ingetroefd
                         if higher_trump_cards != []:  # player kan overtroeven
                             playable_cards = higher_trump_cards

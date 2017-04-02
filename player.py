@@ -64,7 +64,7 @@ class Player:
         if trick.cards[-1][0] != trick.cards[0][0]:
             notices.append('Public announcement: ' + trick.players[-1].name + ' no longer has ' + trick.cards[0][0] + '!')
             self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk or trick.cards[0][0] not in chunk[1]]
-            if trick.players[-1].team != trick.winner.team and trick.cards[-1][0] != trick.trump:  # Laatste speler gooit geen troef op en zit niet op winnende team
+            if trick.players[-1].team.nr != trick.winner.team.nr and trick.cards[-1][0] != trick.trump:  # Laatste speler gooit geen troef op en zit niet op winnende team
                 if trick.high_card[0] == trick.trump:  # maar er is wel getroefd:
                     higher_trumps = [chunk for chunk in self.possibles if trick.players[-1].name in chunk and chunk[1][0] == trick.trump and chunk[1][2] > trick.high_card[2]]
                     self.possibles = [chunk for chunk in self.possibles if chunk not in higher_trumps ]

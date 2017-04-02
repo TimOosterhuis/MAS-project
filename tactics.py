@@ -37,6 +37,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
             opt = KM_suit(player, other_team[0], trump)
             op2 = KM_suit(player, other_team[1], trump)
             opt.extend(op2)
+            print opt
 
             if trump_cards != []:   # Player still has trump cards
 
@@ -90,7 +91,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                         if explain:
                             print(thought)
                         return card, thoughts
-                elif len(KM_opp0) >= 0 and len(KM_opp1) == 0:
+                elif len(KM_opp0) >= 1 and len(KM_opp1) == 0:
                     if card[2] > KM_opp0[0][1][2]:
                         thought = player.name + ' has checked all cards from high to low value, and thinks the opponents do not have a higher value card than:'
                         thoughts.append(thought)
@@ -297,7 +298,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                     if explain:
                         print(thought)
                     return high_cards[-1], thoughts  # vierde speler geen troef, maar geen hogere kaart dan tweede
-            elif high_cards[0][2] > trick.cards[1][2] and high_cards[0][2] > KM_opp1_s[0][1][2]:  # vierde speler nog suit, maar kaart hoger dan hoogste van suit en tweede kaart
+            elif high_cards[0][0] == trick.cards[0][0] and high_cards[0][2] > trick.cards[1][2] and high_cards[0][2] > KM_opp1_s[0][1][2]:  # vierde speler nog suit, maar kaart hoger dan hoogste van suit en tweede kaart
                 if high_cards[0][2] < trick.cards[0][2]:
                     thought = player.name + ' thinks he has a higher card than the played one and one his opponent may play, but his teammate has an even higher one. So he plays a low card'
                     thoughts.append(thought)
@@ -324,7 +325,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                 print(thought)
             return high_cards[-1], thoughts
     else:  # Player mag als vierde uitkomen
-        if trick.winner.team != player.team and high_cards[0][0] == trick.high_card[0] and high_cards[0][2] > trick.high_card[2]:
+        if trick.winner.team.nr != player.team.nr and high_cards[0][0] == trick.high_card[0] and high_cards[0][2] > trick.high_card[2]:
             thought = player.name + ' is on the losing team, but has higher cards than the winning card, and thus plays this'
             thoughts.append(thought)
             if explain:
@@ -346,8 +347,8 @@ def unplayed_trumps(player):
 
 
 def KM_suit(player, other_player, suit):
-    K_opp_suit = [chunk for chunk in player.knowledge if chunk[0] == other_player and chunk[1][0] == suit]
-    M_opp_suit = [chunk for chunk in player.possibles if chunk[0] == other_player and chunk[1][0] == suit]
+    K_opp_suit = [chunk for chunk in player.knowledge if chunk[0] == other_player and chunk[1][0] == suit and not chunk[2]]
+    M_opp_suit = [chunk for chunk in player.possibles if chunk[0] == other_player and chunk[1][0] == suit and not chunk[2]]
     K_opp_suit.extend(M_opp_suit)
     to_return = sorted(K_opp_suit, key=lambda tup:tup[1][2], reverse=True)
     return to_return
