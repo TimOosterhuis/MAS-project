@@ -1,1 +1,1 @@
-[Link](https://github.com/TimOosterhuis/MAS-project/blob/master/test.md)
+[Link](https://timoosterhuis.github.io/MAS-project/test.md)
