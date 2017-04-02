@@ -1,11 +1,5 @@
 ![Model beginning game](/site_images/model.png)
 
-# The Game
-Klaverjassen is a strategic card game frequently played among Dutch students. It is played with two teams of four players. The goal of the game is to score 1500 points before the other team does. The game consists of a number of hands where points can be gained. The objective of each hand is to collect more points than the other team. Every card from 7 and up is used for the game, this comes down to a total of 32 cards. These 32 cards are divided evenly between every player, this means that everyone receives 8 cards at the beginning of each hand. Every player can only see their own cards.
-
-## Rules
-Points are scored by winning tricks. The player that plays the highest card in a trick receives all of the cards played that trick. The ranking of the cards is displayed in table 1. Every hand the cards of one of the four suits are the trump cards. As displayed in table 2 the trump cards have a different ranking and value than the normal suits. All trump cards also rank higher than the cards from other suits. Trumps can be decided in a number of ways. In this project, for the sake of simplicity, the trump is decided at random. A number of rules have to be followed for every trick. At the beginning of every hand the person that can start playing a card at the first trick is determined by a clockwise order. This person can decide which suit will be asked that trick. Every other player has to follow suit. If a player is not able to follow suit and the highest card at that moment belongs to one of the players of the other team, he or she has to play a trump card. If the player has no trump cards, any other card can be played. When a trump card is played, the players from the other team have to play a higher trump, if possible.
-
 # Object Oriented View of logical Klaverjas playing
 Cards are modeled like a tuple holding the suit, the name of the card and the point value. For example: (‘hearts’, ‘king’, 4) is the tuple representing the king of hearts cards which is worth 4 points.
 
@@ -72,11 +66,15 @@ Excluding graphical details in this explanation, this where the match happens by
 
 ## game display
 
-In main.py the game is also rendered to the game_display using pygame. The game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom.
+In main.py the game is also rendered to the game_display using pygame. Pygame allows the drawing of stock images (such as the cards in the card playing gui, see below) The game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom. 
+
+###### card playing gui
 
 ![card gui](/site_images/card_play_gui.png)
 
-In the card playing gui (pictured above) the game plays out and the cards of the currently playing player are visible, as well as the open cards of the other players, if any. For visual effect there is a small
+The card gui (pictured above) is mainly there to make the progress of the game insightful to human observers and provide viewing ease. In the card playing gui the entire game plays out turn by turn and the cards of the currently playing player are visible, as well as the open cards of the other players, if any. On each turn there is a small delay before the played card gets put into the center, to create the visual effect of a player putting a card in the center. In the card playing gui there is also some extra information, including the score, number of open cards, which suit is trump and instructions for the human oberver to go to the next turn or skip to the end of the game.
+
+###### message box
 
 ![message_box](/site_images/message_box.png)
 
