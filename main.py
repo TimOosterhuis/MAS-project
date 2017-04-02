@@ -7,7 +7,7 @@ import pygame
 from image import *
 from model import draw_model
 
-debug = True
+debug = False
 
 #-----------------------------------------------------------------------------------------------------------------------
 #Main, plays through one iteration of a game of klaverjassen
