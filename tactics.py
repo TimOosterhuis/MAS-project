@@ -37,6 +37,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
             opt = KM_suit(player, other_team[0], trump)
             op2 = KM_suit(player, other_team[1], trump)
             opt.extend(op2)
+            print opt
 
             if trump_cards != []:   # Player still has trump cards
 
@@ -346,8 +347,8 @@ def unplayed_trumps(player):
 
 
 def KM_suit(player, other_player, suit):
-    K_opp_suit = [chunk for chunk in player.knowledge if chunk[0] == other_player and chunk[1][0] == suit]
-    M_opp_suit = [chunk for chunk in player.possibles if chunk[0] == other_player and chunk[1][0] == suit]
+    K_opp_suit = [chunk for chunk in player.knowledge if chunk[0] == other_player and chunk[1][0] == suit and not chunk[2]]
+    M_opp_suit = [chunk for chunk in player.possibles if chunk[0] == other_player and chunk[1][0] == suit and not chunk[2]]
     K_opp_suit.extend(M_opp_suit)
     to_return = sorted(K_opp_suit, key=lambda tup:tup[1][2], reverse=True)
     return to_return
