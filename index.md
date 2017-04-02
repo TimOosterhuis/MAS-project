@@ -8,17 +8,15 @@ Points are scored by winning tricks. The player that plays the highest card in a
 # Object Oriented View of logical Klaverjas playing
 Cards are modeled like a tuple holding the suit, the name of the card and the point value. For example: (‘hearts’, ‘king’, 4) is the tuple representing the king of hearts cards which is worth 4 points.
 
-Classes and functions:
-
-## Team Class:
+#### Team Class:
 This is a data class holding only the number of the team (1 or 2) and the names of the players in it.
 
-## Trick Class:
+#### Trick Class:
 This class holds multiple attributes for each round, which include: each played cards, score of the round, the winning player, the highest card, what is trump and which players played a card in a certain order.
 It also holds a function that handles the adding of a new card to the round. The card and player are added to the attributes, the value of the new card is added to the score and if the card trumps the others or is of higher value the winner and high card attributes are also updated.
 The last functions check the bonus that might be provided at the end of the round, and adds these to the score.
 
-## Player Class:
+#### Player Class:
 Variables for this class are:
 -	team, a Team class instance
 -	closed_cards, a list holding the closed cards as tuples
@@ -40,10 +38,10 @@ Create_possibles() creates the possibles list. It looks at all the cards that ar
 -	If a player played a card that in rank is one lower than the highest already played card, this means that he/she cannot play a lower value card (in our setting of the game, this is not true in real life), so the player does not have any other cards of that suit left, and the suitable combinations are removed from the possibles list. For example: South starts with the ace of spades and West follows with the ten of spades. This means he has no other spades cards, and all combinations of West and spades are removed from the possibles list
 -	Finally, when a card is only found once in the possibles list it is not possible anymore, but sure knowledge. The card is then removed from the possibles list and added to the knowledge list. For example, South has two trump cards left, and because East and West have not responded with trump cards when these were played the remaining trump cards are all in North’s possession.
 
-## Rules_config_big.py
+#### Rules_config_big.py
 This file holds all information about the actual game, so the names of the suits are stored here, as well as the names of the players, the ranking and points of non-trump cards as well as the ranking and points of trump cards. The number of players, the number of rounds and the number of open and closed cards are also stored here. The number of closed cards is set manually to 8, but can be reduced so that players have more knowledge about the cards of the other players at the start of the game. The most interesting part of this file is the playable() function, that receives a list of cards, the team and the trick if there is any. If there is no trick, all cards are immediately returned as this means that the first player can play any card from his/her hand. If trump is asked, a list of higher trumps is first returned. If this does not exist a list of lower trump cards is returned. If this also doesn’t exist all cards are returned. When suit is called and the player still has suit left, all suit cards are returned. If the player does not have suit left and is on the losing team, all (higher) trump cards are returned if available, in all other cases all cards are returned.
 
-## Tactics.py
+#### Tactics.py
 This file holds three functions, the first being unplayed_trumps(), which returns all trump card that can still be played by any of the layers. The second function KM_suit searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like KM_suit(‘South’, ‘West’, ‘hearts’) and will return a sorted list with all instances in the knowledge and possibles lists of South where (‘West’, (‘Hearts’, _, _)False) is true.
 The most important and longest function in tactics.py Is find_best_card(), which receives the playable cards of a player, that player instance and the trick instance. This function returns one card if that is the only possible card, otherwise it analyses the turn of the player and goes through some options for each turn; For the first turn:
 If there are still trump cards in play, and
@@ -63,7 +61,7 @@ Again, this player looks at his own cards, the cards played and what he thinks t
 For the fourth player:
 This player knows if he can win this trick with his available cards or not, and so will try to win the trick with the highest card capable of that if he is on the losing team. If he cannot win or his team already wins this trick he will play his lowest playable card.
 
-## Main.py
+#### Main.py
 Excluding graphical details in this explanation, this where the match happens by our logical players. Here trump is chosen at random, the player instances are initialized and the cards are shuffled and dealt between the players. When this is done the knowledge of each player is created at the hand of their own cards and the open cards if any. When this is done each player assesses what he thinks is possible, and then South may start the match by playing his first card. In eight rounds, after each card is played the thoughts of the player are shown. After each card each player updates their knowledge and their uncertainty. After each round the winner of the round is shown at the bottom of the text field, and the scores are added to the correct team. After 8 rounds the programs shuts itself down automatically, but first calculates if the first team accumulated more than half of the points in the game. If they did, they keep the points. If they don’t, the other team receives all the points.
 
 
