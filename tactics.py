@@ -91,7 +91,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                         if explain:
                             print(thought)
                         return card, thoughts
-                elif len(KM_opp0) >= 0 and len(KM_opp1) == 0:
+                elif len(KM_opp0) >= 1 and len(KM_opp1) == 0:
                     if card[2] > KM_opp0[0][1][2]:
                         thought = player.name + ' has checked all cards from high to low value, and thinks the opponents do not have a higher value card than:'
                         thoughts.append(thought)
