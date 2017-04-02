@@ -243,7 +243,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                 thoughts.append(thought)
                 if explain:
                     print(thought)
-                if trick.cards[1][0] == trick.trump and high_cards[0][2] > trick.cards[0][2]:  # Als tweede kaart ook troef was en hoogste kaart hoger dan die
+                if trick.cards[1][0] == trick.trump and high_cards[0][2] > trick.cards[1][2]:  # Als tweede kaart ook troef was en hoogste kaart hoger dan die
                     thought = player.name + ' must play the higher trump card'
                     thoughts.append(thought)
                     if explain:
