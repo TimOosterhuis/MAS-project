@@ -298,7 +298,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                     if explain:
                         print(thought)
                     return high_cards[-1], thoughts  # vierde speler geen troef, maar geen hogere kaart dan tweede
-            elif high_cards[0][2] > trick.cards[1][2] and high_cards[0][2] > KM_opp1_s[0][1][2]:  # vierde speler nog suit, maar kaart hoger dan hoogste van suit en tweede kaart
+            elif high_cards[0][0] == trick.cards[0][0] and high_cards[0][2] > trick.cards[1][2] and high_cards[0][2] > KM_opp1_s[0][1][2]:  # vierde speler nog suit, maar kaart hoger dan hoogste van suit en tweede kaart
                 if high_cards[0][2] < trick.cards[0][2]:
                     thought = player.name + ' thinks he has a higher card than the played one and one his opponent may play, but his teammate has an even higher one. So he plays a low card'
                     thoughts.append(thought)
