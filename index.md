@@ -67,7 +67,12 @@ Excluding graphical details in this explanation, this where the match happens by
 ## game display
 
 In main.py the game is also rendered to the game_display using pygame. The game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom.
-In the card playing gui the game plays out and the cards of the currently playing player are visible, as well as the open cards of the other players, if any. For visual effect there is a small 
+
+![card gui](/site_images/card_play_gui.png)
+
+In the card playing gui (pictured above) the game plays out and the cards of the currently playing player are visible, as well as the open cards of the other players, if any. For visual effect there is a small
+
+![message_box](/site_images/message_box.png)
 
 ## kripke model diagrams of the of the agents' card knowledge
 
