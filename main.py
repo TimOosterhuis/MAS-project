@@ -158,7 +158,7 @@ def main():
                 if select_available and m_pressed[0]:
                     game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 55, diagram_width, screen_size[1] + message_screen_height - 55))
                     pygame.draw.line(game_display, (0, 0, 0), (screen_size[0], screen_size[1]), (screen_size[0] + diagram_width, screen_size[1]), 2)
-                    if x_hover_dropdown and dropdown.top + dropdown.height < y:
+                    if x_hover_dropdown and dropdown.top + dropdown.height < y < dropdown.top + dropdown.height*(len(ordered_cards) + 1):
                         i = int((y - 35) / 20 - 1)
                         card = ordered_cards[i]
                         picked_card = message_font.render('card is: ' + card[1] + ' of ' + card[0], 1, (0, 0, 0))
