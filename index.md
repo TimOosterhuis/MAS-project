@@ -1,3 +1,5 @@
+![Model beginning game](/site_images/model.png)
+
 # Object Oriented View of Klaverjassen
 Cards are modeled like a tuple holding the suit, the name of the card and the point value. For example: (‘hearts’, ‘king’, 4) is the tuple representing the king of hearts cards which is worth 4 points.
 
