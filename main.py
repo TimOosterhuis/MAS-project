@@ -8,6 +8,7 @@ from image import *
 from model import draw_model
 
 debug = False
+fixed_hands = True # fixing the hands for a demonstration on the different features
 
 #-----------------------------------------------------------------------------------------------------------------------
 #Main, plays through one iteration of a game of klaverjassen
@@ -31,15 +32,27 @@ def main():
     pygame.time.wait(1000)
 
     #initialize randomized cards and trump
-    trump = SUITS[random.randint(0,3)]
+    if fixed_hands:
+        trump = 'Spades'
+    else:
+        trump = SUITS[random.randint(0, 3)]
     print(str(trump) + ' is trump')
-    ordered_cards = []
+    ord_cards = []
     cards = []
     for suit in SUITS:
-        ranks = NORMAL_POINTS if suit != trump else TRUMP_POINTS
-        for rank in ranks:
-            ordered_cards.append((suit, rank, ranks[rank]))
-    cards = list(ordered_cards)
+        for face in FACES:
+            rank = NORMAL_POINTS[face] if suit != trump else TRUMP_POINTS[face]
+            ord_cards.append((suit, face, rank))
+    if fixed_hands:
+        trump = 'Spades'
+        fixed_cards = {}
+        # the hands are fixed, because we know the order of ord_cards, from the order of SUITS and FACES, we can use this to pick cards
+        # for the hands, first number determines suit, second number determines rank
+        fixed_cards['South'] = [ord_cards[8 + 7], ord_cards[0 + 4], ord_cards[16 + 4], ord_cards[0 + 1], ord_cards[0 + 6], ord_cards[16 + 5], ord_cards[16 + 6], ord_cards[16 + 3]]
+        fixed_cards['West'] = [ord_cards[8 + 3], ord_cards[8 + 0], ord_cards[24 + 0], ord_cards[24 + 2], ord_cards[24 + 5], ord_cards[16 + 1], ord_cards[0 + 7], ord_cards[0 + 5]]
+        fixed_cards['North'] = [ord_cards[8 + 5], ord_cards[8 + 2], ord_cards[8 + 6], ord_cards[24 + 1], ord_cards[24 + 7], ord_cards[16 + 0], ord_cards[16 + 2], ord_cards[0 + 2]]
+        fixed_cards['East'] = [ord_cards[8 + 4], ord_cards[8 + 1], ord_cards[0 + 3], ord_cards[24 + 4], ord_cards[24 + 6], ord_cards[24 + 3], ord_cards[16 + 7], ord_cards[0 + 0]]
+    cards = list(ord_cards)
     random.shuffle(cards)
     # print(cards)
     # initialize players
@@ -56,15 +69,23 @@ def main():
     idx2 = CLOSED_CARDS
     #assert CLOSED_CARDS == OPEN_CARDS
     for player in players:  #  Card division between players
-        player.closed_cards = cards[idx:idx2]
-        idx = idx2
-        idx2 += OPEN_CARDS
-        player.open_cards = cards[idx:idx2]
+        if not fixed_hands:
+            player.closed_cards = cards[idx:idx2]
+            idx = idx2
+            idx2 += OPEN_CARDS
+            player.open_cards = cards[idx:idx2]
+            idx = idx2
+            idx2 += CLOSED_CARDS
+        else:
+            idx = 0
+            idx2 = CLOSED_CARDS
+            player.closed_cards = fixed_cards[player.name][idx:idx2]
+            idx = idx2
+            idx2 += OPEN_CARDS
+            player.open_cards = fixed_cards[player.name][idx:idx2]
         player.own_cards = list(player.closed_cards + player.open_cards)
-        for open_card in player.open_cards:  #  Add open cards to common knowledge
+        for open_card in player.open_cards:  # Add open cards to common knowledge
             common_knowledge.append((player.name, open_card, False))
-        idx = idx2
-        idx2 += CLOSED_CARDS
         print(str(player.name) + ' has ' + str(player.closed_cards) + ' and ' + str(player.open_cards))
         #print(str(player.name) + ' has ' + str(len(player.closed_cards)) + ' closed cards and ' + str(len(player.open_cards)) + ' open cards')
 
@@ -144,11 +165,11 @@ def main():
                 x_hover_dropdown = dropdown.left < x < dropdown.left + dropdown.width
                 y_hover_dropdown = dropdown.top < y < dropdown.top + dropdown.height
                 if x_hover_dropdown and y_hover_dropdown and m_pressed[0]:
-                    for i in range(1, len(ordered_cards) + 1):
+                    for i in range(1, len(ord_cards) + 1):
                         dropdown_opt = pygame.Rect(screen_size[0] + 10, 35 + 20*i, 150, 20)
                         pygame.draw.rect(game_display, (255, 255, 255), dropdown_opt, 0)
                         pygame.draw.rect(game_display, (0, 0, 0), dropdown_opt, 1)
-                        card = ordered_cards[i - 1]
+                        card = ord_cards[i - 1]
                         card_display = message_font.render(card[1] + ' of ' + card[0], 1, (0, 0, 0))
                         game_display.blit(card_display, ((dropdown_opt.left + 5), dropdown_opt.top))
                     pygame.display.update()
@@ -158,9 +179,9 @@ def main():
                 if select_available and m_pressed[0]:
                     game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 55, diagram_width, screen_size[1] + message_screen_height - 55))
                     pygame.draw.line(game_display, (0, 0, 0), (screen_size[0], screen_size[1]), (screen_size[0] + diagram_width, screen_size[1]), 2)
-                    if x_hover_dropdown and dropdown.top + dropdown.height < y < dropdown.top + dropdown.height*(len(ordered_cards) + 1):
+                    if x_hover_dropdown and dropdown.top + dropdown.height < y < dropdown.top + dropdown.height*(len(ord_cards) + 1):
                         i = int((y - 35) / 20 - 1)
-                        card = ordered_cards[i]
+                        card = ord_cards[i]
                         picked_card = message_font.render('card is: ' + card[1] + ' of ' + card[0], 1, (0, 0, 0))
                         game_display.blit(picked_card, (screen_size[0] + 50, 100))
                         draw_model(game_display, players, message_font, card, screen_size[0], 55, diagram_width, screen_size[1] - 55)

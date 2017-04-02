@@ -10,6 +10,8 @@ SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
 
 PLAYERS = ['South','East','North','West']
 
+FACES = ['ace', 'jack', 'ten', 'nine']
+
 NORMAL_POINTS = {'nine' : 2,
                  'jack' : 7,
                  'ten' : 10,
