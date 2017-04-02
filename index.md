@@ -62,13 +62,15 @@ This player knows if he can win this trick with his available cards or not, and 
 Excluding graphical details in this explanation, this where the match happens by our logical players. Here trump is chosen at random, the player instances are initialized and the cards are shuffled and dealt between the players. When this is done the knowledge of each player is created at the hand of their own cards and the open cards if any. When this is done each player assesses what he thinks is possible, and then South may start the match by playing his first card. In eight rounds, after each card is played the thoughts of the player are shown. After each card each player updates their knowledge and their uncertainty. After each round the winner of the round is shown at the bottom of the text field, and the scores are added to the correct team. After 8 rounds the programs shuts itself down automatically, but first calculates if the first team accumulated more than half of the points in the game. If they did, they keep the points. If they don’t, the other team receives all the points.
 
 
-## Visualisation 
+# Visualisation 
 
-### card playing gui
+## game display
 
-### kripke models of the of the agents' card knowledge
+In main.py the game is also rendered to the game_display using pygame. The game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom.
 
-At every moment of the game it is possible to see what the players know and hold for possible regarding the card ownership of each card in the game. After each turn, a spectator can select a card via a dropdown menu in the main loop. A schematic S5 kripke model is then drawn for each card with the draw_model function, which calls on the player.knowledge and player.possible triples for each card to get the relations between the worlds. As card ownership is mutually exclusive in 'klaverjassen' (every card in the game is dealt to exactly one player), players never hold any worlds for possible where this is not the case, so for any card C with the corresponding propositional atoms (p1: south owns C, p2: west owns C, p3: north owns C, p4: east owns C) the S5 model includes only the the states (p1 = T, p2 = F, p3 = F, p4 = F), (p1 = F, p2 = T, p3 = F, p4 = F), (p1 = F, p2 = F, p3 = T, p4 = F) and (p1 = F, p2 = F, p3 = F, p4 = T).
+## kripke models of the of the agents' card knowledge
+
+At every moment of the game it is possible to see what the players know and hold for possible regarding the card ownership of each card in the game. After each turn, a spectator can select a card via a dropdown menu in the main loop. A schematic S5 kripke model is then drawn for each card with the draw_model function in model.py, which calls on the player.knowledge and player.possible triples for each card to get the relations between the worlds. As card ownership is mutually exclusive in 'klaverjassen' (every card in the game is dealt to exactly one player), players never hold any worlds for possible where this is not the case, so for any card C with the corresponding propositional atoms (p1: south owns C, p2: west owns C, p3: north owns C, p4: east owns C) the S5 model includes only the the states (p1 = T, p2 = F, p3 = F, p4 = F), (p1 = F, p2 = T, p3 = F, p4 = F), (p1 = F, p2 = F, p3 = T, p4 = F) and (p1 = F, p2 = F, p3 = F, p4 = T).
 
 ![Testing with images](/site_images/select.png)
 
