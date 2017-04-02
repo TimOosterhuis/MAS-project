@@ -67,8 +67,9 @@ Excluding graphical details in this explanation, this where the match happens by
 ## game display
 
 In main.py the game is also rendered to the game_display using pygame. The game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom.
+In the card playing gui the game plays out and the cards of the currently playing player are visible, as well as the open cards of the other players, if any. For visual effect there is a small 
 
-## kripke models of the of the agents' card knowledge
+## kripke model diagrams of the of the agents' card knowledge
 
 At every moment of the game it is possible to see what the players know and hold for possible regarding the card ownership of each card in the game. After each turn, a spectator can select a card via a dropdown menu in the main loop. A schematic S5 kripke model is then drawn for each card with the draw_model function in model.py, which calls on the player.knowledge and player.possible triples for each card to get the relations between the worlds. As card ownership is mutually exclusive in 'klaverjassen' (every card in the game is dealt to exactly one player), players never hold any worlds for possible where this is not the case, so for any card C with the corresponding propositional atoms (p1: south owns C, p2: west owns C, p3: north owns C, p4: east owns C) the S5 model includes only the the states (p1 = T, p2 = F, p3 = F, p4 = F), (p1 = F, p2 = T, p3 = F, p4 = F), (p1 = F, p2 = F, p3 = T, p4 = F) and (p1 = F, p2 = F, p3 = F, p4 = T).
 
