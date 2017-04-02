@@ -37,7 +37,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
             opt = KM_suit(player, other_team[0], trump)
             op2 = KM_suit(player, other_team[1], trump)
             opt.extend(op2)
-            print opt
+            print(opt)
 
             if trump_cards != []:   # Player still has trump cards
 
