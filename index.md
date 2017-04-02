@@ -81,7 +81,7 @@ The card gui (pictured above) is mainly there to make the progress of the game i
 
 ![message_box](/site_images/message_box.png)
 
-In the message
+In the message box is refreshed each turn. In the message box the "thoughts" of the current player are printed as well as the public announcements of that turn. The "thoughts" of a player are the inferences in tactics.py about what card would be the most advantageous to play in the current situation, and public announcements are 
 
 ## kripke model diagrams of the of the agents' card knowledge
 
