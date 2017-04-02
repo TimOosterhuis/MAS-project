@@ -71,17 +71,19 @@ Excluding graphical details in this explanation, this where the match happens by
 
 ## game display
 
-In main.py the game is also rendered to the game_display using pygame. Pygame allows the drawing of stock images (such as the cards in the card playing gui, see below) The game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom. 
+In main.py the game is also rendered to the game display using pygame. Pygame allows the drawing of stock images (such as the cards in the card playing gui, see below), basic rectangles and lines and text to a game display object, which is the basis for the visualisation of our logical klaverjas playing agents. For our project the game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom. 
 
 ###### card playing gui
 
 ![card gui](/site_images/card_play_gui.png)
 
-The card gui (pictured above) is mainly there to make the progress of the game insightful to human observers and provide viewing ease. In the card playing gui the entire game plays out turn by turn and the cards of the currently playing player are visible, as well as the open cards of the other players, if any. On each turn there is a small delay before the played card gets put into the center, to create the visual effect of a player putting a card in the center. In the card playing gui there is also some extra information, including the score, number of open cards, which suit is trump and instructions for the human oberver to go to the next turn or skip to the end of the game.
+The card gui (pictured above) is mainly there to make the progress of the game insightful to human observers and provide viewing ease. In the card playing gui the entire game plays out turn by turn and the cards of the currently playing player are visible, as well as the open cards of the other players, if any. On each turn there is a small delay before the played card gets put into the center, to create the visual effect of a player putting a card in the center. In the card playing gui there is also some extra information, including the score, number of open cards, which suit is trump and instructions for the human oberver to go to the next turn or skip to the end of the game. 
 
 ###### message box
 
 ![message_box](/site_images/message_box.png)
+
+In the message
 
 ## kripke model diagrams of the of the agents' card knowledge
 
