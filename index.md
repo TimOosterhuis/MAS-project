@@ -81,3 +81,6 @@ As we can see, player South (who has no information save his own cards, seeing a
 ![Public announcement card](/site_images/pub_ann_card.png)
 
 When players play a card they make a public announcement that they were the owner of that card, if we look at the model for seven of clubs after South has played it, we can see that every player now knows that 'South owns seven of clubs'.
+
+
+![Public announcement_inference](/site_images/inference.png)
