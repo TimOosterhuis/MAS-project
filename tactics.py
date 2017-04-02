@@ -325,7 +325,7 @@ def find_best_card(cards, player, trick):  # Find optimal card to return
                 print(thought)
             return high_cards[-1], thoughts
     else:  # Player mag als vierde uitkomen
-        if trick.winner.team != player.team and high_cards[0][0] == trick.high_card[0] and high_cards[0][2] > trick.high_card[2]:
+        if trick.winner.team.nr != player.team.nr and high_cards[0][0] == trick.high_card[0] and high_cards[0][2] > trick.high_card[2]:
             thought = player.name + ' is on the losing team, but has higher cards than the winning card, and thus plays this'
             thoughts.append(thought)
             if explain:
