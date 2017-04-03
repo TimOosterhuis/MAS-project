@@ -17,13 +17,13 @@ On windows the standard Python installer associates the .py extension with a pyt
 
 # [](#header-1)The Game
 Klaverjassen is a strategic card game frequently played among Dutch students.
-Generally the game is played with two teams of four players.
+Usually the game is played with two teams of four players.
 The goal of the game is to score 1500 points before the other team does.
 The game consists of a number of hands where points can be gained.
-The objective of each hand is to collect more points than the other team.
+The objective of each game is to collect more points than the other team.
 Every card from 7 and up is used for the game, this comes down to a total of 32 cards.
-These 32 cards are divided evenly between every player, this means that everyone receives 8 cards at the beginning of each hand.
-Every player can only see their own cards.
+These 32 cards are divided evenly between Each player, this means that everyone receives 8 cards at the beginning of each hand.
+Each player can only see their own cards.
 
 ## [](#header-2)Rules
 Points are scored by winning tricks.
@@ -40,7 +40,7 @@ This person can decide which suit will be asked that trick by playing the card o
 Every other player has to follow suit.
 If a player is not able to follow suit and the highest card on the table, at that moment, belongs to one of the players of the other team,
 he or she has to play a trump card. If the player has no trump cards, any other card can be played.
-When a trump card is played, all other players have to play a higher trump, if they are able to.
+When a trump card is played, all other players have to play a higher trump, if they are able to. Some bonus points can be earned by a roem system, which we do not elaborate on here. Winning the last trick of a hand awards 10 bonus points. When the starting player's team does not accumulate more than half of the points during a complete hand, all points in that game are awarded to the opposing team. This is called playing wet.
 
 **Regular cards** | **value** | **trump cards** | **value**
 --------------|-------|-------------|-------
@@ -199,7 +199,7 @@ about the kripke model diagrams.
 ![card gui](/site_images/card_play_gui.png)
 
 The card gui (pictured above) is mainly there to make the progress of the game insightful to human observers and provide viewing ease.
-In the card playing gui the entire game plays out turn by turn and the cards of the currently playing player are visible,
+In the card playing gui the entire game plays out card by card and the cards of the currently playing player are visible,
 as well as the open cards of the other players, if any.
 On each turn there is a small delay before the played card gets put into the center,
 to create the visual effect of a player putting a card in the center.

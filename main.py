@@ -196,7 +196,7 @@ def main():
 
                         trump_display = name_font.render(str(trump) + ' is trump', 1, (0, 0, 0))
                         open_close_info = 'Game with ' + str(OPEN_CARDS) + ' open cards and ' + str(
-                            CLOSED_CARDS) + ' cards.'
+                            CLOSED_CARDS) + ' closed cards.'
                         open_close_display = message_font.render(open_close_info, 1, (0, 0, 0))
                         continue_info1 = 'Press right arrow to continue'
                         continue_info2 = 'Press space bar to skip to end and close'
