@@ -24,7 +24,7 @@ This person can decide which suit will be asked that trick by playing the card o
 Every other player has to follow suit.
 If a player is not able to follow suit and the highest card on the table, at that moment, belongs to one of the players of the other team,
 he or she has to play a trump card. If the player has no trump cards, any other card can be played.
-When a trump card is played, all other players have to play a higher trump, if possible.
+When a trump card is played, all other players have to play a higher trump, if they are able to.
 
 **Regular cards** | **value** | **trump cards** | **value**
 --------------|-------|-------------|-------
