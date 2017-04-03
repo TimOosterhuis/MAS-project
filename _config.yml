@@ -1,4 +1,5 @@
 theme: jekyll-theme-tactile
 title: [Logical Klaverjassen]
-description: Visualizing Kripke S5 models in a klaverjas game that uses PAL
+description: 
+The implementation of an abridged version the Dutch card game Klaverjassen. Using public announcement logic, the program simulates this four player game. Kripke S5 models are used to visualise the players’ knowledge.
 show_downloads: true
