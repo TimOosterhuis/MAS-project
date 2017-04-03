@@ -81,10 +81,26 @@ During each trick certain card combinations on the table are also points for the
 - Four successive cards of the same suit: 50 points
 
 # [](#header-1)Public Anouncement Logic and Kripke Worlds
-An important aspect of playing the klaverjas game is obtaining knowledge about the cards of the other players. 
+To acquire the most points in a hand it is essential to stay in control. 
+This means a player has to play every trick in such a way that he obtains the highest number certain tricks. 
+Certain tricks are tricks where the starting player is assured of winning when starting that trick with a certain card. 
+One tactic for doing this is starting with asking the trick suit when the player is in possession of the highest trick card.
+This means the other players also have to play their trick cards. 
+This results in a lower chance of the players of the other team playing a trump when they do not have the asked suit. 
+In other words, the strategic aspect of playing the klaverjas game is obtaining knowledge about the cards of the other players. 
 Using this knowledge, players are able to devise which cards to play to certainly win a trick, and therefore obtain points. 
 Every card played generates new knowledge available to all of the four players. 
-Combining this public knowledge with the cards the players hold in their hands, the private knowledge, every player has a different set of certainties and uncertainties.
+Combining this public knowledge with the cards the players hold in their hands, the private knowledge, every player has a different set of certainties and uncertainties. 
+In other words, the knowledge of every player is different. 
+To analyse the increase if knowledge while the game progresses we employ the framework of Public Announcement Logic (PAL). Public announcement logic is widely used in multi-agent systems for modelling knowledge and announcements. 
+For the language definition and an elaborated explenation of public announcement logic we refer to Chapter 4 in the book _Dynamic Epistemic Logic_ written by _Hans van Ditmarsch_. 
+In our klaverjas simulation we use the PAL framework to visualise the knowledge and beliefs of each player. It also provides us with a way to see the basis of the reasoning of each agent.
+At the start of each hand players are only able to see their own cards, they are certain about which player posesses these cards. 
+Because all agents know the basic rules of the klaverjas game, they know that every card available in the game is possessed by another player.
+For example we can consider the case that South does not possesses the ace of spades, he knows that West OR North OR East must have this card. 
+This is modelled by using Kripke models. 
+Every Kripke model displays possible scenarios of a card for each player.
+Every time a card is played a public announcement is made and the Kripke models change, overall knowledge is increased. 
 
 
 # [](#header-1)Object Oriented View of Logical Klaverjas Playing
