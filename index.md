@@ -7,11 +7,11 @@ layout: default
 # [](#header-1)Introduction
 This project is the implementation of a simulation of one hand of the Dutch card game Klaverjassen. 
 It is generally played with four players and uses 32 cards. 
-A hand consits of eight tricks, each trick points can be obtained. 
+A hand consists of eight tricks, where during each trick points can be obtained. 
 The player that plays the highest card wins the trick and all the points attributed to the cards in that trick. 
 The program is implemented using <a href="https://www.python.org/" target="_blank">Python</a>. 
-To decide which card to play each of the four agents need to reason about their possibilities to win the trick. 
-To be able to properly reason they need kowledge about the basic rules of the game and which cards the other players may have. At the start of the hand each player is only certain about their own cards, but as the game progresses more information becomes available. 
+To decide which card to play each of the four agents need to reason about their own cards and which cards the other players might have to win the trick. 
+To be able to properly reason they need knowledge about the basic rules of the game and which cards the other players may have. At the start of the hand each player is only certain about their own cards, but as the game progresses more information becomes available. 
 Public announcement logic is used to deal with the representation and updating of knowledge for each player. 
 The visualisation of the knowledge is achieved by drawing Kripke models for each cards.
 
