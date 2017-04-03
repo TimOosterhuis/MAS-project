@@ -177,48 +177,44 @@ and the scores are added to the correct team. After 8 rounds the programs shuts 
 but first calculates if the first team accumulated more than half of the points in the game.
 If they did, they keep the points. If they don’t, the other team receives all the points.
 
-# Visualisation 
+# Visualisation
+## [](#header-2)Game Display
 
-## [](#header-2)game display
-
-In `main.py` the game is also rendered to the game display using pygame.
+In `main.py` the game is rendered to the game display using Pygame.
 Pygame allows the drawing of stock images (such as the cards in the card playing gui, see below),
 basic rectangles and lines and text to a game display object,
-which is the basis for the visualisation of our logical klaverjas playing agents.
-For our project the game display consists of three parts, the card playing gui in the top left,
-the kripke model diagram box on the right, and the message box on the bottom.
-The card playing gui and the message box are explained below and the Kripke model diagram box is explained in the next section,
-about the kripke model diagrams.
+which is the foundation for the visualisation of our logical agents playing klaverjas.
+The game display consists of three parts, the card playing GUI in the top left,
+the Kripke model diagram box on the right, and the message box in the bottom.
+The card playing GUI and the message box are explained below. The Kripke model diagram box is explained in the next section, about the Kripke model diagrams.
 
-## [](#header-2)card playing gui
+## [](#header-2)Card Playing GUI
 
 ![card gui](/site_images/card_play_gui.png)
 
-The card gui (pictured above) is mainly there to make the progress of the game insightful to human observers and provide viewing ease.
-In the card playing gui the entire game plays out card by card and the cards of the currently playing player are visible,
-as well as the open cards of the other players, if any.
-On each turn there is a small delay before the played card gets put into the center,
-to create the visual effect of a player putting a card in the center.
-In the card playing gui there is also some extra information, including the score, number of open cards,
-which suit is trump and instructions for the human observer to go to the next turn or skip to the end of the game. 
+The card GUI, pictured above, is mainly visualised to make the progress of the game insightful to human observers and provide viewing ease.
+In the card playing GUI the entire game is played, card by card, the cards of the currently playing player are visible,
+as well as the open cards of the other players, if there are any.
+A small delay is implemented with each turn before the played card gets put into the center, this is done to create the visual effect of a player putting a card in the center.
+The card playing GUI also displays some extra information, including the score, number of open cards,
+the trump suit and instructions for the human observer to go to the next turn or skip to the end of the game. 
 
-## [](#header-2)message box
+## [](#header-2)Message Box
 
 ![message_box](/site_images/message_box.png)
 
 The message box (outlined in red above) is refreshed each turn.
-In the message box the "thoughts" of the current player are printed as well as the public announcements of that turn.
-The "thoughts" of a player are the inferences in tactics.py about what card would be the most advantageous to play in the current situation,
-and public announcements are played cards, and inferences all players can make based on played card.
+In the message box the thoughts, or reasonings, of the current player are printed as well as the public announcements of that turn.
+The thoughts of a player are the inferences made in `tactics.py` about which card would be the most advantageous to play in the current situation, and public announcements are played cards, and inferences all players can make based on played card.
 Such as the fact that one player no longer has any cards of a certain suit, if it can't follow suit,
-or that it also doesn't have any trump if it can't 'trump in' (dutch: introeven).
+or that it also doesn't have any trump if it can't play a trump card.
 
 ## [](#header-2)Kripke model diagrams of the of the agents' card knowledge
 
-At every moment of the game it is possible to see what the players know and hold for possible regarding the card ownership
-of each card in the game. After each card, the user/spectator can select a card via a dropdown menu in the right window.
-A schematic S5 Kripke model is then drawn for each card with the draw_model function in `model.py`,
-which calls on the player.knowledge and player.possible triples for each card to get the relations between the worlds.
+At every moment in the game it is possible to see what the players know and hold for possible regarding the ownership
+of each card in the game. After each trick, the user/spectator can select a card via a dropdown menu in the window on the right.
+A schematic S5 Kripke model is then drawn for the selected card with the `draw_model` function in `model.py`,
+which calls on the `player.knowledge` and `player.possible` tuples for each card to get the relations between the worlds.
 As card ownership is mutually exclusive in the klaverjas game (every card in the game is dealt to exactly one player),
 players never hold any worlds for possible where this is not the case,
 so for any card C with the corresponding propositional atoms:
