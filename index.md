@@ -148,6 +148,7 @@ it will play the lowest trump card that is higher than the one played by the fir
 - If the second player thinks the third player still has trump,
 it will play a card of which he thinks is higher than what the third player can play. If that is not the case as well, the second player will play his lowest available trump card.
 - If the second player does not have trump anymore, he will play his lowest ranked available card.
+
 If trump is not called the following options are available:
 - When the second player has to play trump he plays his lowest ranked trump card.
 When he doesn’t have to play trump he thinks about what his opponent and teammate may have.
