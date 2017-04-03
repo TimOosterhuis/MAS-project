@@ -42,7 +42,7 @@ Table 1: scores and ranks of trump and suit cards
 
 #### The Cards:
 Cards are modeled like a tuple holding the suit,
-the name of the card and the point value. For example: (‘hearts’, ‘king’, 4)
+the name of the card and the point value. For example:`(‘hearts’, ‘king’, 4)`
 is the tuple representing the king of hearts cards which is worth 4 points.
 As stated above, a klaverjas game consists of a number of hands until one team reaches 1500 points. Our program simulates one hand of the whole klaverjas game since every hand all knowledge about cards is reset. This means that South always plays the first card in our simulation, and only team one (South and North) can play wet.
 
@@ -72,7 +72,7 @@ The last functions check the bonus (roem) that might be provided at the end of t
 -	possibles, a list of the same form as the knowledge list. But this list holds all the cards the player is uncertain about. This means that if a player (South) does not know whether the ace of spades is held by West, North or East, than this card is represented thrice in the list, as (‘West’, ( ‘Spades’, ‘Ace’, 11), False), (‘North, ( ‘Spades’, ‘Ace’, 11), False) and (‘East, ( ‘Spades’, ‘Ace’, 11), False)
 
 ##### Functions:
-Play_card() is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling playable() from the rules_config_big.py file, after that it will select the best card from this list by calling find_best_card() from the tactics.py file (both these functions are explained later). Play_card() will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
+`Play_card()` is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling `playable()` from the `rules_config_big.py` file, after that it will select the best card from this list by calling find_best_card() from the tactics.py file (both these functions are explained later). `Play_card()` will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
 Functions for this class are:
 Play_card() is the function called when a player needs to play a card.
 It receives the trump and the trick if there is any yet.
