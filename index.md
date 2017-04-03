@@ -99,7 +99,7 @@ as well as the names of the players, the ranking and points of trump and non-tru
 The number of players, the number of tricks and the number of open and closed cards are also stored here.
 The default setting of the number of closed cards is 8,
 this can be reduced so that players have more knowledge about the cards of the other players at the start of the game.
-The most interesting part of this file is the playable() function, that receives a list of cards, the team and the trick (if there is any).
+The most interesting part of this file is the playable() function, that receives a list of cards, the team and the trick, if there is any.
 - If there is no trick, all cards are immediately returned as this means that the first player can play any card from his/her hand.
 - If trump is asked, a list of higher trumps is first returned.
 - If this does not exist a list of lower trump cards is returned.
@@ -109,7 +109,7 @@ The most interesting part of this file is the playable() function, that receives
 - in all other cases all cards are returned.
 
 #### Tactics.py
-This file holds three functions, the first being unplayed_trumps(),
+This file holds three functions, the first being `unplayed_trumps()`,
 which returns all trump card that can still be played by any of the layers.
 The second function KM_suit searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like KM_suit(‘South’, ‘West’, ‘hearts’) and will return a sorted list with all instances in the knowledge and possibles lists of South where (‘West’, (‘Hearts’, _, _)False) is true.
 The most important and longest function in tactics.py Is find_best_card(),
