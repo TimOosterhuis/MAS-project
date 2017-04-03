@@ -5,7 +5,7 @@ layout: default
 ![Model beginning game](/site_images/model.png)
 
 # [](#header-1)Introduction
-This project is an implementation of an abridged version of the Dutch card game Klaverjassen. This four player game is simulated with pyton, knowledge is represented and updated using the rules of public announcement logic. For visualization of knowledge Kripke S5 models are used.
+This project is an implementation of an abridged version of the Dutch card game Klaverjassen. This four player game is simulated with Python, knowledge is represented and updated using the rules of public announcement logic. For visualization of knowledge Kripke S5 models are used.
 
 ## [](#header-2)Download and run instructions
 
