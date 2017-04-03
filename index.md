@@ -95,18 +95,18 @@ Update_possibles() looks at the played cards in a trick and makes inferences bas
 #### Rules_config_big.py
 This file holds all information about the actual game,
 so the names of the suits are stored here,
-as well as the names of the players, the ranking and points of non-trump cards as well as the ranking and points of trump cards.
-The number of players, the number of rounds and the number of open and closed cards are also stored here.
-The number of closed cards is set manually to 8,
-but can be reduced so that players have more knowledge about the cards of the other players at the start of the game.
-The most interesting part of this file is the playable() function, that receives a list of cards, the team and the trick if there is any.
-If there is no trick, all cards are immediately returned as this means that the first player can play any card from his/her hand.
-If trump is asked, a list of higher trumps is first returned.
-If this does not exist a list of lower trump cards is returned.
-If this also doesn’t exist all cards are returned.
-When suit is called and the player still has suit left, all suit cards are returned.
-If the player does not have suit left and is on the losing team, all (higher) trump cards are returned if available,
-in all other cases all cards are returned.
+as well as the names of the players, the ranking and points of trump and non-trump cards.
+The number of players, the number of tricks and the number of open and closed cards are also stored here.
+The default setting of the number of closed cards is 8,
+this can be reduced so that players have more knowledge about the cards of the other players at the start of the game.
+The most interesting part of this file is the playable() function, that receives a list of cards, the team and the trick (if there is any).
+- If there is no trick, all cards are immediately returned as this means that the first player can play any card from his/her hand.
+- If trump is asked, a list of higher trumps is first returned.
+- If this does not exist a list of lower trump cards is returned.
+- If this also doesn’t exist all cards are returned.
+- When suit is called and the player still has suit left, all suit cards are returned.
+- If the player does not have suit left and is on the losing team, all (higher) trump cards are returned, if available.
+- in all other cases all cards are returned.
 
 #### Tactics.py
 This file holds three functions, the first being unplayed_trumps(),
