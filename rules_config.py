@@ -7,6 +7,7 @@
 debug = False
 explain = False
 fast = True
+fixed_hands = True # fixing the hands for bugtesting or demonstration of the different features
 
 SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
 

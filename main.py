@@ -6,8 +6,7 @@ import pygame
 from image import *
 from model import draw_model
 
-debug = False
-fixed_hands = True # fixing the hands for bugtesting or demonstration of the different features
+
 
 #-----------------------------------------------------------------------------------------------------------------------
 #Main, plays through one iteration of a game of klaverjassen
