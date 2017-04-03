@@ -254,7 +254,7 @@ or sacrifice some points to not let the opposing team gain bonus points.
 4. Different game modes, which could mean that the starting player is not forced to play with a certain trump.
 This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
 5. Implementing different strategies for players. All players are very cautious now and will not take risks,
- while this could lead to better results
+ while this may lead to better results
 
 
 - Joram Koiter (s2240173)
