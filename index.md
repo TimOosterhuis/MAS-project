@@ -4,9 +4,9 @@ layout: default
 
 ![Model beginning game](/site_images/model.png)
 
-[](#header-1)Introduction
+# [](#header-1)Introduction
 
-# Download and run instructions
+## [](#header-2)Download and run instructions
 
 In addition to our program files, which can be downloaded with the download buttons above,
 you will also need <a href="https://www.python.org/" target="_blank">Python</a> (either version 2.7 or 3.5) and the <a href="https://www.pygame.org/wiki/GettingStarted" target="_blank">pygame module</a> in order to run our program.
@@ -15,7 +15,7 @@ On mac/linux run command: 'python main.py' from the command prompt.
 On windows the standard Python installer associates the .py extension with a python file, so you should be able to double click main.py in order to run it.
 
 
-[](#header-1)The Game
+# [](#header-1)The Game
 Klaverjassen is a strategic card game frequently played among Dutch students.
 Generally the game is played with two teams of four players.
 The goal of the game is to score 1500 points before the other team does.
@@ -25,7 +25,7 @@ Every card from 7 and up is used for the game, this comes down to a total of 32 
 These 32 cards are divided evenly between every player, this means that everyone receives 8 cards at the beginning of each hand.
 Every player can only see their own cards.
 
-## Rules
+## [](#header-2)Rules
 Points are scored by winning tricks.
 The player that plays the highest card in a trick receives all of the cards played that trick and the points associated to the cards.
 The ranking of the suit cards is displayed in table 1 in column one and two.
@@ -54,18 +54,18 @@ J | 2 | K | 4
 7 | - | 7 | -
 
 Table 1: scores and ranks of trump and suit cards
-[](#header-1)Object Oriented View of Logical Klaverjas Playing
+# [](#header-1)Object Oriented View of Logical Klaverjas Playing
 
-#### The Cards:
+## [](#header-2)The Cards:
 Cards are modeled like a tuple holding the suit,
 the name of the card and the point value. For example:`(‘hearts’, ‘king’, 4)`
 is the tuple representing the king of hearts cards which is worth 4 points.
 As stated above, a klaverjas game consists of a number of hands until one team reaches 1500 points. Our program simulates one hand of the whole klaverjas game since every hand all knowledge about cards is reset. This means that South always plays the first card in our simulation, and only team one (South and North) can play wet.
 
-#### Team Class:
+## [](#header-2)Team Class:
 This is a data class holding only the number of the team (1 or 2) and the names of the players in it.
 
-#### Trick Class:
+## [](#header-2)Trick Class:
 This class holds multiple attributes for each round, which include:
 each played cards, score of the round, the winning player, the highest card,
 which suit is trump and the order  players played a card in.
@@ -75,8 +75,8 @@ the value of the new card is added to the score and if the card trumps the other
 and high card attributes are also updated.
 The last functions check the bonus (roem) that might be provided at the end of the round, and adds these to the score.
 
-#### Player Class:
-##### Variables:
+## [](#header-2)Player Class:
+#### [](#header-4)Variables:
 -	team, a Team class instance
 -	closed_cards, a list holding the closed cards as tuples
 -	open_cards, a list holding the open cards as tuples
@@ -87,7 +87,7 @@ The last functions check the bonus (roem) that might be provided at the end of t
 -	knowledge, a list holding tuples of the form (name, card, played), where name are the names of the other players, card can be any tuple representing a card and played is a Boolean representing if a card is played or not. This list holds all items a players knows for certain
 -	possibles, a list of the same form as the knowledge list. But this list holds all the cards the player is uncertain about. This means that if a player (South) does not know whether the ace of spades is held by West, North or East, than this card is represented thrice in the list, as `(‘West’, ( ‘Spades’, ‘Ace’, 11), False)`, `(‘North, ( ‘Spades’, ‘Ace’, 11), False)` and `(‘East, ( ‘Spades’, ‘Ace’, 11), False)`.
 
-##### Functions:
+#### [](#header-4)Functions:
 `Play_card()` is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling `playable()` from the `rules_config.py` file, after that it will select the best card from this list by calling `find_best_card()` from the tactics.py file (both these functions are explained later). `Play_card()` will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
 Functions for this class are:
 `Play_card()` is the function called when a player needs to play a card.
@@ -108,7 +108,7 @@ depending on in which it was in, and then returns that card and the thoughts (th
 -	Finally, if a card is found only once in the possibles list it becomes definate knowledge. The card is then removed from the possibles list and added to the knowledge list. For example, South has two trump cards left, and because East and West have not responded with trump cards when these were played, South knows the remaining trump cards are all in North’s possession.
 
 
-#### Rules_config.py
+## [](#header-2)Rules_config.py
 This file holds all information about the actual game,
 so the names of the suits are stored here,
 as well as the names of the players, the ranking and points of trump and non-trump cards.
@@ -124,7 +124,7 @@ The most interesting part of this file is the `playable()` function, that receiv
 - If the player does not have suit left and is on the losing team, all (higher) trump cards are returned, if available.
 - in all other cases all cards are returned.
 
-#### Tactics.py
+## [](#header-2)Tactics.py
 This file holds three functions, the first being `unplayed_trumps()`,
 which returns all trump card that can still be played by any of the layers.
 The second function KM_suit searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like KM_suit(‘South’, ‘West’, ‘hearts’) and will return a sorted list with all instances in the knowledge and possibles lists of South where `(‘West’, (‘Hearts’, _, _)False)` is true.
@@ -167,7 +167,7 @@ This player knows if he can win this trick with his available cards or not,
 and so will try to win the trick with the highest card capable of that if he is on the losing team.
 If he cannot win or his team already wins this trick he will play his lowest playable card.
 
-#### Main.py
+## [](#header-2)Main.py
 Excluding graphical details in this explanation,
 this where the match happens by our logical players. Here trump is chosen at random,
 the player instances are initialized and the cards are shuffled and dealt between the players.
@@ -183,7 +183,7 @@ If they did, they keep the points. If they don’t, the other team receives all 
 
 # Visualisation 
 
-## game display
+## [](#header-2)game display
 
 In `main.py` the game is also rendered to the game display using pygame.
 Pygame allows the drawing of stock images (such as the cards in the card playing gui, see below),
@@ -194,7 +194,7 @@ the kripke model diagram box on the right, and the message box on the bottom.
 The card playing gui and the message box are explained below and the Kripke model diagram box is explained in the next section,
 about the kripke model diagrams.
 
-###### card playing gui
+## [](#header-2)card playing gui
 
 ![card gui](/site_images/card_play_gui.png)
 
@@ -206,7 +206,7 @@ to create the visual effect of a player putting a card in the center.
 In the card playing gui there is also some extra information, including the score, number of open cards,
 which suit is trump and instructions for the human observer to go to the next turn or skip to the end of the game. 
 
-###### message box
+## [](#header-2)message box
 
 ![message_box](/site_images/message_box.png)
 
@@ -217,7 +217,7 @@ and public announcements are played cards, and inferences all players can make b
 Such as the fact that one player no longer has any cards of a certain suit, if it can't follow suit,
 or that it also doesn't have any trump if it can't 'trump in' (dutch: introeven).
 
-## Kripke model diagrams of the of the agents' card knowledge
+## [](#header-2)Kripke model diagrams of the of the agents' card knowledge
 
 At every moment of the game it is possible to see what the players know and hold for possible regarding the card ownership
 of each card in the game. After each turn, a spectator can select a card via a dropdown menu in the main loop.
@@ -269,7 +269,7 @@ Pictured above is the model for 10 of clubs from the same game as earlier a few 
 right after player South is unable to follow suit on clubs, publicly announcing he has none.
 We can see that players East and North no longer hold it for possible that 'South owns 10 of clubs' after this announcement.
 
-### Future Work
+# [](#header-1)Future Work
 Klaverjassen is more detailed than represented by our program in this project.
 There are a lot of expansions that we can think of that would greatly improve this program.
 A selection of these expansions include:
