@@ -4,7 +4,7 @@ layout: default
 
 ![Model beginning game](/site_images/model.png)
 
-# Introduction
+[](#header-1)Introduction
 
 # Download and run instructions
 
@@ -15,7 +15,7 @@ On mac/linux run command: 'python main.py' from the command prompt.
 On windows the standard Python installer associates the .py extension with a python file, so you should be able to double click main.py in order to run it.
 
 
-# The Game
+[](#header-1)The Game
 Klaverjassen is a strategic card game frequently played among Dutch students.
 Generally the game is played with two teams of four players.
 The goal of the game is to score 1500 points before the other team does.
@@ -54,7 +54,7 @@ J | 2 | K | 4
 7 | - | 7 | -
 
 Table 1: scores and ranks of trump and suit cards
-# Object Oriented View of Logical Klaverjas Playing
+[](#header-1)Object Oriented View of Logical Klaverjas Playing
 
 #### The Cards:
 Cards are modeled like a tuple holding the suit,
