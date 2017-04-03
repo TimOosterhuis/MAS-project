@@ -1,4 +1,4 @@
-theme: jekyll-theme-dinky
+theme: cayman
 title: [Logical Klaverjassen]
 description: Visualizing Kripke S5 models in a klaverjas game that uses public announcement logic
 show_downloads: true
