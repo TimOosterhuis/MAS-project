@@ -42,6 +42,8 @@ Table 1: scores and ranks of trump and suit cards
 Cards are modeled like a tuple holding the suit,
 the name of the card and the point value. For example: (‘hearts’, ‘king’, 4)
 is the tuple representing the king of hearts cards which is worth 4 points.
+Our program only simulates one match in the whole game.
+So South always starts in our simulation, and only team one (South and North) can play wet.
 
 #### Team Class:
 This is a data class holding only the number of the team (1 or 2) and the names of the players in it.
