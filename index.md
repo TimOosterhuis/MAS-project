@@ -240,7 +240,7 @@ the S5 model only includes one of the states:
 
 ![Testing with images](/site_images/select.png)
 
-In the beginning of the game player South plays its lowest card instead of one of its higher ranked cards ()like the 10 of hearts). To understand this choice, let's look at what player South knows or holds for possible about the location of the ace of hearts (a card higher than his ten of hearts).
+In the beginning of the game player South plays its lowest card instead of one of its higher ranked cards (like the 10 of hearts). To understand this choice, let's look at what player South knows or holds for possible about the location of the ace of hearts (a card higher than his ten of hearts).
 
 ![Model beginning game](/site_images/model.png)
 
