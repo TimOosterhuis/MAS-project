@@ -5,6 +5,7 @@ layout: default
 ![Model beginning game](/site_images/model.png)
 
 # [](#header-1)Introduction
+This project is an implementation of an abridged version of the Dutch card game Klaverjassen. This four player game is simulated with Python, knowledge is represented and updated using the rules of public announcement logic. For visualization of knowledge Kripke S5 models are used.
 
 ## [](#header-2)Download and run instructions
 
@@ -210,7 +211,7 @@ which suit is trump and instructions for the human observer to go to the next tu
 
 ![message_box](/site_images/message_box.png)
 
-In the message box (outlined in red above) is refreshed each turn.
+The message box (outlined in red above) is refreshed each turn.
 In the message box the "thoughts" of the current player are printed as well as the public announcements of that turn.
 The "thoughts" of a player are the inferences in tactics.py about what card would be the most advantageous to play in the current situation,
 and public announcements are played cards, and inferences all players can make based on played card.
@@ -220,33 +221,32 @@ or that it also doesn't have any trump if it can't 'trump in' (dutch: introeven)
 ## [](#header-2)Kripke model diagrams of the of the agents' card knowledge
 
 At every moment of the game it is possible to see what the players know and hold for possible regarding the card ownership
-of each card in the game. After each turn, a spectator can select a card via a dropdown menu in the main loop.
+of each card in the game. After each card, the user/spectator can select a card via a dropdown menu in the right window.
 A schematic S5 Kripke model is then drawn for each card with the draw_model function in `model.py`,
 which calls on the player.knowledge and player.possible triples for each card to get the relations between the worlds.
 As card ownership is mutually exclusive in the klaverjas game (every card in the game is dealt to exactly one player),
 players never hold any worlds for possible where this is not the case,
-so for any card C with the corresponding propositional atoms 
-1. p1: south owns C,
-2. p2: west owns C,
-3. p3: north owns C,
-4. p4: east owns C)
+so for any card C with the corresponding propositional atoms:
+1. p1: south owns C;
+2. p2: west owns C;
+3. p3: north owns C;
+4. p4: east owns C.
 
-the S5 model includes only the the states
-1. (p1 = T, p2 = F, p3 = F, p4 = F),
-2. (p1 = F, p2 = T, p3 = F, p4 = F),
-3. (p1 = F, p2 = F, p3 = T, p4 = F) and
+the S5 model only includes one of the states:
+1. (p1 = T, p2 = F, p3 = F, p4 = F);
+2. (p1 = F, p2 = T, p3 = F, p4 = F);
+3. (p1 = F, p2 = F, p3 = T, p4 = F);
 4. (p1 = F, p2 = F, p3 = F, p4 = T).
 
 ![Testing with images](/site_images/select.png)
 
-In the beginning of the game player South plays its lowest card instead of one of its high cards like the 10 of hearts,
-to understand this choice, let's look at what player South knows or holds for possible about the location of the ace of hearts.
+In the beginning of the game player South plays its lowest card instead of one of its higher ranked cards ()like the 10 of hearts). To understand this choice, let's look at what player South knows or holds for possible about the location of the ace of hearts (a card higher than his ten of hearts).
 
 ![Model beginning game](/site_images/model.png)
 
 Relations in the diagram (pictured above) are modeled by the colored lines, with a different color for each player.
 As we can see, player South (who has no information save his own cards, seeing as it's the beginning of the game),
-still holds it for possible that either East or West has the ace of hearts, and decides to play it safe by not playing its ten of hearts.
+still holds it for possible that either West, North or East has the ace of hearts, and decides to play it safe by not playing its ten of hearts.
  As a matter of fact, player East is the actual owner of the ace of hearts
  (symbolized by the golden outline around the Kripke world where East is the owner of the card),
  and also the only player who currently knows this.
@@ -278,11 +278,10 @@ or sacrifice some points to not let the opposing team gain bonus points.
 2. Increase the number of hands from 1 to 16, or let a game continue until one of the teams has more than 1500 points after a hand.
 3. Implementing signing and the understanding of this (this would come with a believe system, not just knowledge interpretation)
 4. Different game modes, which could mean that the starting player is not forced to play with a certain trump.
-This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
+This could result in a game mode where the first player may choose a suit to be trump, in a game mode where players 'bid' to what they want to be trump or in other modes
 5. Implementing different strategies for players. All players are very cautious now and will not take risks,
- while this may lead to better results
-6. Sometimes players should not play their lowest cards when they know their partner will win, but instead play a higher card to not lose that points another round
-
+ while taking risks sometimes could lead to better results for the players.
+6. Sometimes players should not play their lowest cards when they know their partner will win, but instead play a higher card to not lose that points another round.
 
 - Joram Koiter (s2240173)
 - Tim Oosterhuis (s2234831)
