@@ -42,8 +42,7 @@ Table 1: scores and ranks of trump and suit cards
 Cards are modeled like a tuple holding the suit,
 the name of the card and the point value. For example: (‘hearts’, ‘king’, 4)
 is the tuple representing the king of hearts cards which is worth 4 points.
-Our program only simulates one match in the whole game.
-So South always starts in our simulation, and only team one (South and North) can play wet.
+As stated above, a klaverjas game consists of a number of hands until one team reaches 1500 points. Our program simulates one hand of the whole klaverjas game since every hand all knowledge about cards is reset. This means that South always plays the first card in our simulation, and only team one (South and North) can play wet.
 
 #### Team Class:
 This is a data class holding only the number of the team (1 or 2) and the names of the players in it.
@@ -231,7 +230,7 @@ During the game more and more inferences are made by the players about the remai
 Pictured above is the model for 10 of clubs from the same game as earlier a few rounds in,
 right after player South is unable to follow suit on clubs, publicly announcing he has none.
 We can see that players East and North no longer hold it for possible that 'South owns 10 of clubs' after this announcement.
-
-Joram Koiter (s), 
-Tim Oosterhuis (s) and
-Rogier de Weert (s1985779)
++
++Joram Koiter (s2240173), 
++Tim Oosterhuis (s) and
++Rogier de Weert (s1985779)
