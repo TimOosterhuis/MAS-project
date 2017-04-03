@@ -47,7 +47,14 @@ he has to play a trump card. If the player has no trump cards, any other card ca
 When a trump card is played, all other players have to play a higher trump, if they are able to. Some bonus points can be earned by a roem system, which we do not elaborate on here. Winning the last trick of a hand awards 10 bonus points. When the starting player's team does not accumulate more than half of the points during a complete hand, all points in that game are awarded to the opposing team. This is called playing wet.
 
 ## [](#header-2)Bonus points (roem)
-
+For each hand there are a number ways to obtain bonus points. The first one, already explained above, is playing the other team wet. 
+When a team does not achieve their point goal, they are played wet. 
+This results in the other team gaining all points obtained that hand. This includes the points of every card as well as all other bonus points obtained during each trick of that hand.
+When one team wins every trick of that hand they have a pit, this gives the winning team an additional 100 bonus points.
+During each trick certain card combinations on the table are also points for the team winning that trick. 
+- King and queen of trump: 20 points
+- Three successive cards of the same suit: 20 points
+- Four successive cards of the same suit: 50 points
 
 **Regular cards** | **value** | **trump cards** | **value**
 --------------|-------|-------------|-------
