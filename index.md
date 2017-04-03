@@ -5,7 +5,7 @@ layout: default
 ![Model beginning game](/site_images/model.png)
 
 # [](#header-1)Introduction
-This project is an implementation of a version of the Dutch card game Klaverjassen. This four player game is simulated with Python, knowledge is represented and updated using the rules of public announcement logic. For visualisation of specific knowledge of card ownership Kripke S5 models are used.
+This project is an implementation of a version of the Dutch card game Klaverjassen. This four player game is simulated with Python, knowledge is represented and updated using the rules of public announcement logic. For visualisation of knowledge Kripke S5 models are used.
 
 ## [](#header-2)Download and run instructions
 
@@ -55,11 +55,6 @@ J | 2 | K | 4
 7 | - | 7 | -
 
 Table 1: scores and ranks of trump and suit cards
-
-# [](#header-1)Public Anouncement Logic and Kripke worlds
-Joram, doe je ding!
-
-
 # [](#header-1)Object Oriented View of Logical Klaverjas Playing
 
 ## [](#header-2)The Cards:
@@ -211,13 +206,12 @@ the trump suit and instructions for the human observer to go to the next turn or
 The message box (outlined in red above) is refreshed each turn.
 In the message box the thoughts, or reasonings, of the current player are printed as well as the public announcements of that turn.
 The thoughts of a player are the inferences made in `tactics.py` about which card would be the most advantageous to play in the current situation, and public announcements are played cards, and inferences all players can make based on played card.
-Such as the fact that one player no longer has any cards of a certain suit, if it can't follow suit,
-or that it also doesn't have any trump if it can't play a trump card.
+Such as the fact that one player no longer has any cards of a certain suit, if he can't follow suit,
+or that he also doesn't have any trump if he can't play a trump card.
 
 ## [](#header-2)Kripke model diagrams of the of the agents' card knowledge
 
-At every moment in the game it is possible to see what the players know and hold for possible regarding the ownership
-of each card in the game. After each trick, the user/spectator can select a card via a dropdown menu in the window on the right.
+At every moment during the game it is possible to see what the players know and hold for possible regarding the cards. After each trick, the user/spectator can select a card via a dropdown menu in the window on the right.
 A schematic S5 Kripke model is then drawn for the selected card with the `draw_model` function in `model.py`,
 which calls on the `player.knowledge` and `player.possible` tuples for each card to get the relations between the worlds.
 As card ownership is mutually exclusive in the klaverjas game (every card in the game is dealt to exactly one player),
@@ -236,18 +230,16 @@ the S5 model only includes one of the states:
 
 ![Testing with images](/site_images/select.png)
 
-In the beginning of the game player South plays its lowest card instead of one of its higher ranked cards (like the 10 of hearts). To understand this choice, let's look at what player South knows or holds for possible about the location of the ace of hearts (a card higher than his ten of hearts).
+In the beginning of the game, South plays its lowest card instead of one of its higher ranked cards (like the 10 of hearts). To understand this choice, let's look at what South knows or holds for possible about the location of the ace of hearts (a card higher than his ten of hearts).
 
 ![Model beginning game](/site_images/model.png)
 
-Relations in the diagram (pictured above) are modeled by the colored lines, with a different color for each player.
-As we can see, player South (who has no information save his own cards, seeing as it's the beginning of the game),
+Relations in the diagram pictured above are modeled by the colored lines, each color corresponds to a different player.
+As we can see, South (who has no information except for his own cards, seeing as it's the beginning of the game),
 still holds it for possible that either West, North or East has the ace of hearts, and decides to play it safe by not playing its ten of hearts.
- As a matter of fact, player East is the actual owner of the ace of hearts
- (symbolized by the golden outline around the Kripke world where East is the owner of the card),
- and also the only player who currently knows this.
+ As a matter of fact, East is the actual owner of the ace of hearts. This is symbolized by the golden outline around the Kripke world where East is the owner of the card. East is also also the only player who currently knows this.
  Because this is an S5 model it is implicit that there is a reflexive relation between all worlds and themselves,
- however we decided to make this relation explicit for the true world,
+ however we decided to make this relation explicit for the real world,
  because otherwise there would not be any visible relation for an agent when it knows the owner of the card,
  and we thought showing the relation of the true world to itself might make the model a little bit more clear to observers.
 
@@ -261,13 +253,13 @@ if we look at the model for seven of clubs after South has played it, we can see
 ![Public announcement_inference](/site_images/inference.png)
 
 During the game more and more inferences are made by the players about the remaining cards of the other players based on what they play.
-Pictured above is the model for 10 of clubs from the same game as earlier a few rounds in,
-right after player South is unable to follow suit on clubs, publicly announcing he has none.
-We can see that players East and North no longer hold it for possible that 'South owns 10 of clubs' after this announcement.
+Pictured above is the model for the ten of clubs from the same game as earlier, but now a few rounds in,
+right after South is unable to follow suit on clubs, publicly announcing he has none.
+We can see that players East and North no longer hold it for possible that 'South owns ten of clubs' after this announcement.
 
 # [](#header-1)Future Work
-Klaverjassen is more detailed than represented by our program in this project.
-There are a lot of expansions that we can think of that would greatly improve this program.
+Klaverjassen is more detailed than represented by the program in this project.
+Therefore we mention a number of expansions that would improve this program.
 A selection of these expansions include:
 1. letting Players be aware of roem and stuk, so that they may play different cards to gain bonus points for themselves
 or sacrifice some points to not let the opposing team gain bonus points.
@@ -278,6 +270,7 @@ This could result in a game mode where the first player may choose a suit to be 
 5. Implementing different strategies for players. All players are very cautious now and will not take risks,
  while taking risks sometimes could lead to better results for the players.
 6. Sometimes players should not play their lowest cards when they know their partner will win, but instead play a higher card to not lose that points another round.
+7. Letting the observer play as one of the agents.
 
 - Joram Koiter (s2240173)
 - Tim Oosterhuis (s2234831)
