@@ -60,7 +60,7 @@ and high card attributes are also updated.
 The last functions check the bonus (roem) that might be provided at the end of the round, and adds these to the score.
 
 #### Player Class:
-##### Variables for this class:
+##### Variables:
 -	team, a Team class instance
 -	closed_cards, a list holding the closed cards as tuples
 -	open_cards, a list holding the open cards as tuples
@@ -71,7 +71,7 @@ The last functions check the bonus (roem) that might be provided at the end of t
 -	knowledge, a list holding tuples of the form (name, card, played), where name are the names of the other players, card can be any tuple representing a card and played is a Boolean representing if a card is played or not. This list holds all items a players knows for certain
 -	possibles, a list of the same form as the knowledge list. But this list holds all the cards the player is uncertain about. This means that if a player (South) does not know whether the ace of spades is held by West, North or East, than this card is represented thrice in the list, as (‘West’, ( ‘Spades’, ‘Ace’, 11), False), (‘North, ( ‘Spades’, ‘Ace’, 11), False) and (‘East, ( ‘Spades’, ‘Ace’, 11), False)
 
-##### Functions for this class:
+##### Functions:
 Play_card() is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling playable() from the rules_config_big.py file, after that it will select the best card from this list by calling find_best_card() from the tactics.py file (both these functions are explained later). Play_card() will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
 Functions for this class are:
 Play_card() is the function called when a player needs to play a card.
