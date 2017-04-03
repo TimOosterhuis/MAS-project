@@ -231,3 +231,7 @@ During the game more and more inferences are made by the players about the remai
 Pictured above is the model for 10 of clubs from the same game as earlier a few rounds in,
 right after player South is unable to follow suit on clubs, publicly announcing he has none.
 We can see that players East and North no longer hold it for possible that 'South owns 10 of clubs' after this announcement.
+
+Joram Koiter (s), 
+Tim Oosterhuis (s) and
+Rogier de Weert (s1985779)
