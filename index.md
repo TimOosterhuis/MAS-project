@@ -159,29 +159,23 @@ In all other situations the second player doesn’t think he or his teammate can
 and thus plays his lowest card.
 
 #### [](#header-4)For the third player:
-Again, this player looks at his own cards,
-the cards played and what he thinks the fourth player still has left.
+Again, this player looks at his own cards, the cards played and what he thinks the fourth player still has left.
 Only if the third player is sure that he can win the trick (so the fourth player will not have a higher suit card,
-or no suit and trump left) will he play the highest card so far, in all other cases he will play the lowest card playable.
+or no suit and trump left) he will play the highest card playable, in all other cases he will play the lowest card playable.
 
 #### [](#header-4)For the fourth player:
-This player knows if he can win this trick with his available cards or not,
-and so will try to win the trick with the highest card capable of that if he is on the losing team.
-If he cannot win or his team already wins this trick he will play his lowest playable card.
+This player knows if he can win this trick with his available cards or not, so he will try to win the trick with the highest card capable of that if the other team is currently winning the trick. If he cannot win or his team already wins this trick he will play his lowest playable card.
 
 ## [](#header-2)Main.py
-Graphical details are discussed in the visualisation section.
-Main.py is where the match happens by our logical players. Here trump is chosen at random,
-the player instances are initialized and the cards are shuffled and dealt between the players.
-When this is done the knowledge of each player is created at the hand of their own cards and the open cards if any.
-When this is done each player assesses what he thinks is possible, and then South may start the match by playing his first card.
-In eight rounds, after each card is played the thoughts of the player are shown.
-After each card each player updates their knowledge and their uncertainty.
-After each round the winner of the round is shown at the bottom of the text field,
+Excluding graphical details in this explanation, these can be found below. 'main.py' is where the match is played by our logical agents. In this file the current trump suite is chosen at random, the player instances are initialized and the cards are shuffled and distributed among the players.
+When this is done the knowledge of each player is created on the basis of their own cards and the open cards on the table, if there are any.
+When this is done, each player assesses what he thinks is possible, and then South starts the match by playing his first card.
+In eight rounds, after each card is played the reasoning of the player is shown.
+After each card, each player updates their knowledge and their uncertainty.
+After each round, the winner of the round is shown at the bottom of the text field,
 and the scores are added to the correct team. After 8 rounds the programs shuts itself down automatically,
 but first calculates if the first team accumulated more than half of the points in the game.
 If they did, they keep the points. If they don’t, the other team receives all the points.
-
 
 # Visualisation 
 
