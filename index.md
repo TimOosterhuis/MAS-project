@@ -255,6 +255,7 @@ or sacrifice some points to not let the opposing team gain bonus points.
 This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
 5. Implementing different strategies for players. All players are very cautious now and will not take risks,
  while this may lead to better results
+6. Sometimes players should not play their lowest cards, but instead play a higher card to not lose that points another round
 
 
 - Joram Koiter (s2240173)
