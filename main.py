@@ -43,14 +43,24 @@ def main():
             rank = NORMAL_POINTS[face] if suit != trump else TRUMP_POINTS[face]
             ord_cards.append((suit, face, rank))
     if fixed_hands:
-        trump = 'Spades'
+        #SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
+        #FACES = ['ace', 'king', 'queen', 'jack', 'ten', 'nine', 'eight', 'seven']
+        trump = 'Diamonds'
         fixed_cards = {}
         # the hands are fixed, because we know the order of ord_cards, from the order of SUITS and FACES, we can use this to pick cards
         # for the hands, first number determines suit, second number determines rank
-        fixed_cards['South'] = [ord_cards[8 + 7], ord_cards[0 + 4], ord_cards[16 + 4], ord_cards[0 + 1], ord_cards[0 + 6], ord_cards[16 + 5], ord_cards[16 + 6], ord_cards[16 + 3]]
-        fixed_cards['West'] = [ord_cards[8 + 3], ord_cards[8 + 0], ord_cards[24 + 0], ord_cards[24 + 2], ord_cards[24 + 5], ord_cards[16 + 1], ord_cards[0 + 7], ord_cards[0 + 5]]
-        fixed_cards['North'] = [ord_cards[8 + 5], ord_cards[8 + 2], ord_cards[8 + 6], ord_cards[24 + 1], ord_cards[24 + 7], ord_cards[16 + 0], ord_cards[16 + 2], ord_cards[0 + 2]]
-        fixed_cards['East'] = [ord_cards[8 + 4], ord_cards[8 + 1], ord_cards[0 + 3], ord_cards[24 + 4], ord_cards[24 + 6], ord_cards[24 + 3], ord_cards[16 + 7], ord_cards[0 + 0]]
+        #fixed_cards['South'] = [ord_cards[8 + 7], ord_cards[0 + 4], ord_cards[16 + 4], ord_cards[0 + 1], ord_cards[0 + 6], ord_cards[16 + 5], ord_cards[16 + 6], ord_cards[16 + 3]]
+        #fixed_cards['West'] = [ord_cards[8 + 3], ord_cards[8 + 0], ord_cards[24 + 0], ord_cards[24 + 2], ord_cards[24 + 5], ord_cards[16 + 1], ord_cards[0 + 7], ord_cards[0 + 5]]
+        #fixed_cards['North'] = [ord_cards[8 + 5], ord_cards[8 + 2], ord_cards[8 + 6], ord_cards[24 + 1], ord_cards[24 + 7], ord_cards[16 + 0], ord_cards[16 + 2], ord_cards[0 + 2]]
+        #fixed_cards['East'] = [ord_cards[8 + 4], ord_cards[8 + 1], ord_cards[0 + 3], ord_cards[24 + 4], ord_cards[24 + 6], ord_cards[24 + 3], ord_cards[16 + 7], ord_cards[0 + 0]]
+        fixed_cards['South'] = [ord_cards[0 + 1], ord_cards[0 + 2], ord_cards[0 + 3], ord_cards[0 + 7],
+                                ord_cards[16 + 3], ord_cards[16 + 4], ord_cards[16 + 5], ord_cards[16 + 6]]
+        fixed_cards['West'] = [ord_cards[0 + 0], ord_cards[0 + 5], ord_cards[0 + 6], ord_cards[0 + 4],
+                                ord_cards[16 + 0], ord_cards[16 + 1], ord_cards[16 + 2], ord_cards[16 + 7]]
+        fixed_cards['North'] = [ord_cards[8 + 7], ord_cards[8 + 4], ord_cards[8 + 2], ord_cards[8 + 1],
+                                ord_cards[24 + 6], ord_cards[24 + 5], ord_cards[24 + 7], ord_cards[24 + 0]]
+        fixed_cards['East'] = [ord_cards[8 + 3], ord_cards[8 + 0], ord_cards[24 + 1], ord_cards[24 + 2],
+                                ord_cards[8 + 6], ord_cards[8 + 5], ord_cards[24 + 3], ord_cards[24 + 4]]
     cards = list(ord_cards)
     random.shuffle(cards)
     # print(cards)
