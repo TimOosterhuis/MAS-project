@@ -5,7 +5,7 @@ layout: default
 ![Model beginning game](/site_images/model.png)
 
 # [](#header-1)Introduction
-This project is the implementation of a simulation of one hand of the Dutch card game Klaverjassen. It is generally played with four players and uses 32 cards. A hand consits of eight tricks, each trick points can be obtained. The player that plays the highest card wins the trick and all the points attributed to the cards in that trick. The program is implemented using <a href="https://www.python.org/" target="_blank">Python</a>. To decide which card to play each of the four agents need to reason about their possibilities to win the trick. To be able to properly reason they need kowledge about the basic rules of the game and which cards the other players may have. At the start of the hand each player is only certain about their own cards, but as the game progresses more information becomes available. The dynamic epistemic logic framework is used to deal with the representation and updating of knowledge for each player. The visualisation of the knowledge is achieved by drawing Kripke models for each cards.
+This project is the implementation of a simulation of one hand of the Dutch card game Klaverjassen. It is generally played with four players and uses 32 cards. A hand consits of eight tricks, each trick points can be obtained. The player that plays the highest card wins the trick and all the points attributed to the cards in that trick. The program is implemented using <a href="https://www.python.org/" target="_blank">Python</a>. To decide which card to play each of the four agents need to reason about their possibilities to win the trick. To be able to properly reason they need kowledge about the basic rules of the game and which cards the other players may have. At the start of the hand each player is only certain about their own cards, but as the game progresses more information becomes available. Public announcement logic is used to deal with the representation and updating of knowledge for each player. The visualisation of the knowledge is achieved by drawing Kripke models for each cards.
 
 ### [](#header-3)_Download and run instructions_
 
@@ -19,30 +19,35 @@ On windows the standard Python installer associates the .py extension with a pyt
 
 # [](#header-1)The Game
 Klaverjassen is a strategic card game frequently played among Dutch students.
-Usually the game is played with two teams of four players.
-The goal of the game is to score 1500 points before the other team does.
-The game consists of a number of hands where points can be gained.
-The objective of each game is to collect more points than the other team.
-Every card from 7 and up is used for the game, this comes down to a total of 32 cards.
-These 32 cards are divided evenly between Each player, this means that everyone receives 8 cards at the beginning of each hand.
-Each player can only see their own cards.
+The game is played with two teams of two players. The first team which reaches a total of 1500 points wins the game.
+The game consists of a number of hands in which points can be gained. The objective of each hand is to collect more points than the other team. Every card from 7 and up is used for the game, this comes down to a total of 32 cards.
+These 32 cards are divided evenly between Each player, this means that everyone receives eight cards at the beginning of each hand. 
+Each player can only see their own cards. 
+A hand consists of eight tricks, players have to play one card each trick.
 
-## [](#header-2)Rules
+## [](#header-2)Main Rules
 Points are scored by winning tricks.
 The player that plays the highest card in a trick receives all of the cards played that trick and the points associated to the cards.
-The ranking of the suit cards is displayed in table 1 in column one and two.
-Every hand the cards of one of the four suits are the trump cards.
+The ranking of the suit cards is displayed in table 1.
+Every hand the cards of one of the four suits are trump cards.
 As displayed in the third and fourth column of table 1 the trump cards have a different ranking and value than the regular suits.
 All trump cards also rank higher than the cards from other suits.
-Trumps can be decided in a number of ways.
-In this project, for the sake of simplicity, the trump is decided at random every hand.
-A number of rules have to be followed for every trick.
-At the beginning of every hand the person that can start playing a card at the first trick is determined by a clockwise order.
+Trumps can be decided in a number of ways, players can bid on a suit with the number of points they think they will aquire that hand.
+The highest bid wins and the team with the highest bid will play. This means they have to obtain at least the number of points of their bid. If they don't acheive this, they will play wet. This means that the opposing team wil receive all the points for that hand.
+The trump can also be chosen at random, now, one by one, every player can say if they want to play, or if they pass.
+In this project, for the sake of simplicity, the trump is decided at random every hand and team South, North always plays.
+
+## [](#header-2)Trick Rules
+Every trick, a number of rules have to be followed by the players.
+At the beginning of every hand the person that can start playing a card at the first trick is determined in a clockwise order.
 This person can decide which suit will be asked that trick by playing the card of a certain suit.
 Every other player has to follow suit.
 If a player is not able to follow suit and the highest card on the table, at that moment, belongs to one of the players of the other team,
-he or she has to play a trump card. If the player has no trump cards, any other card can be played.
+he has to play a trump card. If the player has no trump cards, any other card can be played.
 When a trump card is played, all other players have to play a higher trump, if they are able to. Some bonus points can be earned by a roem system, which we do not elaborate on here. Winning the last trick of a hand awards 10 bonus points. When the starting player's team does not accumulate more than half of the points during a complete hand, all points in that game are awarded to the opposing team. This is called playing wet.
+
+## [](#header-2)Bonus points (roem)
+
 
 **Regular cards** | **value** | **trump cards** | **value**
 --------------|-------|-------------|-------
@@ -108,7 +113,7 @@ depending on in which it was in, and then returns that card and the thoughts (th
 `Update_possibles()` looks at the played cards in a trick and makes inferences based on that cards:
 -	When a card is played, the card status changes from possible to knowledge, this means that all instances in the possibles list holding that card are removed.
 -	Next, when a player has played a card that is not of the same suit as the first played card, it can be concluded that that player does not have the asked suit anymore, so all instances holding that players name and that suit in the card tuple are removed from the possibles list.
--	When the last played card is from a player that is not on the team winning the current trick, and he or she played a non-trump card, a number of options arise: If trump cards are played in this trick it can be inferred that the last playing player doesn’t have a higher trump card than the trump cards on the table. If there were no trump cards played and the player still didn’t play a trump card, it means that he or she has no trump left at all. Therefore all suitable combinations are removed from the possibles list.
+-	When the last played card is from a player that is not on the team winning the current trick, and he played a non-trump card, a number of options arise: If trump cards are played in this trick it can be inferred that the last playing player doesn’t have a higher trump card than the trump cards on the table. If there were no trump cards played and the player still didn’t play a trump card, it means that he has no trump left at all. Therefore all suitable combinations are removed from the possibles list.
 -	If a player played a card that in rank is one lower than the highest already played card, this means that he/she cannot play a lower value card (in our setting of the game, this is not always true in a real klaverjas game), so the player does not have any other cards of that suit left, and the suitable combinations are removed from the possibles list. For example: South starts with the ace of spades and West follows with the ten of spades. This means he has no other spades cards, and all combinations of West and spades are removed from the possibles list
 -	Finally, if a card is found only once in the possibles list it becomes definate knowledge. The card is then removed from the possibles list and added to the knowledge list. For example, South has two trump cards left, and because East and West have not responded with trump cards when these were played, South knows the remaining trump cards are all in North’s possession.
 
@@ -134,7 +139,7 @@ This file holds three functions, the first being `unplayed_trumps()`,
 which returns all trump card that can still be played by any of the layers.
 The second function `KM_suit` searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like `KM_suit(‘South’, ‘West’, ‘hearts’)` and will return a sorted list with all instances in the knowledge and possibles lists of South where `(‘West’, (‘Hearts’, _, _)False)` is true.
 The most important and biggest function in `tactics.py` is `find_best_card()`,
-which receives the playable cards of a player, that player instance and the trick instance. This function analyses the knowledge of the player and determines which card to play by going trough a number of options. If there is only one playable card, that one is played. The options are different for each player in a trick, i.e. if a player can start and play the first card he can choose which suite will be asked, the other player have to follow suit. 
+which receives the playable cards of a player, that player instance and the trick instance. This function analyses the knowledge of the player and determines which card to play by going trough a number of options. If there is only one playable card, that one is played. The options are different for each player in a trick, i.e. if a player can start and play the first card he can choose which suit will be asked, the other player have to follow suit. 
 
 #### [](#header-4)For the starting player:
 If there are still trump cards in play, and
@@ -171,7 +176,7 @@ or no suit and trump left) he will play the highest card playable, in all other 
 This player knows if he can win this trick with his available cards or not, so he will try to win the trick with the highest card capable of that if the other team is currently winning the trick. If he cannot win or his team already wins this trick he will play his lowest playable card.
 
 ## [](#header-2)Main.py
-Excluding graphical details in this explanation, these can be found below in the visualisation section. `main.py` is where the match is played by our logical agents. In this file the current trump suite is chosen at random, the player instances are initialized and the cards are shuffled and distributed among the players.
+Excluding graphical details in this explanation, these can be found below in the visualisation section. `main.py` is where the match is played by our logical agents. In this file the current trump suit is chosen at random, the player instances are initialized and the cards are shuffled and distributed among the players.
 When this is done the knowledge of each player is created on the basis of their own cards and the open cards on the table, if there are any.
 When this is done, each player assesses what he thinks is possible, and then South starts the match by playing his first card.
 In eight rounds, after each card is played the reasoning of the player is shown.
