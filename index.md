@@ -50,9 +50,11 @@ J | 2 | K | 4
 7 | - | 7 | -
 
 Table 1: scores and ranks of trump and suit cards
-# Object Oriented View of logical Klaverjas playing
+# Object Oriented View of Logical Klaverjas Playing
+
+#### The Cards:
 Cards are modeled like a tuple holding the suit,
-the name of the card and the point value. For example: (‘hearts’, ‘king’, 4)
+the name of the card and the point value. For example:`(‘hearts’, ‘king’, 4)`
 is the tuple representing the king of hearts cards which is worth 4 points.
 As stated above, a klaverjas game consists of a number of hands until one team reaches 1500 points. Our program simulates one hand of the whole klaverjas game since every hand all knowledge about cards is reset. This means that South always plays the first card in our simulation, and only team one (South and North) can play wet.
 
@@ -62,56 +64,67 @@ This is a data class holding only the number of the team (1 or 2) and the names 
 #### Trick Class:
 This class holds multiple attributes for each round, which include:
 each played cards, score of the round, the winning player, the highest card,
-what is trump and which players played a card in a certain order.
+which suit is trump and the order  players played a card in.
 It also holds a function that handles the adding of a new card to the round.
 The card and player are added to the attributes,
 the value of the new card is added to the score and if the card trumps the others or is of higher value the winner
 and high card attributes are also updated.
-The last functions check the bonus that might be provided at the end of the round, and adds these to the score.
+The last functions check the bonus (roem) that might be provided at the end of the round, and adds these to the score.
 
 #### Player Class:
-Variables for this class are:
+##### Variables:
 -	team, a Team class instance
 -	closed_cards, a list holding the closed cards as tuples
 -	open_cards, a list holding the open cards as tuples
 -	own_cards, the combination of open_cards and closed_cards
 -	turn, a integer representing the turn order in a trick
--	name, self-explanatory
+-	name, the name of the player
 -	all_cards, list of tuples holding all cards in the game
 -	knowledge, a list holding tuples of the form (name, card, played), where name are the names of the other players, card can be any tuple representing a card and played is a Boolean representing if a card is played or not. This list holds all items a players knows for certain
--	possibles, a list of the same form as the knowledge list. But this list holds all the cards the player is uncertain about. This means that if a player (South) does not know whether the ace of spades is held by West, North or East, than this card is represented thrice in the list, as (‘West’, ( ‘Spades’, ‘Ace’, 11), False), (‘North, ( ‘Spades’, ‘Ace’, 11), False) and (‘East, ( ‘Spades’, ‘Ace’, 11), False)
+-	possibles, a list of the same form as the knowledge list. But this list holds all the cards the player is uncertain about. This means that if a player (South) does not know whether the ace of spades is held by West, North or East, than this card is represented thrice in the list, as `(‘West’, ( ‘Spades’, ‘Ace’, 11), False)`, `(‘North, ( ‘Spades’, ‘Ace’, 11), False)` and `(‘East, ( ‘Spades’, ‘Ace’, 11), False)`.
 
+##### Functions:
+`Play_card()` is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling `playable()` from the `rules_config_big.py` file, after that it will select the best card from this list by calling `find_best_card()` from the tactics.py file (both these functions are explained later). `Play_card()` will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
 Functions for this class are:
-Play_card() is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling playable() from the rules_config_big.py file, after that it will select the best card from this list by calling find_best_card() from the tactics.py file (both these functions are explained later). Play_card() will then remove the found card from the open_cards or closed_cards list, depending on in which it was in, and then returns that card and the thoughts as found by the tactics.py function
+`Play_card()` is the function called when a player needs to play a card.
+It receives the trump and the trick if there is any yet.
+It will then first select the playable cards of the player by calling `playable()` from the `rules_config_big.py` file,
+after that it will select the best card from this list by calling `find_best_card()` from the `tactics.py` file
+(both these functions are explained later).
+`Play_card()` will then remove the found card from the `open_cards` or `closed_cards` list,
+depending on in which it was in, and then returns that card and the thoughts (the reason why that card was chosen) as found by the `tactics.py` function.
 
-Create_possibles() creates the possibles list. It looks at all the cards that are in the all_cards list and not in the knowledge list and creates three instances (for all the other players) in the possibles list for each card. Update_possibles() is a more interesting function, this function looks at the played cards in a trick and makes inferences based on that cards:
--	When a card is played, it is not possible anymore, so all instances in the possibles list holding that card are removed.
--	Next, when a player has played a card that is not of the same suit as the first played card, that player does not have that suit anymore, so all instances holding that players name and that suit in the card tuple are removed from the possibles list.
--	If the last played card is from a player that is not on the winning team and he played a non-trump card other options arise: If in the trick trump cards have been played this means that the last playing player doesn’t have a higher trump than the already played trump left. If there were no trump cards played and the player still didn’t play a trump card, this means he/she has no trump left at all. All suitable combinations are removed from the possibles list
--	If a player played a card that in rank is one lower than the highest already played card, this means that he/she cannot play a lower value card (in our setting of the game, this is not true in real life), so the player does not have any other cards of that suit left, and the suitable combinations are removed from the possibles list. For example: South starts with the ace of spades and West follows with the ten of spades. This means he has no other spades cards, and all combinations of West and spades are removed from the possibles list
--	Finally, when a card is only found once in the possibles list it is not possible anymore, but sure knowledge. The card is then removed from the possibles list and added to the knowledge list. For example, South has two trump cards left, and because East and West have not responded with trump cards when these were played the remaining trump cards are all in North’s possession.
+`Create_possibles()` creates the possibles list. It looks at all the cards that are in the all_cards list and not in the knowledge list and creates three instances (for all the other players) in the possibles list for each card. 
+
+`Update_possibles()` looks at the played cards in a trick and makes inferences based on that cards:
+-	When a card is played, the card status changes from possible to knowledge, this means that all instances in the possibles list holding that card are removed.
+-	Next, when a player has played a card that is not of the same suit as the first played card, it can be concluded that that player does not have the asked suit anymore, so all instances holding that players name and that suit in the card tuple are removed from the possibles list.
+-	When the last played card is from a player that is not on the team winning the current trick, and he or she played a non-trump card, a number of options arise: If trump cards are played in this trick it can be inferred that the last playing player doesn’t have a higher trump card than the trump cards on the table. If there were no trump cards played and the player still didn’t play a trump card, it means that he or she has no trump left at all. Therefore all suitable combinations are removed from the possibles list.
+-	If a player played a card that in rank is one lower than the highest already played card, this means that he/she cannot play a lower value card (in our setting of the game, this is not always true in a real klaverjas game), so the player does not have any other cards of that suit left, and the suitable combinations are removed from the possibles list. For example: South starts with the ace of spades and West follows with the ten of spades. This means he has no other spades cards, and all combinations of West and spades are removed from the possibles list
+-	Finally, if a card is found only once in the possibles list it becomes definate knowledge. The card is then removed from the possibles list and added to the knowledge list. For example, South has two trump cards left, and because East and West have not responded with trump cards when these were played, South knows the remaining trump cards are all in North’s possession.
+
 
 #### Rules_config_big.py
 This file holds all information about the actual game,
 so the names of the suits are stored here,
-as well as the names of the players, the ranking and points of non-trump cards as well as the ranking and points of trump cards.
-The number of players, the number of rounds and the number of open and closed cards are also stored here.
-The number of closed cards is set manually to 8,
-but can be reduced so that players have more knowledge about the cards of the other players at the start of the game.
-The most interesting part of this file is the playable() function, that receives a list of cards, the team and the trick if there is any.
-If there is no trick, all cards are immediately returned as this means that the first player can play any card from his/her hand.
-If trump is asked, a list of higher trumps is first returned.
-If this does not exist a list of lower trump cards is returned.
-If this also doesn’t exist all cards are returned.
-When suit is called and the player still has suit left, all suit cards are returned.
-If the player does not have suit left and is on the losing team, all (higher) trump cards are returned if available,
-in all other cases all cards are returned.
+as well as the names of the players, the ranking and points of trump and non-trump cards.
+The number of players, the number of tricks and the number of open and closed cards are also stored here.
+The default setting of the number of closed cards is 8,
+this can be reduced so that players have more knowledge about the cards of the other players at the start of the game.
+The most interesting part of this file is the `playable()` function, that receives a list of cards, the team and the trick, if there is any.
+- If there is no trick, all cards are immediately returned as this means that the first player can play any card from his/her hand.
+- If trump is asked, a list of higher trumps is first returned.
+- If this does not exist a list of lower trump cards is returned.
+- If this also doesn’t exist all cards are returned.
+- When suit is called and the player still has suit left, all suit cards are returned.
+- If the player does not have suit left and is on the losing team, all (higher) trump cards are returned, if available.
+- in all other cases all cards are returned.
 
 #### Tactics.py
-This file holds three functions, the first being unplayed_trumps(),
+This file holds three functions, the first being `unplayed_trumps()`,
 which returns all trump card that can still be played by any of the layers.
-The second function KM_suit searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like KM_suit(‘South’, ‘West’, ‘hearts’) and will return a sorted list with all instances in the knowledge and possibles lists of South where (‘West’, (‘Hearts’, _, _)False) is true.
-The most important and longest function in tactics.py Is find_best_card(),
+The second function KM_suit searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like KM_suit(‘South’, ‘West’, ‘hearts’) and will return a sorted list with all instances in the knowledge and possibles lists of South where `(‘West’, (‘Hearts’, _, _)False)` is true.
+The most important and longest function in tactics.py Is `find_best_card()`,
 which receives the playable cards of a player, that player instance and the trick instance. This function returns one card if that is the only possible card, otherwise it analyses the turn of the player and goes through some options for each turn; For the first turn:
 If there are still trump cards in play, and
 -	If the player has the highest ranking trump card and knows or thinks one of the opponents has at least one trump card left, the player will play this highest trump card.
@@ -168,13 +181,13 @@ If they did, they keep the points. If they don’t, the other team receives all 
 
 ## game display
 
-In main.py the game is also rendered to the game display using pygame.
+In `main.py` the game is also rendered to the game display using pygame.
 Pygame allows the drawing of stock images (such as the cards in the card playing gui, see below),
 basic rectangles and lines and text to a game display object,
 which is the basis for the visualisation of our logical klaverjas playing agents.
 For our project the game display consists of three parts, the card playing gui in the top left,
 the kripke model diagram box on the right, and the message box on the bottom.
-The card playing gui and the message box are explained below and the kripke model diagram box is explained in the next section,
+The card playing gui and the message box are explained below and the Kripke model diagram box is explained in the next section,
 about the kripke model diagrams.
 
 ###### card playing gui
@@ -187,7 +200,7 @@ as well as the open cards of the other players, if any.
 On each turn there is a small delay before the played card gets put into the center,
 to create the visual effect of a player putting a card in the center.
 In the card playing gui there is also some extra information, including the score, number of open cards,
-which suit is trump and instructions for the human oberver to go to the next turn or skip to the end of the game. 
+which suit is trump and instructions for the human observer to go to the next turn or skip to the end of the game. 
 
 ###### message box
 
@@ -200,16 +213,25 @@ and public announcements are played cards, and inferences all players can make b
 Such as the fact that one player no longer has any cards of a certain suit, if it can't follow suit,
 or that it also doesn't have any trump if it can't 'trump in' (dutch: introeven).
 
-## kripke model diagrams of the of the agents' card knowledge
+## Kripke model diagrams of the of the agents' card knowledge
 
 At every moment of the game it is possible to see what the players know and hold for possible regarding the card ownership
 of each card in the game. After each turn, a spectator can select a card via a dropdown menu in the main loop.
-A schematic S5 kripke model is then drawn for each card with the draw_model function in model.py,
+A schematic S5 Kripke model is then drawn for each card with the draw_model function in `model.py`,
 which calls on the player.knowledge and player.possible triples for each card to get the relations between the worlds.
-As card ownership is mutually exclusive in 'klaverjassen' (every card in the game is dealt to exactly one player),
+As card ownership is mutually exclusive in the klaverjas game (every card in the game is dealt to exactly one player),
 players never hold any worlds for possible where this is not the case,
-so for any card C with the corresponding propositional atoms (p1: south owns C, p2: west owns C, p3: north owns C, p4: east owns C)
-the S5 model includes only the the states (p1 = T, p2 = F, p3 = F, p4 = F), (p1 = F, p2 = T, p3 = F, p4 = F), (p1 = F, p2 = F, p3 = T, p4 = F) and (p1 = F, p2 = F, p3 = F, p4 = T).
+so for any card C with the corresponding propositional atoms 
+1. p1: south owns C,
+2. p2: west owns C,
+3. p3: north owns C,
+4. p4: east owns C)
+
+the S5 model includes only the the states
+1. (p1 = T, p2 = F, p3 = F, p4 = F),
+2. (p1 = F, p2 = T, p3 = F, p4 = F),
+3. (p1 = F, p2 = F, p3 = T, p4 = F) and
+4. (p1 = F, p2 = F, p3 = F, p4 = T).
 
 ![Testing with images](/site_images/select.png)
 
@@ -222,7 +244,7 @@ Relations in the diagram (pictured above) are modeled by the colored lines, with
 As we can see, player South (who has no information save his own cards, seeing as it's the beginning of the game),
 still holds it for possible that either East or West has the ace of hearts, and decides to play it safe by not playing its ten of hearts.
  As a matter of fact, player East is the actual owner of the ace of hearts
- (symbolized by the golden outline around the kripke world where East is the owner of the card),
+ (symbolized by the golden outline around the Kripke world where East is the owner of the card),
  and also the only player who currently knows this.
  Because this is an S5 model it is implicit that there is a reflexive relation between all worlds and themselves,
  however we decided to make this relation explicit for the true world,
@@ -244,19 +266,20 @@ right after player South is unable to follow suit on clubs, publicly announcing 
 We can see that players East and North no longer hold it for possible that 'South owns 10 of clubs' after this announcement.
 
 ### Future Work
-Klaverjassen is much more detailed than represented by our program in this project.
+Klaverjassen is more detailed than represented by our program in this project.
 There are a lot of expansions that we can think of that would greatly improve this program.
 A selection of these expansions include:
-1. letting Players be aware of Roem and Stuk, so that they may play different cards to gain bonus points for themselves
+1. letting Players be aware of roem and stuk, so that they may play different cards to gain bonus points for themselves
 or sacrifice some points to not let the opposing team gain bonus points.
 2. Increase the number of hands from 1 to 16, or let a game continue until one of the teams has more than 1500 points after a hand.
 3. Implementing signing and the understanding of this (this would come with a believe system, not just knowledge interpretation)
 4. Different game modes, which could mean that the starting player is not forced to play with a certain trump.
 This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
 5. Implementing different strategies for players. All players are very cautious now and will not take risks,
- while this could lead to better results
+ while this may lead to better results
+6. Sometimes players should not play their lowest cards when they know their partner will win, but instead play a higher card to not lose that points another round
 
 
 - Joram Koiter (s2240173)
-- Tim Oosterhuis (s)
+- Tim Oosterhuis (s2234831)
 - Rogier de Weert (s1985779)
