@@ -1,4 +1,16 @@
 ![Model beginning game](/site_images/model.png)
+
+# Introduction
+
+# Download and run instructions
+
+In addition to our program files, which can be downloaded [here](https://github.com/TimOosterhuis/MAS-project/archive/master.zip),
+you will also need [Python](https://www.python.org/) (either version 2.7 or 3.5) and the [pygame module](https://www.pygame.org/wiki/GettingStarted) in order to run our program.
+To run our logical klaverjas agents app unzip the folder after downloading it and execute the main script with python.
+On mac/linux run command: 'python main.py' from the command prompt.
+On windows the standard Python installer associates the .py extension with a python file, so you should be able to double click main.py in order to run it.
+
+
 # The Game
 Klaverjassen is a strategic card game frequently played among Dutch students.
 Generally the game is played with two teams of four players.
