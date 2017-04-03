@@ -230,7 +230,21 @@ During the game more and more inferences are made by the players about the remai
 Pictured above is the model for 10 of clubs from the same game as earlier a few rounds in,
 right after player South is unable to follow suit on clubs, publicly announcing he has none.
 We can see that players East and North no longer hold it for possible that 'South owns 10 of clubs' after this announcement.
-+
-+Joram Koiter (s2240173), 
-+Tim Oosterhuis (s) and
-+Rogier de Weert (s1985779)
+
+### Future Work
+Klaverjassen is much more detailed than represented by our program in this project.
+There are a lot of expansions that we can think of that would greatly improve this program.
+A selection of these expansions include:
+1. letting Players be aware of Roem and Stuk, so that they may play different cards to gain bonus points for themselves
+or sacrifice some points to not let the opposing team gain bonus points.
+2. Increase the number of hands from 1 to 16, or let a game continue until one of the teams has more than 1500 points after a hand.
+3. Implementing signing and the understanding of this (this would come with a believe system, not just knowledge interpretation)
+4. Different game modes, which could mean that the starting player is not forced to play with a certain trump.
+This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
+5. Implementing different strategies for players. All players are very cautious now and will not take risks,
+ while this could lead to better results
+
+
+- Joram Koiter (s2240173)
+- Tim Oosterhuis (s)
+- Rogier de Weert (s1985779)
