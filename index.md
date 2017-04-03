@@ -36,6 +36,7 @@ J | 2 | K | 4
 9 | - | Q | 3
 8 | - | 8 | -
 7 | - | 7 | -
+
 Table 1: scores and ranks of trump and suit cards
 
  
