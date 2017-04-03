@@ -7,6 +7,8 @@ layout: default
 # [](#header-1)Introduction
 This project is the implementation of a simulation of one hand of the Dutch card game Klaverjassen. It is generally played with four players and uses 32 cards. A hand consits of eight tricks, each trick points can be obtained. The player that plays the highest card wins the trick and all the points attributed to the cards in that trick. The program is implemented using <a href="https://www.python.org/" target="_blank">Python</a>. To decide which card to play each of the four agents need to reason about their possibilities to win the trick. To be able to properly reason they need kowledge about the basic rules of the game and which cards the other players may have. At the start of the hand each player is only certain about their own cards, but as the game progresses more information becomes available. The dynamic epistemic logic framework is used to deal with the representation and updating of knowledge for each player. The visualisation of the knowledge is achieved by drawing Kripke models for each cards.
 
+* * *
+
 ### [](#header-3)Download and run instructions
 
 In addition to our program files, which can be downloaded by using one of the download buttons above,
@@ -15,6 +17,7 @@ To run our logical klaverjas agents app, unzip the folder after downloading it a
 On Mac/Linux run command: `python main.py` from the command prompt.
 On windows the standard Python installer associates the .py extension with a python file, so you should be able to double click `main.py` in order to run it.
 
+* * *
 
 # [](#header-1)The Game
 Klaverjassen is a strategic card game frequently played among Dutch students.
