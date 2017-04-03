@@ -102,32 +102,32 @@ def main():
     game_pause = True
     for game_round in range(NUM_ROUNDS):
 
-        game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
-
-        for i in range(len(PLAYERS)):
-            name_display = name_font.render(PLAYERS[i], 1, (0, 0, 0))
-            game_display.blit(name_display, name_pos(PLAYERS[i], 8, screen_size))
-
-        trump_display = name_font.render(str(trump) + ' is trump', 1, (0, 0, 0))
-        open_close_info = 'Game with ' + str(OPEN_CARDS) + ' open cards and ' + str(CLOSED_CARDS) + ' cards.'
-        open_close_display = message_font.render(open_close_info, 1, (0, 0, 0))
-        continue_info1 = 'Press right arrow to continue'
-        continue_info2 = 'Press space bar to skip to end and close'
-        continue_display1 = message_font.render(continue_info1, 1, (0, 0, 0))
-        continue_display2 = message_font.render(continue_info2, 1, (0, 0, 0))
-
-        score_update1 = 'South and North:  ' + str(score['1'])
-        score_update2 = 'East and West:    ' + str(score['2'])
-        score_update_display1 = message_font.render(score_update1, 1, (0, 0, 0))
-        score_update_display2 = message_font.render(score_update2, 1, (0, 0, 0))
-        game_display.blit(score_update_display1, (20, screen_size[1]-50))
-        game_display.blit(score_update_display2, (20, screen_size[1]-35))
-
-
-        game_display.blit(trump_display, (10, 10))
-        game_display.blit(open_close_display, (10, 35))
-        game_display.blit(continue_display1, (600, 10))
-        game_display.blit(continue_display2, (600, 25))
+        # game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
+        #
+        # for i in range(len(PLAYERS)):
+        #     name_display = name_font.render(PLAYERS[i], 1, (0, 0, 0))
+        #     game_display.blit(name_display, name_pos(PLAYERS[i], 8, screen_size))
+        #
+        # trump_display = name_font.render(str(trump) + ' is trump', 1, (0, 0, 0))
+        # open_close_info = 'Game with ' + str(OPEN_CARDS) + ' open cards and ' + str(CLOSED_CARDS) + ' cards.'
+        # open_close_display = message_font.render(open_close_info, 1, (0, 0, 0))
+        # continue_info1 = 'Press right arrow to continue'
+        # continue_info2 = 'Press space bar to skip to end and close'
+        # continue_display1 = message_font.render(continue_info1, 1, (0, 0, 0))
+        # continue_display2 = message_font.render(continue_info2, 1, (0, 0, 0))
+        #
+        # score_update1 = 'South and North:  ' + str(score['1'])
+        # score_update2 = 'East and West:    ' + str(score['2'])
+        # score_update_display1 = message_font.render(score_update1, 1, (0, 0, 0))
+        # score_update_display2 = message_font.render(score_update2, 1, (0, 0, 0))
+        # game_display.blit(score_update_display1, (20, screen_size[1]-50))
+        # game_display.blit(score_update_display2, (20, screen_size[1]-35))
+        #
+        #
+        # game_display.blit(trump_display, (10, 10))
+        # game_display.blit(open_close_display, (10, 35))
+        # game_display.blit(continue_display1, (600, 10))
+        # game_display.blit(continue_display2, (600, 25))
 
         game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
 
@@ -188,7 +188,35 @@ def main():
                     pygame.display.update()
                     select_available = False
                 if not game_pause or run_one_frame:
-                    clear_hands(game_display, (205, 205, 255), len(player.closed_cards)+len(player.open_cards), screen_size)
+                    if player == players[0]:
+                        game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
+
+                        for i in range(len(PLAYERS)):
+                            name_display = name_font.render(PLAYERS[i], 1, (0, 0, 0))
+                            game_display.blit(name_display, name_pos(PLAYERS[i], 8, screen_size))
+
+                        trump_display = name_font.render(str(trump) + ' is trump', 1, (0, 0, 0))
+                        open_close_info = 'Game with ' + str(OPEN_CARDS) + ' open cards and ' + str(
+                            CLOSED_CARDS) + ' cards.'
+                        open_close_display = message_font.render(open_close_info, 1, (0, 0, 0))
+                        continue_info1 = 'Press right arrow to continue'
+                        continue_info2 = 'Press space bar to skip to end and close'
+                        continue_display1 = message_font.render(continue_info1, 1, (0, 0, 0))
+                        continue_display2 = message_font.render(continue_info2, 1, (0, 0, 0))
+
+                        score_update1 = 'South and North:  ' + str(score['1'])
+                        score_update2 = 'East and West:    ' + str(score['2'])
+                        score_update_display1 = message_font.render(score_update1, 1, (0, 0, 0))
+                        score_update_display2 = message_font.render(score_update2, 1, (0, 0, 0))
+                        game_display.blit(score_update_display1, (20, screen_size[1] - 50))
+                        game_display.blit(score_update_display2, (20, screen_size[1] - 35))
+
+                        game_display.blit(trump_display, (10, 10))
+                        game_display.blit(open_close_display, (10, 35))
+                        game_display.blit(continue_display1, (600, 10))
+                        game_display.blit(continue_display2, (600, 25))
+                    else:
+                        clear_hands(game_display, (205, 205, 255), len(player.closed_cards)+len(player.open_cards), screen_size)
                     game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 55, diagram_width, screen_size[1] - 55))
 
                     for pla in players:
