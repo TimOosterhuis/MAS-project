@@ -5,28 +5,38 @@
 #also contains function to determine legally playable cards
 #-----------------------------------------------------------------------------------------------------------------------
 debug = False
+explain = False
+fast = True
 
 SUITS = ['Hearts', 'Spades', 'Diamonds', 'Clubs']
 
 PLAYERS = ['South','East','North','West']
 
-FACES = ['ace', 'jack', 'ten', 'nine']
+FACES = ['ace', 'king', 'queen', 'jack', 'ten', 'nine', 'eight', 'seven']
 
-NORMAL_POINTS = {'nine' : 2,
-                 'jack' : 7,
-                 'ten' : 10,
-                 'ace' : 11}
+NORMAL_POINTS = {'seven' : 0.001,
+                 'eight' : 0.002,
+                 'nine' : 0.003,
+                 'jack' : 2.000,
+                 'queen' : 3.000,
+                 'king' : 4.000,
+                 'ten' : 10.000,
+                 'ace' : 11.000}
 
-TRUMP_POINTS = {'nine' : 17,
-                 'jack' : 26,
-                 'ten' : 10,
-                 'ace' : 11}
+TRUMP_POINTS = {'seven' : 0.001,
+                'eight' : 0.002,
+                'queen' : 3.000,
+                'king' : 4.000,
+                'ten' : 10.000,
+                'ace' : 11.000,
+                'nine' : 14.000,
+                'jack' : 20.000}
 
 NUM_PLAYERS = 4
 
 NUM_ROUNDS = len(SUITS) * len(NORMAL_POINTS) // NUM_PLAYERS
 
-CLOSED_CARDS = 4  # Changeable by will
+CLOSED_CARDS = 8 # Changeable by will
 OPEN_CARDS = NUM_ROUNDS - CLOSED_CARDS
 
 
@@ -47,7 +57,8 @@ def playable(cards, team, trick = None):
             if suit_cards != []:  # Player heeft nog suit
                 playable_cards = suit_cards
             else:  # Player heeft geen suit meer
-                if trick.winner.team != team:  # partner heeft niet hoogste kaart (of nog geen partner gespeeld)
+                if trick.winner.team.nr != team.nr:  # partner heeft niet hoogste kaart (of nog geen partner gespeeld)
+
                     if trick.high_card[0] == trick.trump:  # als er is ingetroefd
                         if higher_trump_cards != []:  # player kan overtroeven
                             playable_cards = higher_trump_cards

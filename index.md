@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 ![Model beginning game](/site_images/model.png)
 
 # Introduction
@@ -84,11 +88,11 @@ The last functions check the bonus (roem) that might be provided at the end of t
 -	possibles, a list of the same form as the knowledge list. But this list holds all the cards the player is uncertain about. This means that if a player (South) does not know whether the ace of spades is held by West, North or East, than this card is represented thrice in the list, as `(‘West’, ( ‘Spades’, ‘Ace’, 11), False)`, `(‘North, ( ‘Spades’, ‘Ace’, 11), False)` and `(‘East, ( ‘Spades’, ‘Ace’, 11), False)`.
 
 ##### Functions:
-`Play_card()` is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling `playable()` from the `rules_config_big.py` file, after that it will select the best card from this list by calling `find_best_card()` from the tactics.py file (both these functions are explained later). `Play_card()` will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
+`Play_card()` is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling `playable()` from the `rules_config.py` file, after that it will select the best card from this list by calling `find_best_card()` from the tactics.py file (both these functions are explained later). `Play_card()` will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
 Functions for this class are:
 `Play_card()` is the function called when a player needs to play a card.
 It receives the trump and the trick if there is any yet.
-It will then first select the playable cards of the player by calling `playable()` from the `rules_config_big.py` file,
+It will then first select the playable cards of the player by calling `playable()` from the `rules_config.py` file,
 after that it will select the best card from this list by calling `find_best_card()` from the `tactics.py` file
 (both these functions are explained later).
 `Play_card()` will then remove the found card from the `open_cards` or `closed_cards` list,
@@ -104,7 +108,7 @@ depending on in which it was in, and then returns that card and the thoughts (th
 -	Finally, if a card is found only once in the possibles list it becomes definate knowledge. The card is then removed from the possibles list and added to the knowledge list. For example, South has two trump cards left, and because East and West have not responded with trump cards when these were played, South knows the remaining trump cards are all in North’s possession.
 
 
-#### Rules_config_big.py
+#### Rules_config.py
 This file holds all information about the actual game,
 so the names of the suits are stored here,
 as well as the names of the players, the ranking and points of trump and non-trump cards.

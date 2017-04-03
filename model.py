@@ -1,5 +1,5 @@
 import pygame
-from rules_config_big import *
+from rules_config import *
 from math import pi
 
 HAS_CARD_DICT = {

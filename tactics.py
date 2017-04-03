@@ -1,6 +1,6 @@
 import random
 from knowledge import *
-from rules_config_big import *
+from rules_config import *
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Tactics section, currently has function find best card, which determines the best card to play for a player given its
