@@ -26,7 +26,6 @@ If a player is not able to follow suit and the highest card at that moment belon
 he or she has to play a trump card. If the player has no trump cards, any other card can be played.
 When a trump card is played, all other players have to play a higher trump, if possible.
 
-Table 1: scores and ranks of trump and suit cards
 **Regular cards** | **value** | **trump cards** | **value**
 --------------|-------|-------------|-------
 A | 11 | B | 20
@@ -38,6 +37,7 @@ J | 2 | K | 4
 8 | - | 8 | -
 7 | - | 7 | -
 
+Table 1: scores and ranks of trump and suit cards
 # Object Oriented View of logical Klaverjas playing
 Cards are modeled like a tuple holding the suit,
 the name of the card and the point value. For example: (‘hearts’, ‘king’, 4)
