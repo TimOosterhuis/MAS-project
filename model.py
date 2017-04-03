@@ -49,14 +49,28 @@ def draw_model(screen, players, font, card, left, top, width, height):
         if card in player.own_cards:
             true_card_owner = player.name
             pygame.draw.rect(screen, (225, 225, 0), world_node, 5)
+            display_a = font.render(player.name, 1, (1, 1, 1))
+            screen.blit(display_a, (w_left + 8, w_top))
+            display_b = font.render('has', 1, (1, 1, 1))
+            screen.blit(display_b, (w_left + 15, w_top + 15))
+            display_c = font.render('card', 1, (1, 1, 1))
+            screen.blit(display_c, (w_left + 12, w_top + 30))
         else:
-            pygame.draw.rect(screen, (0, 0, 0), world_node, 1)
-        display_a = font.render(player.name, 1, (1, 1, 1))
-        screen.blit(display_a, (w_left + 8, w_top))
-        display_b = font.render('has', 1, (1, 1, 1))
-        screen.blit(display_b, (w_left + 15, w_top + 15))
-        display_c = font.render('card', 1, (1, 1, 1))
-        screen.blit(display_c, (w_left + 12, w_top + 30))
+            world_in_model = False
+            for pla in players:
+                world_possible = [world for world in pla.possibles if world == (player.name, card, False)]
+                print(world_possible)
+                if len(world_possible) > 0:
+                    world_in_model = True
+            if world_in_model:
+                pygame.draw.rect(screen, (0, 0, 0), world_node, 1)
+                display_a = font.render(player.name, 1, (1, 1, 1))
+                screen.blit(display_a, (w_left + 8, w_top))
+                display_b = font.render('has', 1, (1, 1, 1))
+                screen.blit(display_b, (w_left + 15, w_top + 15))
+                display_c = font.render('card', 1, (1, 1, 1))
+                screen.blit(display_c, (w_left + 12, w_top + 30))
+
 
     for player in players:
         relations = [world for world in player.knowledge if world[1] == card]
