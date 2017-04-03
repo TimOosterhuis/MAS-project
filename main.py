@@ -131,7 +131,7 @@ def main():
 
         game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
 
-        model_title = 'Card knowledge of the current player:'
+        model_title = 'Current card knowledge of players:'
         model_title_display = name_font.render(model_title, 1, (0, 0, 0))
         game_display.blit(model_title_display, (screen_size[0] + 10, 10))
         dropdown = pygame.Rect(screen_size[0] + 10, 35, 150, 20)
