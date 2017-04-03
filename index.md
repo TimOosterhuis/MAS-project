@@ -55,6 +55,11 @@ J | 2 | K | 4
 7 | - | 7 | -
 
 Table 1: scores and ranks of trump and suit cards
+
+# [](#header-1)Public Anouncement Logic and Kripke worlds
+Joram, doe je ding!
+
+
 # [](#header-1)Object Oriented View of Logical Klaverjas Playing
 
 ## [](#header-2)The Cards:
