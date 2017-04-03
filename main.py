@@ -101,44 +101,22 @@ def main():
     game_pause = True
     for game_round in range(NUM_ROUNDS):
 
-        # game_display.fill((205, 205, 255), pygame.Rect(0, 0, screen_size[0], screen_size[1]))
-        #
-        # for i in range(len(PLAYERS)):
-        #     name_display = name_font.render(PLAYERS[i], 1, (0, 0, 0))
-        #     game_display.blit(name_display, name_pos(PLAYERS[i], 8, screen_size))
-        #
-        # trump_display = name_font.render(str(trump) + ' is trump', 1, (0, 0, 0))
-        # open_close_info = 'Game with ' + str(OPEN_CARDS) + ' open cards and ' + str(CLOSED_CARDS) + ' cards.'
-        # open_close_display = message_font.render(open_close_info, 1, (0, 0, 0))
-        # continue_info1 = 'Press right arrow to continue'
-        # continue_info2 = 'Press space bar to skip to end and close'
-        # continue_display1 = message_font.render(continue_info1, 1, (0, 0, 0))
-        # continue_display2 = message_font.render(continue_info2, 1, (0, 0, 0))
-        #
-        # score_update1 = 'South and North:  ' + str(score['1'])
-        # score_update2 = 'East and West:    ' + str(score['2'])
-        # score_update_display1 = message_font.render(score_update1, 1, (0, 0, 0))
-        # score_update_display2 = message_font.render(score_update2, 1, (0, 0, 0))
-        # game_display.blit(score_update_display1, (20, screen_size[1]-50))
-        # game_display.blit(score_update_display2, (20, screen_size[1]-35))
-        #
-        #
-        # game_display.blit(trump_display, (10, 10))
-        # game_display.blit(open_close_display, (10, 35))
-        # game_display.blit(continue_display1, (600, 10))
-        # game_display.blit(continue_display2, (600, 25))
-
         game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 0, diagram_width, screen_size[1]))
 
         model_title = 'Current card knowledge of players:'
         model_title_display = name_font.render(model_title, 1, (0, 0, 0))
         game_display.blit(model_title_display, (screen_size[0] + 10, 10))
-        dropdown = pygame.Rect(screen_size[0] + 10, 35, 150, 20)
+        dropdown_width = 140
+        dropdown = pygame.Rect(screen_size[0] + 10, 35, dropdown_width, 20)
         pygame.draw.rect(game_display, (0, 0, 0), dropdown, 1)
         dropdown_display = message_font.render('choose a card', 1, (0, 0, 0))
         game_display.blit(dropdown_display, ((dropdown.left + 5), dropdown.top))
 
         for player in players: # Each following player picks card to play and plays
+
+            pygame.draw.line(game_display, (0, 0, 0), (screen_size[0], screen_size[1]),
+                             (screen_size[0] + diagram_width, screen_size[1]), 2)
+            pygame.display.update()
             message_counter = 0
             turn = True
             menu_open = False
@@ -165,7 +143,7 @@ def main():
                 y_hover_dropdown = dropdown.top < y < dropdown.top + dropdown.height
                 if x_hover_dropdown and y_hover_dropdown and m_pressed[0]:
                     for i in range(1, len(ord_cards) + 1):
-                        dropdown_opt = pygame.Rect(screen_size[0] + 10, 35 + 20*i, 150, 20)
+                        dropdown_opt = pygame.Rect(screen_size[0] + 10, 35 + 20*i, dropdown_width, 20)
                         pygame.draw.rect(game_display, (255, 255, 255), dropdown_opt, 0)
                         pygame.draw.rect(game_display, (0, 0, 0), dropdown_opt, 1)
                         card = ord_cards[i - 1]
@@ -176,14 +154,18 @@ def main():
                 if menu_open and not m_pressed[0]:
                     select_available = True
                 if select_available and m_pressed[0]:
-                    game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 55, diagram_width, screen_size[1] + message_screen_height - 55))
-                    pygame.draw.line(game_display, (0, 0, 0), (screen_size[0], screen_size[1]), (screen_size[0] + diagram_width, screen_size[1]), 2)
                     if x_hover_dropdown and dropdown.top + dropdown.height < y < dropdown.top + dropdown.height*(len(ord_cards) + 1):
+                        game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + dropdown_width + 10, 55, diagram_width,
+                                                                       screen_size[1] - 55))
+
                         i = int((y - 35) / 20 - 1)
                         card = ord_cards[i]
                         picked_card = message_font.render('card is: ' + card[1] + ' of ' + card[0], 1, (0, 0, 0))
-                        game_display.blit(picked_card, (screen_size[0] + 50, 100))
+                        game_display.blit(picked_card, (screen_size[0] + 200, 60))
                         draw_model(game_display, players, message_font, card, screen_size[0], 55, diagram_width, screen_size[1] - 55)
+                    #else:
+                        # game_display.fill((255, 255, 255), pygame.Rect(screen_size[0] + 2, 55, diagram_width, screen_size[1] + message_screen_height - 55))
+                        # pygame.draw.line(game_display, (0, 0, 0), (screen_size[0], screen_size[1]), (screen_size[0] + diagram_width, screen_size[1]), 2)
                     pygame.display.update()
                     select_available = False
                 if not game_pause or run_one_frame:

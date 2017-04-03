@@ -37,12 +37,12 @@ REL_LINE_START = {
 
 def draw_model(screen, players, font, card, left, top, width, height):
     legend = font.render("true world: ", 1, (0, 0, 0))
-    screen.blit(legend, (left + 50, top + 60))
-    legend_rect = pygame.Rect(left + 115, top + 65, 12, 12)
+    screen.blit(legend, (left + 200, top + 20))
+    legend_rect = pygame.Rect(left + 265, top + 25, 12, 12)
     pygame.draw.rect(screen, (225, 225, 0), legend_rect, 0)
     for player in players:
         legend = font.render(player.name, 1, REL_COLOR_DICT[player.name])
-        screen.blit(legend, (left + 50, top + 60 + REL_ARC_TO_SELF[player.name][0] * 1.5))
+        screen.blit(legend, (left + 200, top + 20 + REL_ARC_TO_SELF[player.name][0] * 1.5))
         w_left = left + HAS_CARD_DICT[player.name][0] * width
         w_top = top + HAS_CARD_DICT[player.name][1] * height
         world_node = pygame.Rect(w_left, w_top, 50, 50)
