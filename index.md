@@ -128,42 +128,42 @@ The most interesting part of this file is the `playable()` function, that receiv
 ## [](#header-2)Tactics.py
 This file holds three functions, the first being `unplayed_trumps()`,
 which returns all trump card that can still be played by any of the layers.
-The second function KM_suit searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like KM_suit(‘South’, ‘West’, ‘hearts’) and will return a sorted list with all instances in the knowledge and possibles lists of South where `(‘West’, (‘Hearts’, _, _)False)` is true.
-The most important and longest function in tactics.py Is `find_best_card()`,
-which receives the playable cards of a player, that player instance and the trick instance. This function returns one card if that is the only possible card, otherwise it analyses the turn of the player and goes through some options for each turn; For the first turn:
+The second function `KM_suit` searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like `KM_suit(‘South’, ‘West’, ‘hearts’)` and will return a sorted list with all instances in the knowledge and possibles lists of South where `(‘West’, (‘Hearts’, _, _)False)` is true.
+The most important and biggest function in `tactics.py` is `find_best_card()`,
+which receives the playable cards of a player, that player instance and the trick instance. This function analyses the knowledge of the player and determines which card to play by going trough a number of options. If there is only one playable card, that one is played. The options are different for each player in a trick, i.e. if a player can start and play the first card he can choose which suite will be asked, the other player have to follow suit. 
+
+#### [](#header-4)For the starting player:
 If there are still trump cards in play, and
--	If the player has the highest ranking trump card and knows or thinks one of the opponents has at least one trump card left, the player will play this highest trump card.
--	If the player knows that his teammate has this highest trump card, one of the opponents has a trump card left and the player himself has a trump card left, he will play this trump card
--	The player thinks both opponents still have a certain suit, and the player thinks they do not have a higher ranked suit card than his, he plays that highest ranked suit card. For example: South has the ten of spades and thinks both East and West still have spades but not higher than the ten, he will play the ten
+-	If the player has the highest ranking trump card and knows or thinks one of the opponents have at least one trump card left, the player will play their highest trump card.
+-	If the player knows that his teammate has the highest trump card, one of the opponents has a trump card left and the player himself has a trump card left, he will play his trump card.
+-	The player thinks both opponents still have a certain suit, and the player thinks they do not have a higher ranked suit card than he has, he plays that highest ranked suit card. For example: South has the ten of spades and thinks both East and West still have spades but not higher than the ten, he will play the ten.
 If there are no trump cards in play anymore,
 the first player will search for a card that is higher than any cards the opponents can have,
-and will also play a card of which the opponents do not have suit anymore
+or he will will play a card of which the opponents do not have suit anymore.
 
-For the second player:
+#### [](#header-4)For the second player:
 If trump is called and the player still has trump cards, multiple options are available.
-If the second player thinks the third player doesn’t have trump anymore,
+- If the second player thinks the third player doesn’t have trump anymore,
 it will play the lowest trump card that is higher than the one played by the first player (if this is available).
-If the second player thinks the third player still has trump,
-it will play a card of which he thinks is higher than what the third player can play. If that is not the case as well, the second player will play his lowest ranked available card.
-If trump is called and the second player does not have trump anymore, he will play his lowest ranked available card.
-In all other cases trump has not been played.
-When the second player has to play trump he plays his lowest ranked trump card.
+- If the second player thinks the third player still has trump,
+it will play a card of which he thinks is higher than what the third player can play. If that is not the case as well, the second player will play his lowest available trump card.
+- If the second player does not have trump anymore, he will play his lowest ranked available card.
+If trump is not called the following options are available:
+- When the second player has to play trump he plays his lowest ranked trump card.
 When he doesn’t have to play trump he thinks about what his opponent and teammate may have.
-If he thinks the third player (his opponent) doesn’t have suit anymore,
-he plays a card that is better than the first one if the also thinks the third player does not have trump.
-If he thinks the third player still has suit,
-he plays his best card if he thinks that is higher than the first card played and the highest possible card from the third player.
-The exception to this last is when he thinks his teammate has an even better card,
-than he plays his lowest ranked card. In all other situations the second player doesn’t think he or his teammate can win this trick,
+- If he thinks the third player (his opponent) doesn’t have suit anymore, he plays a card that is higher than the card of the first player, but only if he also thinks the third player does not have trump.
+- If he thinks the third player still has suit, he plays his highest card if he thinks that it is higher than both the first card played and the highest possible card from the third player.
+When the second player thinks his teammate has an even better card there is an exception to this last option. He now plays hist lowest ranked card.
+In all other situations the second player doesn’t think he or his teammate can win this trick,
 and thus plays his lowest card.
 
-For the third player:
+#### [](#header-4)For the third player:
 Again, this player looks at his own cards,
 the cards played and what he thinks the fourth player still has left.
 Only if the third player is sure that he can win the trick (so the fourth player will not have a higher suit card,
 or no suit and trump left) will he play the highest card so far, in all other cases he will play the lowest card playable.
 
-For the fourth player:
+#### [](#header-4)For the fourth player:
 This player knows if he can win this trick with his available cards or not,
 and so will try to win the trick with the highest card capable of that if he is on the losing team.
 If he cannot win or his team already wins this trick he will play his lowest playable card.
