@@ -26,9 +26,11 @@ On windows the standard Python installer associates the .py extension with a pyt
 * * *
 
 # [](#header-1)The Game
-Klaverjassen is a strategic card game frequently played among Dutch students. The strategic 
-The game is played with two teams of two players. The first team which reaches a total of 1500 points wins the game.
-The game consists of a number of hands in which points can be gained. The objective of each hand is to collect more points than the other team. Every card from 7 and up is used for the game, this comes down to a total of 32 cards.
+Klaverjassen is a strategic card game frequently played among Dutch students.
+The game is played with two teams of two players. 
+The first team which reaches a total of 1500 points wins the game.
+The game consists of a number of hands in which points can be gained. 
+The objective of each hand is to collect more points than the other team. Every card from 7 and up is used for the game, this comes down to a total of 32 cards.
 These 32 cards are divided evenly between Each player, this means that everyone receives eight cards at the beginning of each hand. 
 Each player can only see their own cards. 
 A hand consists of eight tricks, players have to play one card each trick.
@@ -44,6 +46,19 @@ Trumps can be decided in a number of ways, players can bid on a suit with the nu
 The highest bid wins and the team with the highest bid will play. This means they have to obtain at least the number of points of their bid. If they don't acheive this, they will play wet. This means that the opposing team wil receive all the points for that hand.
 The trump can also be chosen at random, now, one by one, every player can say if they want to play, or if they pass.
 In this project, for the sake of simplicity, the trump is decided at random every hand and team South, North always plays.
+
+**Regular cards** | **value** | **trump cards** | **value**
+--------------|-------|-------------|-------
+A | 11 | B | 20
+10 | 10 | 9 | 14
+K | 4 | A | 11
+Q | 3 | 10 | 10
+J | 2 | K | 4
+9 | - | Q | 3
+8 | - | 8 | -
+7 | - | 7 | -
+
+<center>Table 1: scores and ranks of trump and suit cards</center>
 
 ## [](#header-2)Trick Rules
 Every trick, a number of rules have to be followed by the players.
@@ -65,20 +80,12 @@ During each trick certain card combinations on the table are also points for the
 - Three successive cards of the same suit: 20 points
 - Four successive cards of the same suit: 50 points
 
-**Regular cards** | **value** | **trump cards** | **value**
---------------|-------|-------------|-------
-A | 11 | B | 20
-10 | 10 | 9 | 14
-K | 4 | A | 11
-Q | 3 | 10 | 10
-J | 2 | K | 4
-9 | - | Q | 3
-8 | - | 8 | -
-7 | - | 7 | -
-
-<center>Table 1: scores and ranks of trump and suit cards</center>
-
 # [](#header-1)Public Anouncement Logic and Kripke Worlds
+An important aspect of playing the klaverjas game is obtaining knowledge about the cards of the other players. 
+Using this knowledge, players are able to devise which cards to play to certainly win a trick, and therefore obtain points. 
+Every card played generates new knowledge available to all of the four players. 
+Combining this public knowledge with the cards the players hold in their hands, the private knowledge, every player has a different set of certainties and uncertainties.
+
 
 # [](#header-1)Object Oriented View of Logical Klaverjas Playing
 
