@@ -170,8 +170,8 @@ and so will try to win the trick with the highest card capable of that if he is 
 If he cannot win or his team already wins this trick he will play his lowest playable card.
 
 ## [](#header-2)Main.py
-Excluding graphical details in this explanation,
-this where the match happens by our logical players. Here trump is chosen at random,
+Graphical details are discussed in the visualisation section.
+Main.py is where the match happens by our logical players. Here trump is chosen at random,
 the player instances are initialized and the cards are shuffled and dealt between the players.
 When this is done the knowledge of each player is created at the hand of their own cards and the open cards if any.
 When this is done each player assesses what he thinks is possible, and then South may start the match by playing his first card.
