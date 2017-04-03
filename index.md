@@ -1,7 +1,7 @@
 ![Model beginning game](/site_images/model.png)
 # The Game
 Klaverjassen is a strategic card game frequently played among Dutch students.
-It is played with two teams of four players.
+Generally the game is played with two teams of four players.
 The goal of the game is to score 1500 points before the other team does.
 The game consists of a number of hands where points can be gained.
 The objective of each hand is to collect more points than the other team.
@@ -11,18 +11,18 @@ Every player can only see their own cards.
 
 ## Rules
 Points are scored by winning tricks.
-The player that plays the highest card in a trick receives all of the cards played that trick.
+The player that plays the highest card in a trick receives all of the cards played that trick and the points associated to the cards.
 The ranking of the suit cards is displayed in table 1 in column one and two.
 Every hand the cards of one of the four suits are the trump cards.
-As displayed in the third and fourth column of table 1 the trump cards have a different ranking and value than the normal suits.
+As displayed in the third and fourth column of table 1 the trump cards have a different ranking and value than the regular suits.
 All trump cards also rank higher than the cards from other suits.
 Trumps can be decided in a number of ways.
-In this project, for the sake of simplicity, the trump is decided at random.
+In this project, for the sake of simplicity, the trump is decided at random every hand.
 A number of rules have to be followed for every trick.
 At the beginning of every hand the person that can start playing a card at the first trick is determined by a clockwise order.
-This person can decide which suit will be asked that trick.
+This person can decide which suit will be asked that trick by playing the card of a certain suit.
 Every other player has to follow suit.
-If a player is not able to follow suit and the highest card at that moment belongs to one of the players of the other team,
+If a player is not able to follow suit and the highest card on the table, at that moment, belongs to one of the players of the other team,
 he or she has to play a trump card. If the player has no trump cards, any other card can be played.
 When a trump card is played, all other players have to play a higher trump, if possible.
 
