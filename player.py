@@ -1,6 +1,5 @@
 import random
-#from rules_config import *
-from rules_config_big import *
+from rules_config import *
 from tactics import *
 
 #-----------------------------------------------------------------------------------------------------------------------

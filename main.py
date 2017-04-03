@@ -1,5 +1,4 @@
-#  from rules_config import *
-from rules_config_big import *
+from rules_config import *
 from player import *
 from trick import Trick
 import random
