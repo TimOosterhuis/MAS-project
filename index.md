@@ -259,7 +259,7 @@ still holds it for possible that either West, North or East has the ace of heart
 
 When players play a card they make a public announcement that they were the owner of that card,
 if we look at the model for seven of clubs after South has played it, we can see that every player now knows that
-'South owns seven of clubs'.
+'South owns seven of clubs', and all worlds where this is false are no longer part of the model.
 
 
 ![Public announcement_inference](/site_images/inference.png)
