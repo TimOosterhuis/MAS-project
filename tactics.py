@@ -1,10 +1,9 @@
 import random
-from knowledge import *
 from rules_config import *
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Tactics section, currently has function find best card, which determines the best card to play for a player given its
-# playable cards, its knowledge and what it holds for possible, calls on the inference rules in knowledge.py
+# playable cards, its knowledge and what it holds for possible, calls on the inference rules
 #
 # not fully implemented yet
 #-----------------------------------------------------------------------------------------------------------------------
@@ -352,5 +351,7 @@ def KM_suit(player, other_player, suit):
     to_return = sorted(K_opp_suit, key=lambda tup:tup[1][2], reverse=True)
     return to_return
 
+def knows(player, statement):
+    return True if statement in player.knowledge else False
 
 
