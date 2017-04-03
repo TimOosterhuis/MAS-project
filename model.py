@@ -59,7 +59,6 @@ def draw_model(screen, players, font, card, left, top, width, height):
             world_in_model = False
             for pla in players:
                 world_possible = [world for world in pla.possibles if world == (player.name, card, False)]
-                print(world_possible)
                 if len(world_possible) > 0:
                     world_in_model = True
             if world_in_model:
