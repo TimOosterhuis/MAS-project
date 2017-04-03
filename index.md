@@ -1,6 +1,4 @@
----
-layout: default
----
+
 
 ![Model beginning game](/site_images/model.png)
 
