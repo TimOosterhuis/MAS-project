@@ -241,7 +241,10 @@ def main():
 
                         pygame.display.update()
                     if game_pause:
-                        pygame.time.delay(1000)
+                        if fast:
+                            pygame.time.delay(100)
+                        else:
+                            pygame.time.delay(1500)
                     clear_hands(game_display, (205, 205, 255), len(player.closed_cards) + len(player.open_cards),
                                 screen_size)
 
@@ -308,7 +311,10 @@ def main():
                             print(pla.name + ' Knows (update): ' + str(pla.knowledge))
 
                     if game_pause:
-                        pygame.time.delay(1500)
+                        if fast:
+                            pygame.time.delay(100)
+                        else:
+                            pygame.time.delay(1500)
 
                     if player.turn == 3:
                         trick.check_bonus()
