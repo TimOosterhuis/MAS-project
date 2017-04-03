@@ -110,7 +110,7 @@ Excluding graphical details in this explanation, this where the match happens by
 
 ## game display
 
-In main.py the game is also rendered to the game display using pygame. Pygame allows the drawing of stock images (such as the cards in the card playing gui, see below), basic rectangles and lines and text to a game display object, which is the basis for the visualisation of our logical klaverjas playing agents. For our project the game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom. 
+In main.py the game is also rendered to the game display using pygame. Pygame allows the drawing of stock images (such as the cards in the card playing gui, see below), basic rectangles and lines and text to a game display object, which is the basis for the visualisation of our logical klaverjas playing agents. For our project the game display consists of three parts, the card playing gui in the top left, the kripke model diagram box on the right, and the message box on the bottom. The card playing gui and the message box are explained below and the kripke model diagram box is explained in the next section, about the kripke model diagrams.
 
 ###### card playing gui
 
@@ -122,7 +122,7 @@ The card gui (pictured above) is mainly there to make the progress of the game i
 
 ![message_box](/site_images/message_box.png)
 
-In the message
+In the message box (outlined in red above) is refreshed each turn. In the message box the "thoughts" of the current player are printed as well as the public announcements of that turn. The "thoughts" of a player are the inferences in tactics.py about what card would be the most advantageous to play in the current situation, and public announcements are played cards, and inferences all players can make based on played card. Such as the fact that one player no longer has any cards of a certain suit, if it can't follow suit, or that it also doesn't have any trump if it can't 'trump in' (dutch: introeven).
 
 ## kripke model diagrams of the of the agents' card knowledge
 
@@ -134,7 +134,7 @@ In the beginning of the game player South plays its lowest card instead of one o
 
 ![Model beginning game](/site_images/model.png)
 
-As we can see, player South (who has no information save his own cards, seeing as it's the beginning of the game), still holds it for possible that either East or West has the ace of hearts, and decides to play it safe by not playing its ten of hearts. As a matter of fact, player East is the actual owner of the ace of hearts, and also the only player who currently knows this.
+Relations in the diagram (pictured above) are modeled by the colored lines, with a different color for each player. As we can see, player South (who has no information save his own cards, seeing as it's the beginning of the game), still holds it for possible that either East or West has the ace of hearts, and decides to play it safe by not playing its ten of hearts.  As a matter of fact, player East is the actual owner of the ace of hearts (symbolized by the golden outline around the kripke world where East is the owner of the card), and also the only player who currently knows this. Because this is an S5 model it is implicit that there is a reflexive relation between all worlds and themselves, however we decided to make this relation explicit for the true world, because otherwise there would not be any visible relation for an agent when it knows the owner of the card, and we thought showing the relation of the true world to itself might make the model a little bit more clear to observers.
 
 ![Public announcement card](/site_images/pub_ann_card.png)
 
