@@ -38,7 +38,9 @@ J | 2 | K | 4
 7 | - | 7 | -
 
 Table 1: scores and ranks of trump and suit cards
-# Object Oriented View of logical Klaverjas playing
+# Object Oriented View of Logical Klaverjas Playing
+
+#### The Cards:
 Cards are modeled like a tuple holding the suit,
 the name of the card and the point value. For example: (‘hearts’, ‘king’, 4)
 is the tuple representing the king of hearts cards which is worth 4 points.
@@ -50,12 +52,12 @@ This is a data class holding only the number of the team (1 or 2) and the names 
 #### Trick Class:
 This class holds multiple attributes for each round, which include:
 each played cards, score of the round, the winning player, the highest card,
-what is trump and which players played a card in a certain order.
+which suit is trump and the order  players played a card in.
 It also holds a function that handles the adding of a new card to the round.
 The card and player are added to the attributes,
 the value of the new card is added to the score and if the card trumps the others or is of higher value the winner
 and high card attributes are also updated.
-The last functions check the bonus that might be provided at the end of the round, and adds these to the score.
+The last functions check the bonus (roem) that might be provided at the end of the round, and adds these to the score.
 
 #### Player Class:
 Variables for this class are:
@@ -64,16 +66,19 @@ Variables for this class are:
 -	open_cards, a list holding the open cards as tuples
 -	own_cards, the combination of open_cards and closed_cards
 -	turn, a integer representing the turn order in a trick
--	name, self-explanatory
+-	name, the name of the player
 -	all_cards, list of tuples holding all cards in the game
 -	knowledge, a list holding tuples of the form (name, card, played), where name are the names of the other players, card can be any tuple representing a card and played is a Boolean representing if a card is played or not. This list holds all items a players knows for certain
 -	possibles, a list of the same form as the knowledge list. But this list holds all the cards the player is uncertain about. This means that if a player (South) does not know whether the ace of spades is held by West, North or East, than this card is represented thrice in the list, as (‘West’, ( ‘Spades’, ‘Ace’, 11), False), (‘North, ( ‘Spades’, ‘Ace’, 11), False) and (‘East, ( ‘Spades’, ‘Ace’, 11), False)
 
 Functions for this class are:
-Play_card() is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling playable() from the rules_config_big.py file, after that it will select the best card from this list by calling find_best_card() from the tactics.py file (both these functions are explained later). Play_card() will then remove the found card from the open_cards or closed_cards list, depending on in which it was in, and then returns that card and the thoughts as found by the tactics.py function
 
-Create_possibles() creates the possibles list. It looks at all the cards that are in the all_cards list and not in the knowledge list and creates three instances (for all the other players) in the possibles list for each card. Update_possibles() is a more interesting function, this function looks at the played cards in a trick and makes inferences based on that cards:
--	When a card is played, it is not possible anymore, so all instances in the possibles list holding that card are removed.
+Play_card() is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling playable() from the rules_config_big.py file, after that it will select the best card from this list by calling find_best_card() from the tactics.py file (both these functions are explained later). Play_card() will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
+
+Create_possibles() creates the possibles list. It looks at all the cards that are in the all_cards list and not in the knowledge list and creates three instances (for all the other players) in the possibles list for each card. 
+
+Update_possibles() looks at the played cards in a trick and makes inferences based on that cards:
+-	When a card is played, the card status changes from possible to knowledge, this means that all instances in the possibles list holding that card are removed.
 -	Next, when a player has played a card that is not of the same suit as the first played card, that player does not have that suit anymore, so all instances holding that players name and that suit in the card tuple are removed from the possibles list.
 -	If the last played card is from a player that is not on the winning team and he played a non-trump card other options arise: If in the trick trump cards have been played this means that the last playing player doesn’t have a higher trump than the already played trump left. If there were no trump cards played and the player still didn’t play a trump card, this means he/she has no trump left at all. All suitable combinations are removed from the possibles list
 -	If a player played a card that in rank is one lower than the highest already played card, this means that he/she cannot play a lower value card (in our setting of the game, this is not true in real life), so the player does not have any other cards of that suit left, and the suitable combinations are removed from the possibles list. For example: South starts with the ace of spades and West follows with the ten of spades. This means he has no other spades cards, and all combinations of West and spades are removed from the possibles list
@@ -230,21 +235,21 @@ During the game more and more inferences are made by the players about the remai
 Pictured above is the model for 10 of clubs from the same game as earlier a few rounds in,
 right after player South is unable to follow suit on clubs, publicly announcing he has none.
 We can see that players East and North no longer hold it for possible that 'South owns 10 of clubs' after this announcement.
-
-### Future Work
-Klaverjassen is much more detailed than represented by our program in this project.
-There are a lot of expansions that we can think of that would greatly improve this program.
-A selection of these expansions include:
-1. letting Players be aware of Roem and Stuk, so that they may play different cards to gain bonus points for themselves
-or sacrifice some points to not let the opposing team gain bonus points.
-2. Increase the number of hands from 1 to 16, or let a game continue until one of the teams has more than 1500 points after a hand.
-3. Implementing signing and the understanding of this (this would come with a believe system, not just knowledge interpretation)
-4. Different game modes, which could mean that the starting player is not forced to play with a certain trump.
-This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
-5. Implementing different strategies for players. All players are very cautious now and will not take risks,
- while this could lead to better results
-
-
-- Joram Koiter (s2240173)
-- Tim Oosterhuis (s)
-- Rogier de Weert (s1985779)
++
++### Future Work
++Klaverjassen is much more detailed than represented by our program in this project.
++There are a lot of expansions that we can think of that would greatly improve this program.
++A selection of these expansions include:
++1. letting Players be aware of Roem and Stuk, so that they may play different cards to gain bonus points for themselves
++or sacrifice some points to not let the opposing team gain bonus points.
++2. Increase the number of hands from 1 to 16, or let a game continue until one of the teams has more than 1500 points after a hand.
++3. Implementing signing and the understanding of this (this would come with a believe system, not just knowledge interpretation)
++4. Different game modes, which could mean that the starting player is not forced to play with a certain trump.
++This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
++5. Implementing different strategies for players. All players are very cautious now and will not take risks,
++ while this could lead to better results
++
++
++- Joram Koiter (s2240173)
++- Tim Oosterhuis (s2234831)
++- Rogier de Weert (s1985779)
