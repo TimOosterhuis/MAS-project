@@ -247,13 +247,13 @@ We can see that players East and North no longer hold it for possible that 'Sout
 Klaverjassen is much more detailed than represented by our program in this project.
 There are a lot of expansions that we can think of that would greatly improve this program.
 A selection of these expansions include:
-- [ ] letting Players be aware of Roem and Stuk, so that they may play different cards to gain bonus points for themselves
+ - [ ] letting Players be aware of Roem and Stuk, so that they may play different cards to gain bonus points for themselves
 or sacrifice some points to not let the opposing team gain bonus points.
-- [ ] Increase the number of hands from 1 to 16, or let a game continue until one of the teams has more than 1500 points after a hand.
-- [ ] Implementing signing and the understanding of this (this would come with a believe system, not just knowledge interpretation)
-- [ ] Different game modes, which could mean that the starting player is not forced to play with a certain trump.
+ - [ ] Increase the number of hands from 1 to 16, or let a game continue until one of the teams has more than 1500 points after a hand.
+ - [ ] Implementing signing and the understanding of this (this would come with a believe system, not just knowledge interpretation)
+ - [ ] Different game modes, which could mean that the starting player is not forced to play with a certain trump.
 This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
-- [ ] Implementing different strategies for players. All players are very cautious now and will not take risks,
+ - [ ] Implementing different strategies for players. All players are very cautious now and will not take risks,
  while this may lead to better results
 
 
