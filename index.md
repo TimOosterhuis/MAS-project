@@ -208,8 +208,17 @@ A schematic S5 kripke model is then drawn for each card with the draw_model func
 which calls on the player.knowledge and player.possible triples for each card to get the relations between the worlds.
 As card ownership is mutually exclusive in 'klaverjassen' (every card in the game is dealt to exactly one player),
 players never hold any worlds for possible where this is not the case,
-so for any card C with the corresponding propositional atoms (p1: south owns C, p2: west owns C, p3: north owns C, p4: east owns C)
-the S5 model includes only the the states (p1 = T, p2 = F, p3 = F, p4 = F), (p1 = F, p2 = T, p3 = F, p4 = F), (p1 = F, p2 = F, p3 = T, p4 = F) and (p1 = F, p2 = F, p3 = F, p4 = T).
+so for any card C with the corresponding propositional atoms 
+1. p1: south owns C,
+2. p2: west owns C,
+3. p3: north owns C,
+4. p4: east owns C)
+
+the S5 model includes only the the states
+1. (p1 = T, p2 = F, p3 = F, p4 = F),
+2. (p1 = F, p2 = T, p3 = F, p4 = F),
+3. (p1 = F, p2 = F, p3 = T, p4 = F) and
+4. (p1 = F, p2 = F, p3 = F, p4 = T).
 
 ![Testing with images](/site_images/select.png)
 
@@ -255,7 +264,7 @@ or sacrifice some points to not let the opposing team gain bonus points.
 This could result in a game mode where the first player may choose a suit to be trump or in a game mode where players 'bid' to what they want to be trump
 5. Implementing different strategies for players. All players are very cautious now and will not take risks,
  while this may lead to better results
-6. Sometimes players should not play their lowest cards, but instead play a higher card to not lose that points another round
+6. Sometimes players should not play their lowest cards when they know their partner will win, but instead play a higher card to not lose that points another round
 
 
 - Joram Koiter (s2240173)
