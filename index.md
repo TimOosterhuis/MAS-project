@@ -42,7 +42,7 @@ Table 1: scores and ranks of trump and suit cards
 
 #### The Cards:
 Cards are modeled like a tuple holding the suit,
-the name of the card and the point value. For example: (‘hearts’, ‘king’, 4)
+the name of the card and the point value. For example:`(‘hearts’, ‘king’, 4)`
 is the tuple representing the king of hearts cards which is worth 4 points.
 As stated above, a klaverjas game consists of a number of hands until one team reaches 1500 points. Our program simulates one hand of the whole klaverjas game since every hand all knowledge about cards is reset. This means that South always plays the first card in our simulation, and only team one (South and North) can play wet.
 
@@ -72,7 +72,7 @@ The last functions check the bonus (roem) that might be provided at the end of t
 -	possibles, a list of the same form as the knowledge list. But this list holds all the cards the player is uncertain about. This means that if a player (South) does not know whether the ace of spades is held by West, North or East, than this card is represented thrice in the list, as (‘West’, ( ‘Spades’, ‘Ace’, 11), False), (‘North, ( ‘Spades’, ‘Ace’, 11), False) and (‘East, ( ‘Spades’, ‘Ace’, 11), False)
 
 ##### Functions:
-Play_card() is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling playable() from the rules_config_big.py file, after that it will select the best card from this list by calling find_best_card() from the tactics.py file (both these functions are explained later). Play_card() will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
+`Play_card()` is the function called when a player needs to play a card. It receives the trump and the trick if there is any yet. It will then first select the playable cards of the player by calling `playable()` from the `rules_config_big.py` file, after that it will select the best card from this list by calling find_best_card() from the tactics.py file (both these functions are explained later). `Play_card()` will then remove the found card from either the open_cards or closed_cards list. Then the function returns that card and the thoughts as found by the tactics.py function.
 Functions for this class are:
 Play_card() is the function called when a player needs to play a card.
 It receives the trump and the trick if there is any yet.
@@ -95,21 +95,21 @@ Update_possibles() looks at the played cards in a trick and makes inferences bas
 #### Rules_config_big.py
 This file holds all information about the actual game,
 so the names of the suits are stored here,
-as well as the names of the players, the ranking and points of non-trump cards as well as the ranking and points of trump cards.
-The number of players, the number of rounds and the number of open and closed cards are also stored here.
-The number of closed cards is set manually to 8,
-but can be reduced so that players have more knowledge about the cards of the other players at the start of the game.
-The most interesting part of this file is the playable() function, that receives a list of cards, the team and the trick if there is any.
-If there is no trick, all cards are immediately returned as this means that the first player can play any card from his/her hand.
-If trump is asked, a list of higher trumps is first returned.
-If this does not exist a list of lower trump cards is returned.
-If this also doesn’t exist all cards are returned.
-When suit is called and the player still has suit left, all suit cards are returned.
-If the player does not have suit left and is on the losing team, all (higher) trump cards are returned if available,
-in all other cases all cards are returned.
+as well as the names of the players, the ranking and points of trump and non-trump cards.
+The number of players, the number of tricks and the number of open and closed cards are also stored here.
+The default setting of the number of closed cards is 8,
+this can be reduced so that players have more knowledge about the cards of the other players at the start of the game.
+The most interesting part of this file is the playable() function, that receives a list of cards, the team and the trick, if there is any.
+- If there is no trick, all cards are immediately returned as this means that the first player can play any card from his/her hand.
+- If trump is asked, a list of higher trumps is first returned.
+- If this does not exist a list of lower trump cards is returned.
+- If this also doesn’t exist all cards are returned.
+- When suit is called and the player still has suit left, all suit cards are returned.
+- If the player does not have suit left and is on the losing team, all (higher) trump cards are returned, if available.
+- in all other cases all cards are returned.
 
 #### Tactics.py
-This file holds three functions, the first being unplayed_trumps(),
+This file holds three functions, the first being `unplayed_trumps()`,
 which returns all trump card that can still be played by any of the layers.
 The second function KM_suit searches for all instances in the knowledge and possibles lists of a player having a certain suit and returns this as a sorted list on the rank. So this function is called like KM_suit(‘South’, ‘West’, ‘hearts’) and will return a sorted list with all instances in the knowledge and possibles lists of South where (‘West’, (‘Hearts’, _, _)False) is true.
 The most important and longest function in tactics.py Is find_best_card(),
