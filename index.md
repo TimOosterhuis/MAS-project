@@ -92,7 +92,7 @@ Using this knowledge, players are able to devise which cards to play to certainl
 Every card played generates new knowledge available to all of the four players. 
 Combining this public knowledge with the cards the players hold in their hands, the private knowledge, every player has a different set of certainties and uncertainties. 
 In other words, the knowledge of every player is different. 
-To analyse the increase if knowledge while the game progresses we employ the framework of Public Announcement Logic (PAL). Public announcement logic is widely used in multi-agent systems for modelling knowledge and announcements. 
+To analyse the increase in knowledge while the game progresses we employ the framework of Public Announcement Logic (PAL). Public announcement logic is widely used in multi-agent systems for modelling knowledge and announcements. 
 For the language definition and an elaborated explenation of public announcement logic we refer to Chapter 4 in the book _Dynamic Epistemic Logic_ written by _Hans van Ditmarsch_. 
 In our klaverjas simulation we use the PAL framework to visualise the knowledge and beliefs of each player. It also provides us with a way to see the basis of the reasoning of each agent.
 At the start of each hand players are only able to see their own cards, they are certain about which player posesses these cards. 
