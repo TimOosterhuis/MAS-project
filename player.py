@@ -78,9 +78,9 @@ class Player:
         suit_cards_left1.extend(suit_cards_left2)
         suit_left = sorted(list(set(suit_cards_left1)), key=lambda tup: tup[2], reverse=True)
         if suit_left != []:
-            if trick.cards[-1][0] == trick.cards[0][0] and trick.cards[-1][2] < trick.cards[0][2] and trick.cards[-1][2] > suit_left[0][2]: # Player played highest possible non winning card of suit, so does not have any other
+            if trick.cards[-1][0] == trick.cards[0][0] and trick.cards[-1][2] < trick.high_card[2] and trick.cards[-1][2] > suit_left[0][2]: # Player played highest possible non winning card of suit, so does not have any other
                 self.possibles = [chunk for chunk in self.possibles if trick.players[-1].name not in chunk or trick.cards[0][0] not in chunk[1]]
-                notices.append('Public announcement: ' + trick.players[-1].name + ' no longer has ' + trick.cards[0][0] + 'lower than ' + trick.cards[-1][1] + '!')
+                notices.append('Public announcement: ' + trick.players[-1].name + ' no longer has ' + trick.cards[0][0] + ' lower than ' + trick.cards[-1][1] + '!')
 
 
         # 4 Inference if card is only possible for one player, delete card from possibles, add card to knowledge
